@@ -1,49 +1,11 @@
 import { readdir, readFile, writeFile, mkdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { type Model } from "@azure/arm-cognitiveservices";
 
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE_DIR = resolve(ROOT_DIR, "cache");
 const DIST_DIR = resolve(ROOT_DIR, "dist");
-
-interface RawSku {
-  name: string;
-  capacity?: {
-    default?: number | null;
-    maximum?: number | null;
-    minimum?: number | null;
-  } | null;
-  deprecationDate?: string | null;
-  rateLimits?: Array<{
-    count: number;
-    key: string;
-    renewalPeriod: number;
-  }> | null;
-}
-
-interface RawModel {
-  kind: string;
-  location: string;
-  model: {
-    name: string;
-    version: string;
-    format: string;
-    isDefaultVersion: boolean;
-    lifecycleStatus: string;
-    maxCapacity: number | null;
-    capabilities: Record<string, string> | null;
-    deprecation: {
-      deprecationStatus: string | null;
-      fineTune: string | null;
-      inference: string | null;
-    } | null;
-    skus: RawSku[] | null;
-    systemData: {
-      createdAt: string;
-      lastModifiedAt: string;
-    } | null;
-  };
-}
 
 interface GroupedModel {
   modelName: string;
@@ -61,11 +23,12 @@ interface GroupedModel {
 
 const DIRTY_SKU_PATTERN = /batch|globalstandard|globalprovisionedmanaged/i;
 
-function getLocationSkuTags(raw: RawModel, region: string): string[] {
-  const skus = raw.model.skus ?? [];
-  return skus
-    .filter((sku) => !DIRTY_SKU_PATTERN.test(sku.name))
-    .map((sku) => `${region}-${sku.name.toLowerCase()}`);
+function getLocationSkuTags(raw: Model, region: string): string[] {
+  const skus = raw.model?.skus ?? [];
+  return skus.flatMap((sku) => {
+    if (!sku.name || DIRTY_SKU_PATTERN.test(sku.name)) return [];
+    return [`${region}-${sku.name.toLowerCase()}`];
+  });
 }
 
 async function main(): Promise<void> {
@@ -77,13 +40,13 @@ async function main(): Promise<void> {
   }
 
   // Collect all entries tagged with their region
-  const allEntries: { raw: RawModel; region: string }[] = [];
+  const allEntries: { raw: Model; region: string }[] = [];
 
   for (const file of files) {
     const region = file.replace(".json", "");
     console.log(`Processing ${file}...`);
 
-    const raw: RawModel[] = JSON.parse(
+    const raw: Model[] = JSON.parse(
       await readFile(resolve(CACHE_DIR, file), "utf-8"),
     );
 
@@ -94,26 +57,28 @@ async function main(): Promise<void> {
 
   // Sort by createdAt (matching the bash script's sort_by(.model.systemData.createdAt))
   allEntries.sort((a, b) =>
-    (a.raw.model.systemData?.createdAt ?? "").localeCompare(
-      b.raw.model.systemData?.createdAt ?? "",
+    String(a.raw.model?.systemData?.createdAt ?? "").localeCompare(
+      String(b.raw.model?.systemData?.createdAt ?? ""),
     ),
   );
 
   // Group by model.name
   const groups = new Map<string, typeof allEntries>();
   for (const entry of allEntries) {
-    const name = entry.raw.model.name;
+    const name = entry.raw.model?.name;
+    if (!name) continue;
     if (!groups.has(name)) groups.set(name, []);
     groups.get(name)!.push(entry);
   }
 
   const models: GroupedModel[] = [];
 
-  for (const [, entries] of groups) {
-    const first = entries[0].raw;
-    const capabilities = Object.keys(first.model.capabilities ?? {}).filter(
-      (k) => first.model.capabilities![k] === "true",
-    );
+  for (const [name, entries] of groups) {
+    const model = entries[0].raw.model;
+    if (!model) continue;
+    const capabilities = Object.entries(model.capabilities ?? {})
+      .filter(([, value]) => value === "true")
+      .map(([key]) => key);
 
     // Collect all region-sku tags across all regions for this model
     const tags = new Set<string>();
@@ -124,16 +89,18 @@ async function main(): Promise<void> {
     }
 
     models.push({
-      modelName: first.model.name,
-      modelVersion: first.model.version,
-      format: first.model.format,
-      lifecycleStatus: first.model.lifecycleStatus,
-      isDefaultVersion: first.model.isDefaultVersion,
+      modelName: name,
+      modelVersion: model.version ?? "",
+      format: model.format ?? "",
+      lifecycleStatus: model.lifecycleStatus ?? "",
+      isDefaultVersion: model.isDefaultVersion ?? false,
       capabilities,
-      deprecationStatus: first.model.deprecation?.deprecationStatus ?? null,
-      inferenceDeprecationDate: first.model.deprecation?.inference ?? null,
-      fineTuneDeprecationDate: first.model.deprecation?.fineTune ?? null,
-      createdAt: first.model.systemData?.createdAt ?? null,
+      deprecationStatus: model.deprecation?.deprecationStatus ?? null,
+      inferenceDeprecationDate: model.deprecation?.inference ?? null,
+      fineTuneDeprecationDate: model.deprecation?.fineTune ?? null,
+      createdAt: model.systemData?.createdAt
+        ? String(model.systemData.createdAt)
+        : null,
       locationSKUs: [...tags].sort(),
     });
   }

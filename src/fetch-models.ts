@@ -52,23 +52,22 @@ function fetchModels(region: string): Promise<string> {
 async function main(): Promise<void> {
 	await mkdir(CACHE_DIR, { recursive: true });
 
-	const results = await Promise.allSettled(
+	const outcomes = await Promise.all(
 		AZURE_REGIONS.map(async (region) => {
 			console.log(`Fetching models for ${region}...`);
-			const json = await fetchModels(region);
-			await writeFile(resolve(CACHE_DIR, `${region}.json`), json, "utf-8");
-			console.log(`  ✓ Saved to cache/${region}.json`);
+			try {
+				const json = await fetchModels(region);
+				await writeFile(resolve(CACHE_DIR, `${region}.json`), json, "utf-8");
+				console.log(`  ✓ Saved to cache/${region}.json`);
+				return { region, ok: true as const };
+			} catch (err) {
+				console.error(`  ✗ Failed to fetch models for ${region}:`, (err as Error).message);
+				return { region, ok: false as const };
+			}
 		}),
 	);
 
-	const failedRegions: string[] = [];
-	results.forEach((result, i) => {
-		if (result.status === "rejected") {
-			const region = AZURE_REGIONS[i];
-			console.error(`  ✗ Failed to fetch models for ${region}:`, (result.reason as Error).message);
-			failedRegions.push(region);
-		}
-	});
+	const failedRegions = outcomes.filter((o) => !o.ok).map((o) => o.region);
 
 	console.log(`\nDone. ${AZURE_REGIONS.length} regions processed.`);
 

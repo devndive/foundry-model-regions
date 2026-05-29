@@ -1,0 +1,19 @@
+{
+  "name": "foundry-model-regions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/fetch-models.js",
+  "scripts": {
+    "build": "tsc",
+    "fetch-models": "tsc && node dist/fetch-models.js",
+    "flatten-models": "tsc && node dist/flatten-models.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "^6.0.2"
+  }
+}

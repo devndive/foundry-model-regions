@@ -40,11 +40,7 @@ async function fetchModels(
 	client: CognitiveServicesManagementClient,
 	region: string,
 ): Promise<Model[]> {
-	const models: Model[] = [];
-	for await (const model of client.models.list(region)) {
-		models.push(model);
-	}
-	return models;
+	return Array.fromAsync(client.models.list(region));
 }
 
 async function main(): Promise<void> {

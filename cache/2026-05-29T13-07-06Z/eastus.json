@@ -4055,7 +4055,7 @@
         {
           "name": "GlobalStandard",
           "usageName": "OpenAI.GlobalStandard.gpt-5-chat",
-          "deprecationDate": "2026-06-09T00:00:00.000Z",
+          "deprecationDate": "2026-06-29T00:00:00.000Z",
           "capacity": {
             "maximum": 1000000,
             "default": 10
@@ -4080,16 +4080,16 @@
         "assistants": "true"
       },
       "deprecation": {
-        "inference": "2026-06-09T00:00:00Z"
+        "inference": "2026-06-29T00:00:00Z"
       },
       "replacementConfig": {
-        "targetModelName": "gpt-5.3-chat",
-        "targetModelVersion": "2026-03-03",
-        "autoUpgradeStartDate": "2026-06-03T00:00:00.000Z",
-        "upgradeOnExpiryLeadTimeDays": 7
+        "targetModelName": "gpt-chat-latest",
+        "targetModelVersion": "2026-05-05",
+        "autoUpgradeStartDate": "2026-06-19T00:00:00.000Z",
+        "upgradeOnExpiryLeadTimeDays": 10
       },
       "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5-chat/versions/2025-10-03",
-      "lifecycleStatus": "Preview",
+      "lifecycleStatus": "Deprecating",
       "systemData": {
         "createdBy": "Microsoft",
         "createdByType": "Application",
@@ -9240,7 +9240,7 @@
         {
           "name": "GlobalStandard",
           "usageName": "OpenAI.GlobalStandard.gpt-5-chat",
-          "deprecationDate": "2026-06-09T00:00:00.000Z",
+          "deprecationDate": "2026-06-29T00:00:00.000Z",
           "capacity": {
             "maximum": 1000000,
             "default": 10
@@ -9265,16 +9265,16 @@
         "assistants": "true"
       },
       "deprecation": {
-        "inference": "2026-06-09T00:00:00Z"
+        "inference": "2026-06-29T00:00:00Z"
       },
       "replacementConfig": {
-        "targetModelName": "gpt-5.3-chat",
-        "targetModelVersion": "2026-03-03",
-        "autoUpgradeStartDate": "2026-06-03T00:00:00.000Z",
-        "upgradeOnExpiryLeadTimeDays": 7
+        "targetModelName": "gpt-chat-latest",
+        "targetModelVersion": "2026-05-05",
+        "autoUpgradeStartDate": "2026-06-19T00:00:00.000Z",
+        "upgradeOnExpiryLeadTimeDays": 10
       },
       "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5-chat/versions/2025-10-03",
-      "lifecycleStatus": "Preview",
+      "lifecycleStatus": "Deprecating",
       "systemData": {
         "createdBy": "Microsoft",
         "createdByType": "Application",

@@ -2,6 +2,7 @@ import { readdir, readFile, writeFile, mkdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { type Model } from "@azure/arm-cognitiveservices";
+import { latestSnapshotDir } from "./snapshots.js";
 
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE_DIR = resolve(ROOT_DIR, "cache");
@@ -32,7 +33,14 @@ function getLocationSkuTags(raw: Model, region: string): string[] {
 }
 
 async function main(): Promise<void> {
-  const files = (await readdir(CACHE_DIR)).filter((f) => f.endsWith(".json"));
+  const snapshotDir = await latestSnapshotDir(CACHE_DIR);
+
+  if (!snapshotDir) {
+    console.error("No cache snapshots found. Run fetch-models first.");
+    process.exit(1);
+  }
+
+  const files = (await readdir(snapshotDir)).filter((f) => f.endsWith(".json"));
 
   if (files.length === 0) {
     console.error("No cache files found. Run fetch-models first.");
@@ -47,7 +55,7 @@ async function main(): Promise<void> {
     console.log(`Processing ${file}...`);
 
     const raw: Model[] = JSON.parse(
-      await readFile(resolve(CACHE_DIR, file), "utf-8"),
+      await readFile(resolve(snapshotDir, file), "utf-8"),
     );
 
     for (const entry of raw) {

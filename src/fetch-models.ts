@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
@@ -6,6 +6,7 @@ import {
 	type Model,
 } from "@azure/arm-cognitiveservices";
 import { DefaultAzureCredential } from "@azure/identity";
+import { formatSnapshotKey, writeRegionSnapshot } from "./snapshots.js";
 
 const AZURE_REGIONS_EU = [
 	"austriaeast",
@@ -57,17 +58,15 @@ async function main(): Promise<void> {
 		subscriptionId,
 	);
 
+	const snapshotKey = formatSnapshotKey(new Date());
+
 	const outcomes = await Promise.all(
 		AZURE_REGIONS.map(async (region) => {
 			console.log(`Fetching models for ${region}...`);
 			try {
 				const models = await fetchModels(client, region);
-				await writeFile(
-					resolve(CACHE_DIR, `${region}.json`),
-					JSON.stringify(models, null, 2),
-					"utf-8",
-				);
-				console.log(`  ✓ Saved to cache/${region}.json`);
+				await writeRegionSnapshot(CACHE_DIR, snapshotKey, region, models);
+				console.log(`  ✓ Saved to cache/${snapshotKey}/${region}.json`);
 				return { region, ok: true as const };
 			} catch (err) {
 				console.error(`  ✗ Failed to fetch models for ${region}:`, (err as Error).message);

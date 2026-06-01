@@ -15,7 +15,9 @@
     "emit-models": "tsc && node dist/emit-models.js",
     "emit-region-metadata": "tsc && node dist/emit-region-metadata.js",
     "fmt": "oxfmt",
-    "fmt:check": "oxfmt --check"
+    "fmt:check": "oxfmt --check",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix"
   },
   "dependencies": {
     "@azure/arm-cognitiveservices": "^9.0.0-beta.1",
@@ -24,6 +26,7 @@
   "devDependencies": {
     "@types/node": "^25.5.0",
     "oxfmt": "^0.52.0",
+    "oxlint": "^1.67.0",
     "typescript": "^6.0.2"
   }
 }

@@ -7,7 +7,8 @@
     "build": "tsc",
     "test": "tsc && node --test \"dist/**/*.test.js\"",
     "fetch-models": "tsc && node dist/fetch-models.js",
-    "flatten-models": "tsc && node dist/flatten-models.js"
+    "flatten-models": "tsc && node dist/flatten-models.js",
+    "emit-region-metadata": "tsc && node dist/emit-region-metadata.js"
   },
   "keywords": [],
   "author": "",

@@ -7,35 +7,14 @@ import {
 } from "@azure/arm-cognitiveservices";
 import { DefaultAzureCredential } from "@azure/identity";
 import { formatSnapshotKey, writeRegionSnapshot } from "./snapshots.js";
+import { REGIONS } from "./region-metadata.js";
 
-const AZURE_REGIONS_EU = [
-	"austriaeast",
-	"belgiumcentral",
-	"denmarkeast",
-	"francecentral",
-	"francesouth",
-	"germanynorth",
-	"germanywestcentral",
-	"italynorth",
-	"northeurope",
-	"norwayeast",
-	"norwaywest",
-	"polandcentral",
-	"spaincentral",
-	"swedencentral",
-	"switzerlandnorth",
-	"switzerlandwest",
-	"uksouth",
-	"ukwest",
-	"westeurope",
-];
-
-const AZURE_REGIONS = [
-	"westus", "westus2", "westcentralus", "southcentralus", "eastus", "eastus2", "northcentralus", "centralus", "westus3"
-];
+// Single source of truth for which regions to fetch: the region metadata table.
+const AZURE_REGIONS = REGIONS.map((r) => r.id);
 
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE_DIR = resolve(ROOT_DIR, "cache");
+
 
 async function fetchModels(
 	client: CognitiveServicesManagementClient,

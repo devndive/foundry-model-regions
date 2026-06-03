@@ -57,23 +57,6 @@ export function ControlsBar({ filters, options, onChange, onExportCsv, onExportM
         onChange={(lifecycle) => onChange({ lifecycle })}
       />
 
-      <label className="toggle">
-        <input
-          type="checkbox"
-          checked={filters.euSovereignOnly}
-          onChange={(e) => onChange({ euSovereignOnly: e.target.checked })}
-        />
-        EU sovereign
-      </label>
-      <label className="toggle">
-        <input
-          type="checkbox"
-          checked={filters.gaOnly}
-          onChange={(e) => onChange({ gaOnly: e.target.checked })}
-        />
-        GA only
-      </label>
-
       <button
         type="button"
         className="control"
@@ -93,11 +76,32 @@ export function ControlsBar({ filters, options, onChange, onExportCsv, onExportM
         <option value="availability">Sort: Availability</option>
       </select>
 
-      <button type="button" className="control" onClick={onExportCsv}>
-        Export to CSV
-      </button>
+      <div className="controls-divider" />
+
+      <label className="toggle">
+        <input
+          type="checkbox"
+          checked={filters.gaOnly}
+          onChange={(e) => onChange({ gaOnly: e.target.checked })}
+        />
+        GA only
+      </label>
+      <label className="toggle">
+        <input
+          type="checkbox"
+          checked={filters.euSovereignOnly}
+          onChange={(e) => onChange({ euSovereignOnly: e.target.checked })}
+        />
+        EU sovereign
+      </label>
+
+      <span className="spacer" />
+
       <button type="button" className="control" onClick={onExportMarkdown}>
         Export to Markdown
+      </button>
+      <button type="button" className="control control--primary" onClick={onExportCsv}>
+        Export to CSV
       </button>
     </div>
   );

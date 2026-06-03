@@ -12,3 +12,16 @@ export function capabilityBadge(capabilities: string[]): string {
   }
   return capabilities.length > 0 ? capabilities[0].toUpperCase() : "";
 }
+
+const TONES: Record<string, string> = {
+  AUDIO: "badge--audio",
+  VISION: "badge--vision",
+  SEARCH: "badge--search",
+  REASONING: "badge--reason",
+  CHAT: "badge--chat",
+  EMBEDDINGS: "badge--embed",
+};
+
+export function badgeTone(badge: string): string {
+  return TONES[badge] ?? "";
+}

@@ -1,4 +1,4 @@
-import { capabilityBadge } from "../models/badge";
+import { capabilityBadge, badgeTone } from "../models/badge";
 import type { Matrix } from "../matrix/buildMatrix";
 
 function formatDate(value: string | null): string {
@@ -32,7 +32,7 @@ export function MatrixTable({ matrix }: { matrix: Matrix }) {
                   {col.kind === "model" && col.model && (
                     <>
                       <div className="col-date">{formatDate(col.model.createdAt)}</div>
-                      {badge && <span className="badge">{badge}</span>}
+                      {badge && <span className={`badge ${badgeTone(badge)}`}>{badge}</span>}
                     </>
                   )}
                 </th>
@@ -43,7 +43,10 @@ export function MatrixTable({ matrix }: { matrix: Matrix }) {
         <tbody>
           {matrix.rows.map((row, ri) => (
             <tr key={row.id}>
-              <th className="row-head sticky-col" title={row.label}>
+              <th
+                className={`row-head sticky-col${row.region ? ` geo-${row.region.geoGroup}` : ""}`}
+                title={row.label}
+              >
                 {row.label}
               </th>
               {matrix.cells[ri].map((available, ci) => (

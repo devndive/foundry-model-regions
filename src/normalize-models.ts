@@ -27,6 +27,7 @@ export interface AvailabilityFact {
   region: string;
   sku: string;
   deprecationDate: string | null;
+  lifecycleStatus: string | null;
 }
 
 export interface NormalizedBundle {
@@ -90,6 +91,7 @@ export function normalizeModels(snapshots: RegionSnapshot[]): NormalizedBundle {
           region,
           sku: sku.name,
           deprecationDate: sku.deprecationDate ? String(sku.deprecationDate) : null,
+          lifecycleStatus: m.lifecycleStatus ?? null,
         });
       }
     }

@@ -18,6 +18,8 @@
   --amber: #c98a00;
   --amber-bg: #fdf3da;
   --amber-line: #f0d79a;
+  --danger: #c0392b;
+  --danger-bg: #fbe6e3;
 
   /* Capability tones */
   --t-audio: #c2185b;
@@ -466,8 +468,44 @@ tbody tr:hover td {
   background: radial-gradient(circle at center, var(--available-bg) 60%, transparent 61%);
 }
 
+.cell.available.preview {
+  color: var(--amber);
+  background: radial-gradient(circle at center, var(--amber-bg) 60%, transparent 61%);
+}
+
+.cell.available.deprecating {
+  color: var(--danger, #c0392b);
+  background: radial-gradient(circle at center, var(--danger-bg, #fbe6e3) 60%, transparent 61%);
+}
+
 .empty {
   padding: 28px;
   color: var(--ink-soft);
   font-size: 0.9rem;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  margin: 8px 0 4px;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-swatch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  font-weight: 700;
 }

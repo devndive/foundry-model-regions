@@ -6,6 +6,7 @@ import { buildOptions } from "./filters/options";
 import { resolveSku } from "./filters/resolveSku";
 import { ControlsBar } from "./components/ControlsBar";
 import { MatrixTable } from "./components/MatrixTable";
+import { Legend } from "./components/Legend";
 import { KpiCards } from "./components/KpiCards";
 import { toCsv } from "./export/toCsv";
 import { toMarkdown } from "./export/toMarkdown";
@@ -77,6 +78,7 @@ export function App({ index, filters, onFiltersChange }: Props) {
         }
       />
 
+      <Legend />
       <MatrixTable matrix={matrix} />
     </div>
   );

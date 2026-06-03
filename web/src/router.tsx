@@ -51,7 +51,8 @@ function IndexRoute() {
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
-  validateSearch: (search: Record<string, unknown>): FilterState => parseFilters(search),
+  validateSearch: (search: Record<string, unknown>): FilterState =>
+    parseFilters(search),
   component: IndexRoute,
 });
 
@@ -61,14 +62,12 @@ export const router = createRouter({
   routeTree,
   history: createHashHistory(),
   // Pin JSON-based search (de)serialization so booleans/arrays survive the URL
-  // round-trip (see filters/search.ts and search.test.ts). The router hands
-  // stringifySearch the raw, un-validated search object (e.g. `{}` on first
-  // load), so we run it through parseFilters first to get a complete
-  // FilterState before filtersToSearch reads array/scalar fields. validateSearch
+  // round-trip (see filters/search.ts and search.test.ts). stringifySearch runs
+  // filtersToSearch so default values are omitted from the URL; validateSearch
   // parses back to a full FilterState, so components never re-parse.
   parseSearch: defaultParseSearch,
   stringifySearch: (search) =>
-    defaultStringifySearch(filtersToSearch(parseFilters(search as Record<string, unknown>))),
+    defaultStringifySearch(filtersToSearch(search as FilterState)),
 });
 
 declare module "@tanstack/react-router" {

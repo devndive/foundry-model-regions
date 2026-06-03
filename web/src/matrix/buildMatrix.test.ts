@@ -24,11 +24,17 @@ const region = (id: string, over: Partial<Region> = {}): Region => ({
   ...over,
 });
 
-const avail = (modelId: string, region: string, sku = "GlobalStandard") => ({
+const avail = (
+  modelId: string,
+  region: string,
+  sku = "GlobalStandard",
+  lifecycleStatus: string | null = "GenerallyAvailable",
+) => ({
   modelId,
   region,
   sku,
   deprecationDate: null,
+  lifecycleStatus,
 });
 
 describe("buildMatrix", () => {
@@ -203,5 +209,40 @@ describe("buildMatrix", () => {
     const matrix = buildMatrix(index, { ...defaultFilters, sort: "availability" });
 
     expect(matrix.columns.map((c) => c.id)).toEqual(["common", "rare"]);
+  });
+
+  it("exposes per-cell lifecycle status for available cells and null otherwise", () => {
+    const bundle: NormalizedBundle = {
+      models: [model("m1"), model("m2")],
+      availability: [
+        avail("m1", "eastus", "GlobalStandard", "GenerallyAvailable"),
+        avail("m1", "swedencentral", "GlobalStandard", "Preview"),
+      ],
+    };
+    const regions = [region("eastus"), region("swedencentral")];
+    const index = buildIndex(bundle, regions);
+
+    const matrix = buildMatrix(index, { ...defaultFilters, sku: "GlobalStandard" });
+
+    // rows: eastus, swedencentral; columns: m1, m2
+    expect(matrix.cellStatus).toEqual([
+      ["GenerallyAvailable", null],
+      ["Preview", null],
+    ]);
+  });
+
+  it("keeps cellStatus aligned with cells when axes are swapped", () => {
+    const bundle: NormalizedBundle = {
+      models: [model("m1")],
+      availability: [avail("m1", "swedencentral", "GlobalStandard", "Preview")],
+    };
+    const regions = [region("eastus"), region("swedencentral")];
+    const index = buildIndex(bundle, regions);
+
+    const matrix = buildMatrix(index, { ...defaultFilters, swapView: true });
+
+    // rows: m1; columns: eastus, swedencentral
+    expect(matrix.cells).toEqual([[false, true]]);
+    expect(matrix.cellStatus).toEqual([[null, "Preview"]]);
   });
 });

@@ -29,6 +29,32 @@ test("a single model in one region becomes one model row keyed by name, version 
   assert.equal(row.id, "OpenAI:gpt-4o:2024-11-20");
 });
 
+test("each availability row carries the model's lifecycle status for its region", () => {
+  const bundle = normalizeModels([
+    {
+      region: "swedencentral",
+      models: [
+        model({
+          name: "claude-opus-4-5",
+          lifecycleStatus: "Preview",
+          skus: [{ name: "GlobalStandard" }],
+        }),
+      ],
+    },
+    {
+      region: "eastus",
+      models: [
+        model({ lifecycleStatus: "GenerallyAvailable", skus: [{ name: "GlobalStandard" }] }),
+      ],
+    },
+  ]);
+
+  const preview = bundle.availability.find((a) => a.region === "swedencentral");
+  const ga = bundle.availability.find((a) => a.region === "eastus");
+  assert.equal(preview?.lifecycleStatus, "Preview");
+  assert.equal(ga?.lifecycleStatus, "GenerallyAvailable");
+});
+
 test("every SKU type becomes an availability row, including ones the old flatten filtered away", () => {
   const bundle = normalizeModels([
     {

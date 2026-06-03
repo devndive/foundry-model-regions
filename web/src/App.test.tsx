@@ -20,7 +20,15 @@ const bundle: NormalizedBundle = {
       deprecation: { inference: null, fineTune: null },
     },
   ],
-  availability: [{ modelId: "m1", region: "eastus", sku: "GlobalStandard", deprecationDate: null }],
+  availability: [
+    {
+      modelId: "m1",
+      region: "eastus",
+      sku: "GlobalStandard",
+      deprecationDate: null,
+      lifecycleStatus: "GenerallyAvailable",
+    },
+  ],
 };
 const regions: Region[] = [
   { id: "eastus", displayName: "East US", geoGroup: "us", euSovereign: false },
@@ -51,7 +59,15 @@ describe("App", () => {
   it("shows an available SKU when the default GlobalStandard is absent from the data", () => {
     const standardOnly: NormalizedBundle = {
       ...bundle,
-      availability: [{ modelId: "m1", region: "eastus", sku: "Standard", deprecationDate: null }],
+      availability: [
+        {
+          modelId: "m1",
+          region: "eastus",
+          sku: "Standard",
+          deprecationDate: null,
+          lifecycleStatus: "GenerallyAvailable",
+        },
+      ],
     };
     const index = buildIndex(standardOnly, regions);
     render(<App index={index} filters={defaultFilters} onFiltersChange={() => {}} />);

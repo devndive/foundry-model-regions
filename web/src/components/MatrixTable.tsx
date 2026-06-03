@@ -1,5 +1,6 @@
 import { capabilityBadge, badgeTone } from "../models/badge";
 import type { Matrix } from "../matrix/buildMatrix";
+import { cellPresentation } from "../matrix/cellPresentation";
 
 function formatDate(value: string | null): string {
   if (!value) return "";
@@ -47,11 +48,18 @@ export function MatrixTable({ matrix }: { matrix: Matrix }) {
               >
                 {row.label}
               </th>
-              {matrix.cells[ri].map((available, ci) => (
-                <td key={matrix.columns[ci].id} className={available ? "cell available" : "cell"}>
-                  {available ? "✓" : ""}
-                </td>
-              ))}
+              {matrix.cells[ri].map((available, ci) => {
+                const cell = cellPresentation(available, matrix.cellStatus[ri][ci]);
+                return (
+                  <td
+                    key={matrix.columns[ci].id}
+                    className={cell.className}
+                    title={cell.title || undefined}
+                  >
+                    {cell.glyph}
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>

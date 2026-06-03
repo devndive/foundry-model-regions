@@ -41,6 +41,7 @@ export interface Matrix {
   columns: AxisItem[];
   rows: AxisItem[];
   cells: boolean[][];
+  cellStatus: (string | null)[][];
   swapped: boolean;
 }
 
@@ -108,11 +109,25 @@ export function buildMatrix(index: AvailabilityIndex, filters: FilterState): Mat
   const baseCells = sortedRegions.map((r) =>
     sortedModels.map((m) => index.isAvailable(filters.sku, m.id, r.id)),
   );
+  const baseStatus = sortedRegions.map((r) =>
+    sortedModels.map((m) =>
+      index.isAvailable(filters.sku, m.id, r.id) ? index.cellStatus(filters.sku, m.id, r.id) : null,
+    ),
+  );
 
   if (filters.swapView) {
     const cells = sortedModels.map((_, mi) => sortedRegions.map((_, ri) => baseCells[ri][mi]));
-    return { columns: regionRows, rows: modelColumns, cells, swapped: true };
+    const cellStatus = sortedModels.map((_, mi) =>
+      sortedRegions.map((_, ri) => baseStatus[ri][mi]),
+    );
+    return { columns: regionRows, rows: modelColumns, cells, cellStatus, swapped: true };
   }
 
-  return { columns: modelColumns, rows: regionRows, cells: baseCells, swapped: false };
+  return {
+    columns: modelColumns,
+    rows: regionRows,
+    cells: baseCells,
+    cellStatus: baseStatus,
+    swapped: false,
+  };
 }

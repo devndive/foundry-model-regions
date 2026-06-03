@@ -17,6 +17,10 @@ const matrix: Matrix = {
     [true, false],
     [false, true],
   ],
+  cellStatus: [
+    ["GenerallyAvailable", null],
+    [null, "Preview"],
+  ],
 };
 
 describe("toCsv", () => {

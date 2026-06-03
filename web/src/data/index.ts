@@ -5,6 +5,7 @@ export interface AvailabilityIndex {
   regions: Region[];
   skus: string[];
   isAvailable(sku: string, modelId: string, regionId: string): boolean;
+  cellStatus(sku: string, modelId: string, regionId: string): string | null;
 }
 
 const key = (sku: string, modelId: string, regionId: string) =>
@@ -12,9 +13,12 @@ const key = (sku: string, modelId: string, regionId: string) =>
 
 export function buildIndex(bundle: NormalizedBundle, regions: Region[]): AvailabilityIndex {
   const present = new Set<string>();
+  const status = new Map<string, string | null>();
   const skuSet = new Set<string>();
   for (const fact of bundle.availability) {
-    present.add(key(fact.sku, fact.modelId, fact.region));
+    const k = key(fact.sku, fact.modelId, fact.region);
+    present.add(k);
+    status.set(k, fact.lifecycleStatus ?? null);
     skuSet.add(fact.sku);
   }
 
@@ -23,5 +27,6 @@ export function buildIndex(bundle: NormalizedBundle, regions: Region[]): Availab
     regions,
     skus: [...skuSet].sort(),
     isAvailable: (sku, modelId, regionId) => present.has(key(sku, modelId, regionId)),
+    cellStatus: (sku, modelId, regionId) => status.get(key(sku, modelId, regionId)) ?? null,
   };
 }

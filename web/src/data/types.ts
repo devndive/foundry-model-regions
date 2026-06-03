@@ -20,6 +20,7 @@ export interface AvailabilityFact {
   region: string;
   sku: string;
   deprecationDate: string | null;
+  lifecycleStatus: string | null;
 }
 
 export interface NormalizedBundle {

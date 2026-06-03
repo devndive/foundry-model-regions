@@ -28,7 +28,13 @@ describe("buildIndex", () => {
     const bundle: NormalizedBundle = {
       models: [model("m1")],
       availability: [
-        { modelId: "m1", region: "eastus", sku: "GlobalStandard", deprecationDate: null },
+        {
+          modelId: "m1",
+          region: "eastus",
+          sku: "GlobalStandard",
+          deprecationDate: null,
+          lifecycleStatus: "Preview",
+        },
       ],
     };
     const regions = [region("eastus")];
@@ -38,5 +44,7 @@ describe("buildIndex", () => {
     expect(index.isAvailable("GlobalStandard", "m1", "eastus")).toBe(true);
     expect(index.isAvailable("GlobalStandard", "m1", "westus")).toBe(false);
     expect(index.isAvailable("Standard", "m1", "eastus")).toBe(false);
+    expect(index.cellStatus("GlobalStandard", "m1", "eastus")).toBe("Preview");
+    expect(index.cellStatus("GlobalStandard", "m1", "westus")).toBe(null);
   });
 });

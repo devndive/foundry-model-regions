@@ -1,0 +1,73 @@
+name: Deploy matrix web app to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+# Stage 1: regenerate the normalized JSON artifacts from the committed cache
+      - name: Install pipeline dependencies
+        run: npm ci
+
+      - name: Regenerate normalized artifacts
+        run: |
+          npm run emit-models
+          npm run emit-region-metadata
+
+      - name: Copy artifacts into the web app's served directory
+        run: |
+          mkdir -p web/public/data
+          cp dist/models.json dist/regions.json web/public/data/
+
+# Stage 2: build the static SPA
+      - name: Install web dependencies
+        working-directory: web
+        run: npm ci
+
+      - name: Type-check SPA
+        working-directory: web
+        run: npm run typecheck
+
+      - name: Build SPA
+        working-directory: web
+        run: npm run build
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: web/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

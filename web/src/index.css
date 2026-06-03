@@ -1,0 +1,209 @@
+:root {
+  --border: #d8dce0;
+  --header-bg: #f3f5f7;
+  --available: #1f9d55;
+  --accent: #0b6bcb;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: #1b1f23;
+  background: #fff;
+}
+
+.app {
+  padding: 16px 20px;
+}
+
+.app-header h1 {
+  font-size: 1.6rem;
+  margin: 0 0 12px;
+}
+
+.kpi-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.kpi-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 18px;
+  min-width: 120px;
+}
+
+.kpi-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: #6a737d;
+}
+
+.kpi-value {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.control {
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.85rem;
+}
+
+.multiselect {
+  position: relative;
+  display: inline-block;
+}
+
+.multiselect-menu {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 4px);
+  left: 0;
+  max-height: 280px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  min-width: 220px;
+  padding: 4px;
+}
+
+.multiselect-option {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.multiselect-option:hover {
+  background: var(--header-bg);
+}
+
+.multiselect-clear {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: none;
+  color: var(--accent);
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.caret {
+  font-size: 0.6rem;
+}
+
+.matrix-scroll {
+  overflow: auto;
+  max-height: calc(100vh - 220px);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.matrix {
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.78rem;
+}
+
+.matrix th,
+.matrix td {
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 4px 6px;
+  text-align: center;
+}
+
+.matrix thead th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--header-bg);
+  vertical-align: bottom;
+}
+
+.sticky-col {
+  position: sticky;
+  left: 0;
+  z-index: 6;
+  background: var(--header-bg);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.matrix thead th.corner {
+  z-index: 7;
+}
+
+.col-head {
+  min-width: 64px;
+  max-width: 64px;
+}
+
+.col-name {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60px;
+  white-space: nowrap;
+}
+
+.col-date {
+  font-size: 0.65rem;
+  color: #6a737d;
+}
+
+.badge {
+  display: inline-block;
+  margin-top: 2px;
+  font-size: 0.55rem;
+  letter-spacing: 0.03em;
+  background: #eef1f4;
+  border-radius: 3px;
+  padding: 1px 4px;
+  color: #44505c;
+}
+
+.row-head {
+  font-weight: 500;
+}
+
+.cell.available {
+  color: var(--available);
+  font-weight: 700;
+}
+
+.empty {
+  padding: 24px;
+  color: #6a737d;
+}

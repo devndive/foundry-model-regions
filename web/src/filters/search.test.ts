@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { defaultParseSearch, defaultStringifySearch } from "@tanstack/react-router";
 import { parseFilters, filtersToSearch } from "./search";
 import { defaultFilters } from "../matrix/buildMatrix";
+import { router } from "../router";
 
 describe("filter search params", () => {
   it("defaults to GlobalStandard with empty selections", () => {
@@ -26,16 +27,25 @@ describe("filter search params", () => {
     expect(filtersToSearch(defaultFilters)).toEqual({});
   });
 
-  it("tolerates a raw/partial search object from the router", () => {
-    // The router calls filtersToSearch with the raw, un-validated search
-    // object (e.g. `{}` on first load), where array fields are undefined.
-    // parseFilters normalizes it first, so this must not throw.
-    expect(() => filtersToSearch(parseFilters({} as Record<string, unknown>))).not.toThrow();
-    expect(filtersToSearch(parseFilters({}))).toEqual({});
+  it("normalizes a raw/partial search object", () => {
+    // filtersToSearch is strict (real arrays); parseFilters is the canonical
+    // normalizer that fills missing array fields before serialization.
+    expect(filtersToSearch(parseFilters({} as Record<string, unknown>))).toEqual({});
     expect(filtersToSearch(parseFilters({ models: "solo", gaOnly: true }))).toEqual({
       models: ["solo"],
       gaOnly: true,
     });
+  });
+
+  it("router stringifySearch tolerates a raw/partial search object", () => {
+    // Anchor to the real router so a regression in its serialization (e.g.
+    // dropping the parseFilters normalization) fails here. At runtime the
+    // router feeds stringifySearch the raw, possibly-partial search object
+    // whose array fields are undefined, so cast to mirror that contract.
+    const stringify = router.options.stringifySearch as (s: Record<string, unknown>) => string;
+    expect(() => stringify({ sku: "Standard" })).not.toThrow();
+    expect(() => stringify({})).not.toThrow();
+    expect(stringify({ sku: "Standard" })).toBe("?sku=Standard");
   });
 });
 

@@ -67,7 +67,7 @@ export const router = createRouter({
   // parses back to a full FilterState, so components never re-parse.
   parseSearch: defaultParseSearch,
   stringifySearch: (search) =>
-    defaultStringifySearch(filtersToSearch(search as FilterState)),
+    defaultStringifySearch(filtersToSearch(parseFilters(search))),
 });
 
 declare module "@tanstack/react-router" {

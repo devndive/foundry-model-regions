@@ -22,7 +22,9 @@ const bundle: NormalizedBundle = {
   ],
   availability: [{ modelId: "m1", region: "eastus", sku: "GlobalStandard", deprecationDate: null }],
 };
-const regions: Region[] = [{ id: "eastus", displayName: "East US", geoGroup: "us", euSovereign: false }];
+const regions: Region[] = [
+  { id: "eastus", displayName: "East US", geoGroup: "us", euSovereign: false },
+];
 
 describe("App", () => {
   it("renders the matrix with KPI counts and a model header", () => {

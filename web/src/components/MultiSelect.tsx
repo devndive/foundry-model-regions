@@ -28,11 +28,7 @@ export function MultiSelect({ label, options, selected, onChange }: Props) {
   };
 
   const toggle = (value: string) => {
-    onChange(
-      selected.includes(value)
-        ? selected.filter((v) => v !== value)
-        : [...selected, value],
-    );
+    onChange(selected.includes(value) ? selected.filter((v) => v !== value) : [...selected, value]);
   };
 
   const summary = selected.length === 0 ? label : `${label} (${selected.length})`;

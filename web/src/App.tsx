@@ -23,10 +23,7 @@ export function App({ index, filters, onFiltersChange }: Props) {
     () => ({ ...filters, sku: resolveSku(filters.sku, options.skus) }),
     [filters, options.skus],
   );
-  const matrix = useMemo(
-    () => buildMatrix(index, effectiveFilters),
-    [index, effectiveFilters],
-  );
+  const matrix = useMemo(() => buildMatrix(index, effectiveFilters), [index, effectiveFilters]);
 
   const modelCount = matrix.swapped ? matrix.rows.length : matrix.columns.length;
   const regionCount = matrix.swapped ? matrix.columns.length : matrix.rows.length;

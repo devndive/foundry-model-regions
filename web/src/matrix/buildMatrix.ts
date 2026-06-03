@@ -71,7 +71,10 @@ export function buildMatrix(index: AvailabilityIndex, filters: FilterState): Mat
     ) {
       return false;
     }
-    if (lifecycleSet.size > 0 && (m.lifecycleStatus === null || !lifecycleSet.has(m.lifecycleStatus))) {
+    if (
+      lifecycleSet.size > 0 &&
+      (m.lifecycleStatus === null || !lifecycleSet.has(m.lifecycleStatus))
+    ) {
       return false;
     }
     if (filters.gaOnly && m.lifecycleStatus !== "GenerallyAvailable") return false;

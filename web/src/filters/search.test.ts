@@ -30,13 +30,12 @@ describe("filter search params", () => {
     // The router calls filtersToSearch with the raw, un-validated search
     // object (e.g. `{}` on first load), where array fields are undefined.
     // parseFilters normalizes it first, so this must not throw.
-    expect(() =>
-      filtersToSearch(parseFilters({} as Record<string, unknown>)),
-    ).not.toThrow();
+    expect(() => filtersToSearch(parseFilters({} as Record<string, unknown>))).not.toThrow();
     expect(filtersToSearch(parseFilters({}))).toEqual({});
-    expect(
-      filtersToSearch(parseFilters({ models: "solo", gaOnly: true })),
-    ).toEqual({ models: ["solo"], gaOnly: true });
+    expect(filtersToSearch(parseFilters({ models: "solo", gaOnly: true }))).toEqual({
+      models: ["solo"],
+      gaOnly: true,
+    });
   });
 });
 

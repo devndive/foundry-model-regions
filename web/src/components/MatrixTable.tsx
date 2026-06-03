@@ -23,9 +23,7 @@ export function MatrixTable({ matrix }: { matrix: Matrix }) {
             <th className="corner sticky-col">{cornerLabel}</th>
             {matrix.columns.map((col) => {
               const badge =
-                col.kind === "model" && col.model
-                  ? capabilityBadge(col.model.capabilities)
-                  : "";
+                col.kind === "model" && col.model ? capabilityBadge(col.model.capabilities) : "";
               return (
                 <th key={col.id} className="col-head" title={col.label}>
                   <div className="col-name">{col.label}</div>
@@ -50,10 +48,7 @@ export function MatrixTable({ matrix }: { matrix: Matrix }) {
                 {row.label}
               </th>
               {matrix.cells[ri].map((available, ci) => (
-                <td
-                  key={matrix.columns[ci].id}
-                  className={available ? "cell available" : "cell"}
-                >
+                <td key={matrix.columns[ci].id} className={available ? "cell available" : "cell"}>
                   {available ? "✓" : ""}
                 </td>
               ))}

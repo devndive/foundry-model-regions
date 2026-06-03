@@ -97,7 +97,10 @@ describe("buildMatrix", () => {
     const regions = [region("eastus")];
     const index = buildIndex(bundle, regions);
 
-    const matrix = buildMatrix(index, { ...defaultFilters, capabilities: ["audio", "imageGenerations"] });
+    const matrix = buildMatrix(index, {
+      ...defaultFilters,
+      capabilities: ["audio", "imageGenerations"],
+    });
 
     expect(matrix.columns.map((c) => c.id)).toEqual(["vision", "audio"]);
   });
@@ -105,11 +108,7 @@ describe("buildMatrix", () => {
   it("filters regions by geo group and EU sovereign toggle", () => {
     const bundle: NormalizedBundle = {
       models: [model("m1")],
-      availability: [
-        avail("m1", "eastus"),
-        avail("m1", "westeurope"),
-        avail("m1", "uksouth"),
-      ],
+      availability: [avail("m1", "eastus"), avail("m1", "westeurope"), avail("m1", "uksouth")],
     };
     const regions = [
       region("eastus", { geoGroup: "us", euSovereign: false }),
@@ -176,7 +175,10 @@ describe("buildMatrix", () => {
       models: [model("zebra"), model("alpha")],
       availability: [avail("zebra", "westus"), avail("alpha", "eastus")],
     };
-    const regions = [region("westus", { displayName: "West US" }), region("eastus", { displayName: "East US" })];
+    const regions = [
+      region("westus", { displayName: "West US" }),
+      region("eastus", { displayName: "East US" }),
+    ];
     const index = buildIndex(bundle, regions);
 
     const matrix = buildMatrix(index, { ...defaultFilters, sort: "name" });
@@ -193,11 +195,7 @@ describe("buildMatrix", () => {
   it("sorts by availability count descending when sort=availability", () => {
     const bundle: NormalizedBundle = {
       models: [model("rare"), model("common")],
-      availability: [
-        avail("common", "eastus"),
-        avail("common", "westus"),
-        avail("rare", "eastus"),
-      ],
+      availability: [avail("common", "eastus"), avail("common", "westus"), avail("rare", "eastus")],
     };
     const regions = [region("eastus"), region("westus")];
     const index = buildIndex(bundle, regions);

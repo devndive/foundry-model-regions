@@ -1,5 +1,15 @@
 const RULES: Array<{ badge: string; caps: string[] }> = [
-  { badge: "AUDIO", caps: ["audio", "audioTranscriptions", "audioTranslations", "audioSpeech", "realtimeTranscription", "realtimeTranslation"] },
+  {
+    badge: "AUDIO",
+    caps: [
+      "audio",
+      "audioTranscriptions",
+      "audioTranslations",
+      "audioSpeech",
+      "realtimeTranscription",
+      "realtimeTranslation",
+    ],
+  },
   { badge: "VISION", caps: ["imageGenerations", "imageEdits", "videoGenerations", "convo2im"] },
   { badge: "SEARCH", caps: ["search"] },
   { badge: "EMBEDDINGS", caps: ["embeddings"] },

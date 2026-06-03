@@ -51,8 +51,7 @@ function IndexRoute() {
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
-  validateSearch: (search: Record<string, unknown>): FilterState =>
-    parseFilters(search),
+  validateSearch: (search: Record<string, unknown>): FilterState => parseFilters(search),
   component: IndexRoute,
 });
 
@@ -69,9 +68,7 @@ export const router = createRouter({
   // parses back to a full FilterState, so components never re-parse.
   parseSearch: defaultParseSearch,
   stringifySearch: (search) =>
-    defaultStringifySearch(
-      filtersToSearch(parseFilters(search as Record<string, unknown>)),
-    ),
+    defaultStringifySearch(filtersToSearch(parseFilters(search as Record<string, unknown>))),
 });
 
 declare module "@tanstack/react-router" {

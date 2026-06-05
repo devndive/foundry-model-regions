@@ -89,6 +89,14 @@ export function ControlsBar({ filters, options, onChange, onExportCsv, onExportM
       <label className="toggle">
         <input
           type="checkbox"
+          checked={filters.hideDeprecated}
+          onChange={(e) => onChange({ hideDeprecated: e.target.checked })}
+        />
+        Hide deprecated
+      </label>
+      <label className="toggle">
+        <input
+          type="checkbox"
           checked={filters.euSovereignOnly}
           onChange={(e) => onChange({ euSovereignOnly: e.target.checked })}
         />

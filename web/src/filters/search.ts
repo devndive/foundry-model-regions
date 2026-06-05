@@ -9,6 +9,7 @@ export type FilterSearch = Partial<{
   euSovereignOnly: boolean;
   lifecycle: string[];
   gaOnly: boolean;
+  hideDeprecated: boolean;
   swapView: boolean;
   sort: SortKey;
 }>;
@@ -32,6 +33,7 @@ export function parseFilters(search: Record<string, unknown>): FilterState {
     euSovereignOnly: search.euSovereignOnly === true,
     lifecycle: strArray(search.lifecycle),
     gaOnly: search.gaOnly === true,
+    hideDeprecated: search.hideDeprecated !== false,
     swapView: search.swapView === true,
     sort,
   };
@@ -47,6 +49,7 @@ export function filtersToSearch(filters: FilterState): FilterSearch {
   if (filters.euSovereignOnly) search.euSovereignOnly = true;
   if (filters.lifecycle.length) search.lifecycle = filters.lifecycle;
   if (filters.gaOnly) search.gaOnly = true;
+  if (!filters.hideDeprecated) search.hideDeprecated = false;
   if (filters.swapView) search.swapView = true;
   if (filters.sort !== defaultFilters.sort) search.sort = filters.sort;
   return search;

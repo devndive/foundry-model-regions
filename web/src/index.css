@@ -329,6 +329,7 @@ body {
   font-size: 0.64rem;
   letter-spacing: 0.16em;
   color: var(--ink-faint);
+  vertical-align: middle;
 }
 
 .col-head {

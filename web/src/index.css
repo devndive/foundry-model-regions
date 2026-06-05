@@ -282,7 +282,7 @@ body {
   top: 0;
   z-index: 5;
   background: #eef1f4;
-  vertical-align: bottom;
+  vertical-align: top;
   padding: 8px 6px;
   border-bottom: 2px solid var(--line-strong);
 }

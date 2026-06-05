@@ -24,7 +24,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
 
 # Stage 1: regenerate the normalized JSON artifacts from the committed cache
       - name: Install pipeline dependencies

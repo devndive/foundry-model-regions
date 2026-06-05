@@ -29,6 +29,7 @@ export function ControlsBar({ filters, options, onChange, onExportCsv, onExportM
       <MultiSelect
         label="Models"
         options={options.models}
+        groups={options.modelGroups}
         selected={filters.models}
         onChange={(models) => onChange({ models })}
       />

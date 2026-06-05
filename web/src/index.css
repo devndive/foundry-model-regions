@@ -247,6 +247,33 @@ body {
   text-transform: uppercase;
 }
 
+.multiselect-groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 6px 9px 8px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+}
+.multiselect-group {
+  border: 1px solid var(--line-strong);
+  background: none;
+  color: var(--ink);
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
+}
+.multiselect-group:hover {
+  background: var(--accent-soft);
+}
+.multiselect-group.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
 .caret {
   font-size: 0.6rem;
   color: var(--ink-faint);

@@ -5,17 +5,34 @@ export interface Option {
   label: string;
 }
 
+export interface OptionGroup {
+  value: string;
+  label: string;
+  values: string[];
+}
+
 export interface FilterOptions {
   skus: Option[];
   geoGroups: Option[];
   lifecycles: Option[];
   capabilities: Option[];
   models: Option[];
+  modelGroups: OptionGroup[];
   regions: Option[];
 }
 
+const PROVIDER_GROUPS = ["OpenAI", "Anthropic"];
+
 function distinct(values: string[]): string[] {
   return [...new Set(values)].filter((v) => v.length > 0).sort();
+}
+
+function buildModelGroups(index: AvailabilityIndex): OptionGroup[] {
+  return PROVIDER_GROUPS.map((provider) => ({
+    value: provider,
+    label: provider,
+    values: index.models.filter((m) => m.format === provider).map((m) => m.id),
+  })).filter((group) => group.values.length > 0);
 }
 
 export function buildOptions(index: AvailabilityIndex): FilterOptions {
@@ -31,6 +48,7 @@ export function buildOptions(index: AvailabilityIndex): FilterOptions {
     lifecycles: lifecycles.map((l) => ({ value: l, label: l })),
     capabilities: capabilities.map((c) => ({ value: c, label: c })),
     models: index.models.map((m) => ({ value: m.id, label: `${m.name} (${m.version})` })),
+    modelGroups: buildModelGroups(index),
     regions: index.regions.map((r) => ({ value: r.id, label: r.displayName })),
   };
 }

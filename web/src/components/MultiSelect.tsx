@@ -1,14 +1,15 @@
 import { useEffect, useId, useRef, useState } from "react";
-import type { Option } from "../filters/options";
+import type { Option, OptionGroup } from "../filters/options";
 
 interface Props {
   label: string;
   options: Option[];
   selected: string[];
   onChange: (next: string[]) => void;
+  groups?: OptionGroup[];
 }
 
-export function MultiSelect({ label, options, selected, onChange }: Props) {
+export function MultiSelect({ label, options, selected, onChange, groups }: Props) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -29,6 +30,16 @@ export function MultiSelect({ label, options, selected, onChange }: Props) {
 
   const toggle = (value: string) => {
     onChange(selected.includes(value) ? selected.filter((v) => v !== value) : [...selected, value]);
+  };
+
+  const toggleGroup = (group: OptionGroup) => {
+    const allSelected = group.values.every((v) => selected.includes(v));
+    if (allSelected) {
+      onChange(selected.filter((v) => !group.values.includes(v)));
+    } else {
+      const groupSet = new Set(group.values);
+      onChange([...selected.filter((v) => !groupSet.has(v)), ...group.values]);
+    }
   };
 
   const summary = selected.length === 0 ? label : `${label} (${selected.length})`;
@@ -57,6 +68,24 @@ export function MultiSelect({ label, options, selected, onChange }: Props) {
       </button>
       {open && (
         <div className="multiselect-menu" id={menuId} role="group" aria-label={label}>
+          {groups && groups.length > 0 && (
+            <div className="multiselect-groups">
+              {groups.map((group) => {
+                const active = group.values.every((v) => selected.includes(v));
+                return (
+                  <button
+                    key={group.value}
+                    type="button"
+                    className={active ? "multiselect-group is-active" : "multiselect-group"}
+                    aria-pressed={active}
+                    onClick={() => toggleGroup(group)}
+                  >
+                    {group.label}
+                  </button>
+                );
+              })}
+            </div>
+          )}
           {selected.length > 0 && (
             <button type="button" className="multiselect-clear" onClick={() => onChange([])}>
               Clear

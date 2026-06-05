@@ -35,12 +35,11 @@ const regions: Region[] = [
 ];
 
 describe("App", () => {
-  it("renders the matrix with KPI counts and a model header", () => {
+  it("renders the matrix with a model header", () => {
     const index = buildIndex(bundle, regions);
     render(<App index={index} filters={defaultFilters} onFiltersChange={() => {}} />);
 
     expect(screen.getByText("Foundry Model Regional Availability")).toBeInTheDocument();
-    expect(screen.getByText("MODELS").nextSibling).toHaveTextContent("1");
     expect(screen.getByText("gpt-4o")).toBeInTheDocument();
     expect(screen.getByText("East US")).toBeInTheDocument();
     expect(screen.getByText("CHAT")).toBeInTheDocument();

@@ -3,6 +3,8 @@ import type { NormalizedModel, Region } from "../data/types";
 
 export type SortKey = "default" | "name" | "availability";
 
+const DEPRECATED_STATUSES = new Set(["Deprecated", "Deprecating"]);
+
 export interface FilterState {
   sku: string;
   models: string[];
@@ -12,6 +14,7 @@ export interface FilterState {
   euSovereignOnly: boolean;
   lifecycle: string[];
   gaOnly: boolean;
+  hideDeprecated: boolean;
   swapView: boolean;
   sort: SortKey;
 }
@@ -25,6 +28,7 @@ export const defaultFilters: FilterState = {
   euSovereignOnly: false,
   lifecycle: [],
   gaOnly: false,
+  hideDeprecated: true,
   swapView: false,
   sort: "default",
 };
@@ -79,6 +83,14 @@ export function buildMatrix(index: AvailabilityIndex, filters: FilterState): Mat
       return false;
     }
     if (filters.gaOnly && m.lifecycleStatus !== "GenerallyAvailable") return false;
+    if (
+      filters.hideDeprecated &&
+      m.lifecycleStatus !== null &&
+      DEPRECATED_STATUSES.has(m.lifecycleStatus) &&
+      !lifecycleSet.has(m.lifecycleStatus)
+    ) {
+      return false;
+    }
     return true;
   });
   const geoSet = new Set(filters.geoGroups);

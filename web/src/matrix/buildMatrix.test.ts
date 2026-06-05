@@ -156,6 +156,61 @@ describe("buildMatrix", () => {
     expect(gaOnly.columns.map((c) => c.id)).toEqual(["ga"]);
   });
 
+  it("hides Deprecated and Deprecating models by default", () => {
+    const bundle: NormalizedBundle = {
+      models: [
+        model("ga", { lifecycleStatus: "GenerallyAvailable" }),
+        model("deprecating", { lifecycleStatus: "Deprecating" }),
+        model("dep", { lifecycleStatus: "Deprecated" }),
+      ],
+      availability: [avail("ga", "eastus"), avail("deprecating", "eastus"), avail("dep", "eastus")],
+    };
+    const regions = [region("eastus")];
+    const index = buildIndex(bundle, regions);
+
+    const matrix = buildMatrix(index, { ...defaultFilters });
+
+    expect(matrix.columns.map((c) => c.id)).toEqual(["ga"]);
+  });
+
+  it("shows Deprecated and Deprecating models when hideDeprecated is off", () => {
+    const bundle: NormalizedBundle = {
+      models: [
+        model("ga", { lifecycleStatus: "GenerallyAvailable" }),
+        model("deprecating", { lifecycleStatus: "Deprecating" }),
+        model("dep", { lifecycleStatus: "Deprecated" }),
+      ],
+      availability: [avail("ga", "eastus"), avail("deprecating", "eastus"), avail("dep", "eastus")],
+    };
+    const regions = [region("eastus")];
+    const index = buildIndex(bundle, regions);
+
+    const matrix = buildMatrix(index, { ...defaultFilters, hideDeprecated: false });
+
+    expect(matrix.columns.map((c) => c.id)).toEqual(["ga", "deprecating", "dep"]);
+  });
+
+  it("keeps explicitly selected deprecated lifecycles visible even when hideDeprecated is on", () => {
+    const bundle: NormalizedBundle = {
+      models: [
+        model("ga", { lifecycleStatus: "GenerallyAvailable" }),
+        model("deprecating", { lifecycleStatus: "Deprecating" }),
+        model("dep", { lifecycleStatus: "Deprecated" }),
+      ],
+      availability: [avail("ga", "eastus"), avail("deprecating", "eastus"), avail("dep", "eastus")],
+    };
+    const regions = [region("eastus")];
+    const index = buildIndex(bundle, regions);
+
+    const matrix = buildMatrix(index, {
+      ...defaultFilters,
+      hideDeprecated: true,
+      lifecycle: ["Deprecated"],
+    });
+
+    expect(matrix.columns.map((c) => c.id)).toEqual(["dep"]);
+  });
+
   it("transposes axes when swapView is on", () => {
     const bundle: NormalizedBundle = {
       models: [model("m1"), model("m2")],

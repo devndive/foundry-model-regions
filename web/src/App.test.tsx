@@ -56,6 +56,19 @@ describe("App", () => {
     expect(onFiltersChange).toHaveBeenCalledWith({ swapView: true });
   });
 
+  it("renders Hide deprecated checked by default and unchecks it on click", async () => {
+    const index = buildIndex(bundle, regions);
+    const onFiltersChange = vi.fn();
+    render(<App index={index} filters={defaultFilters} onFiltersChange={onFiltersChange} />);
+
+    const toggle = screen.getByLabelText("Hide deprecated") as HTMLInputElement;
+    expect(toggle.checked).toBe(true);
+
+    await userEvent.click(toggle);
+
+    expect(onFiltersChange).toHaveBeenCalledWith({ hideDeprecated: false });
+  });
+
   it("shows an available SKU when the default GlobalStandard is absent from the data", () => {
     const standardOnly: NormalizedBundle = {
       ...bundle,

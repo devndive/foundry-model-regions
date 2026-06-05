@@ -27,6 +27,17 @@ describe("filter search params", () => {
     expect(filtersToSearch(defaultFilters)).toEqual({});
   });
 
+  it("serializes hideDeprecated only when disabled", () => {
+    expect(filtersToSearch({ ...defaultFilters, hideDeprecated: true })).toEqual({});
+    expect(filtersToSearch({ ...defaultFilters, hideDeprecated: false })).toEqual({
+      hideDeprecated: false,
+    });
+    expect(parseFilters({ hideDeprecated: false })).toEqual({
+      ...defaultFilters,
+      hideDeprecated: false,
+    });
+  });
+
   it("normalizes a raw/partial search object", () => {
     // filtersToSearch is strict (real arrays); parseFilters is the canonical
     // normalizer that fills missing array fields before serialization.

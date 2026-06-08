@@ -104,15 +104,24 @@ export function buildMatrix(index: AvailabilityIndex, filters: FilterState): Mat
   });
 
   // Deployment Fit: when Features are selected, prune to a single requirement basket.
-  // A region survives only if every selected Feature (closed-world) and every selected
-  // Model is available there; model rows then keep only those present in a surviving region.
+  // A region survives only if every selected Feature (closed-world) is available there and
+  // — when Models are selected — at least one selected Model is available there. Model rows
+  // then keep only those present in a surviving region. Models are an OR constraint (not AND)
+  // so picking a broad group like "OpenAI" narrows by feature without demanding every model
+  // coexist in one region, which no region satisfies.
   let fitModels = models;
   let fitRegions = regions;
   if (filters.features.length > 0) {
+    // The basket constrains regions on the raw `filters.models` selection, not the
+    // `models` list above (which is already narrowed by capabilities/lifecycle/gaOnly/
+    // hideDeprecated). This is intentional: the basket is "what the developer explicitly
+    // asked for", independent of cosmetic row-visibility filters. A model selected via URL
+    // that is also hidden (e.g. deprecated) therefore still constrains region columns.
     fitRegions = regions.filter(
       (r) =>
         filters.features.every((f) => index.isFeatureAvailable(f, r.id)) &&
-        filters.models.every((m) => index.isAvailable(filters.sku, m, r.id)),
+        (filters.models.length === 0 ||
+          filters.models.some((m) => index.isAvailable(filters.sku, m, r.id))),
     );
     fitModels = models.filter((m) =>
       fitRegions.some((r) => index.isAvailable(filters.sku, m.id, r.id)),

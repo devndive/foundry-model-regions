@@ -41,3 +41,10 @@ Features my application needs, which Region(s) give me all of them?"* Model Avai
 Facts and Feature Availability Facts are kept as **separate artifacts** (`models.json`,
 `features.json`) but are presented in **one** view so a developer can pick a single
 Foundry deployment region that satisfies their whole requirement basket.
+
+A Region survives the basket when it has **every** selected Feature (AND — each is a hard
+requirement) and **at least one** of the selected Models (OR). Models are OR rather than AND
+because a Model selection is usually a *menu of acceptable options* (e.g. picking the whole
+"OpenAI" group means "any OpenAI model is fine"), not a demand that every chosen Model
+coexist in one Region — which almost no Region satisfies. Surviving Region columns then keep
+only the Model rows actually present in at least one of them.

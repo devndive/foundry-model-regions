@@ -327,7 +327,7 @@ describe("buildMatrix", () => {
     expect(matrix.rows.map((r) => r.id)).toEqual(["eastus"]);
   });
 
-  it("combines selected features and models with pure AND on surviving regions", () => {
+  it("requires every selected feature but only one of the selected models in a region", () => {
     const bundle: NormalizedBundle = {
       models: [model("m1"), model("m2")],
       availability: [
@@ -361,8 +361,52 @@ describe("buildMatrix", () => {
       models: ["m2"],
     });
 
-    // Feature is in both regions, but selected model m2 only in eastus -> only eastus survives.
+    // Feature is in both regions, but the only selected model (m2) lives in eastus -> westus
+    // has no selected model -> only eastus survives.
     expect(matrix.rows.map((r) => r.id)).toEqual(["eastus"]);
+  });
+
+  it("keeps a region that has the feature and at least one selected model, even if others are absent", () => {
+    // Regression for the OpenAI-group bug: selecting a broad model group must not require
+    // every model to coexist in one region. A region qualifies if it has the feature and
+    // ANY one of the selected models.
+    const bundle: NormalizedBundle = {
+      models: [model("m1"), model("m2"), model("m3")],
+      availability: [
+        // franc has the feature and m1, but not m2/m3.
+        avail("m1", "francecentral"),
+        // eastus has m1, m2, m3 but NOT the feature.
+        avail("m1", "eastus"),
+        avail("m2", "eastus"),
+        avail("m3", "eastus"),
+      ],
+    };
+    const regions = [region("francecentral"), region("eastus")];
+    const features = {
+      features: [
+        {
+          id: "art",
+          displayName: "AI Red Teaming Agent",
+          sourceUrl: "https://example.com",
+          sectionAnchor: "agentic-risks",
+          regions: ["francecentral"],
+        },
+      ],
+      availability: [{ featureId: "art", region: "francecentral" }],
+    };
+    const index = buildIndex(bundle, regions, features);
+
+    const matrix = buildMatrix(index, {
+      ...defaultFilters,
+      features: ["art"],
+      models: ["m1", "m2", "m3"],
+    });
+
+    // francecentral has the feature and m1 (one of the selected models) -> survives.
+    // eastus lacks the feature -> dropped despite holding all three models.
+    expect(matrix.rows.map((r) => r.id)).toEqual(["francecentral"]);
+    // Only m1 is present in the surviving region, so m2/m3 columns drop.
+    expect(matrix.columns.map((c) => c.id)).toEqual(["m1"]);
   });
 
   it("keeps only model rows present in at least one surviving region when features are selected", () => {

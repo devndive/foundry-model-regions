@@ -1,13 +1,13 @@
-import { readdir, readFile, writeFile, mkdir } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { type Model } from "@azure/arm-cognitiveservices";
 import { latestSnapshotDir } from "./snapshots.js";
 import { normalizeModels, type RegionSnapshot } from "./normalize-models.js";
+import { writeArtifact } from "./dist.js";
 
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE_DIR = resolve(ROOT_DIR, "cache");
-const DIST_DIR = resolve(ROOT_DIR, "dist");
 
 async function main(): Promise<void> {
   const snapshotDir = await latestSnapshotDir(CACHE_DIR);
@@ -34,16 +34,18 @@ async function main(): Promise<void> {
 
   const bundle = normalizeModels(snapshots);
 
-  await mkdir(DIST_DIR, { recursive: true });
-  const outPath = resolve(DIST_DIR, "models.json");
-  await writeFile(outPath, JSON.stringify(bundle, null, 2), "utf-8");
-
-  console.log(`\nDone. Normalized bundle written to dist/models.json`);
-  console.log(`  Source files: ${files.length}`);
-  console.log(`  Models: ${bundle.models.length}`);
-  console.log(`  Availability rows: ${bundle.availability.length}`);
   const regions = new Set(bundle.availability.map((a) => a.region));
-  console.log(`  Regions with availability: ${regions.size}`);
+  await writeArtifact(
+    "models.json",
+    bundle,
+    [
+      "\nDone. Normalized bundle written to dist/models.json",
+      `  Source files: ${files.length}`,
+      `  Models: ${bundle.models.length}`,
+      `  Availability rows: ${bundle.availability.length}`,
+      `  Regions with availability: ${regions.size}`,
+    ].join("\n"),
+  );
 }
 
 main();

@@ -15,12 +15,13 @@ The app fetches the normalized JSON artifacts from `public/data/`:
 
 - `models.json` — `{ models, availability }` produced by the root pipeline (`npm run emit-models`)
 - `regions.json` — region metadata (`npm run emit-region-metadata`)
+- `features.json` — Foundry Feature availability (`npm run emit-features`)
 
 These files are generated (gitignored). For local dev, regenerate and copy them in from the repo root:
 
 ```sh
-npm run emit-models && npm run emit-region-metadata
-mkdir -p web/public/data && cp dist/models.json dist/regions.json web/public/data/
+npm run emit-models && npm run emit-region-metadata && npm run emit-features
+mkdir -p web/public/data && cp dist/models.json dist/regions.json dist/features.json web/public/data/
 ```
 
 ## Scripts

@@ -9,6 +9,7 @@ export interface FilterState {
   sku: string;
   models: string[];
   regions: string[];
+  features: string[];
   capabilities: string[];
   geoGroups: string[];
   euSovereignOnly: boolean;
@@ -23,6 +24,7 @@ export const defaultFilters: FilterState = {
   sku: "GlobalStandard",
   models: [],
   regions: [],
+  features: [],
   capabilities: [],
   geoGroups: [],
   euSovereignOnly: false,
@@ -101,16 +103,32 @@ export function buildMatrix(index: AvailabilityIndex, filters: FilterState): Mat
     return true;
   });
 
-  const sortedModels = [...models];
-  const sortedRegions = [...regions];
+  // Deployment Fit: when Features are selected, prune to a single requirement basket.
+  // A region survives only if every selected Feature (closed-world) and every selected
+  // Model is available there; model rows then keep only those present in a surviving region.
+  let fitModels = models;
+  let fitRegions = regions;
+  if (filters.features.length > 0) {
+    fitRegions = regions.filter(
+      (r) =>
+        filters.features.every((f) => index.isFeatureAvailable(f, r.id)) &&
+        filters.models.every((m) => index.isAvailable(filters.sku, m, r.id)),
+    );
+    fitModels = models.filter((m) =>
+      fitRegions.some((r) => index.isAvailable(filters.sku, m.id, r.id)),
+    );
+  }
+
+  const sortedModels = [...fitModels];
+  const sortedRegions = [...fitRegions];
   if (filters.sort === "name") {
     sortedModels.sort((a, b) => a.name.localeCompare(b.name));
     sortedRegions.sort((a, b) => a.displayName.localeCompare(b.displayName));
   } else if (filters.sort === "availability") {
     const modelCount = (id: string) =>
-      regions.reduce((n, r) => n + (index.isAvailable(filters.sku, id, r.id) ? 1 : 0), 0);
+      fitRegions.reduce((n, r) => n + (index.isAvailable(filters.sku, id, r.id) ? 1 : 0), 0);
     const regionCount = (id: string) =>
-      models.reduce((n, m) => n + (index.isAvailable(filters.sku, m.id, id) ? 1 : 0), 0);
+      fitModels.reduce((n, m) => n + (index.isAvailable(filters.sku, m.id, id) ? 1 : 0), 0);
     sortedModels.sort((a, b) => modelCount(b.id) - modelCount(a.id));
     sortedRegions.sort((a, b) => regionCount(b.id) - regionCount(a.id));
   }

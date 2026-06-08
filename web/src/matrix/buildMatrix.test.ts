@@ -300,4 +300,99 @@ describe("buildMatrix", () => {
     expect(matrix.cells).toEqual([[false, true]]);
     expect(matrix.cellStatus).toEqual([[null, "Preview"]]);
   });
+
+  it("drops regions where a selected feature is unavailable (closed-world)", () => {
+    const bundle: NormalizedBundle = {
+      models: [model("m1")],
+      availability: [avail("m1", "eastus"), avail("m1", "westus")],
+    };
+    const regions = [region("eastus"), region("westus")];
+    const features = {
+      features: [
+        {
+          id: "hosted-agents",
+          displayName: "Hosted Agents",
+          sourceUrl: "https://example.com",
+          sectionAnchor: "region-availability",
+          regions: ["eastus"],
+        },
+      ],
+      availability: [{ featureId: "hosted-agents", region: "eastus" }],
+    };
+    const index = buildIndex(bundle, regions, features);
+
+    const matrix = buildMatrix(index, { ...defaultFilters, features: ["hosted-agents"] });
+
+    // westus is not listed for the feature -> closed-world unavailable -> dropped.
+    expect(matrix.rows.map((r) => r.id)).toEqual(["eastus"]);
+  });
+
+  it("combines selected features and models with pure AND on surviving regions", () => {
+    const bundle: NormalizedBundle = {
+      models: [model("m1"), model("m2")],
+      availability: [
+        avail("m1", "eastus"),
+        avail("m1", "westus"),
+        avail("m2", "eastus"),
+        // m2 NOT in westus
+      ],
+    };
+    const regions = [region("eastus"), region("westus")];
+    const features = {
+      features: [
+        {
+          id: "feat",
+          displayName: "Feat",
+          sourceUrl: "https://example.com",
+          sectionAnchor: "x",
+          regions: ["eastus", "westus"],
+        },
+      ],
+      availability: [
+        { featureId: "feat", region: "eastus" },
+        { featureId: "feat", region: "westus" },
+      ],
+    };
+    const index = buildIndex(bundle, regions, features);
+
+    const matrix = buildMatrix(index, {
+      ...defaultFilters,
+      features: ["feat"],
+      models: ["m2"],
+    });
+
+    // Feature is in both regions, but selected model m2 only in eastus -> only eastus survives.
+    expect(matrix.rows.map((r) => r.id)).toEqual(["eastus"]);
+  });
+
+  it("keeps only model rows present in at least one surviving region when features are selected", () => {
+    const bundle: NormalizedBundle = {
+      models: [model("m1"), model("m2")],
+      availability: [
+        avail("m1", "eastus"),
+        // m2 only available in westus, which the feature does not cover
+        avail("m2", "westus"),
+      ],
+    };
+    const regions = [region("eastus"), region("westus")];
+    const features = {
+      features: [
+        {
+          id: "feat",
+          displayName: "Feat",
+          sourceUrl: "https://example.com",
+          sectionAnchor: "x",
+          regions: ["eastus"],
+        },
+      ],
+      availability: [{ featureId: "feat", region: "eastus" }],
+    };
+    const index = buildIndex(bundle, regions, features);
+
+    const matrix = buildMatrix(index, { ...defaultFilters, features: ["feat"] });
+
+    // Only eastus survives; m2 is absent there -> m2 column drops.
+    expect(matrix.rows.map((r) => r.id)).toEqual(["eastus"]);
+    expect(matrix.columns.map((c) => c.id)).toEqual(["m1"]);
+  });
 });

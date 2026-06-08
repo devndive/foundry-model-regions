@@ -4,6 +4,7 @@ export type FilterSearch = Partial<{
   sku: string;
   models: string[];
   regions: string[];
+  features: string[];
   capabilities: string[];
   geoGroups: string[];
   euSovereignOnly: boolean;
@@ -28,6 +29,7 @@ export function parseFilters(search: Record<string, unknown>): FilterState {
     sku: typeof search.sku === "string" ? search.sku : defaultFilters.sku,
     models: strArray(search.models),
     regions: strArray(search.regions),
+    features: strArray(search.features),
     capabilities: strArray(search.capabilities),
     geoGroups: strArray(search.geoGroups),
     euSovereignOnly: search.euSovereignOnly === true,
@@ -44,6 +46,7 @@ export function filtersToSearch(filters: FilterState): FilterSearch {
   if (filters.sku !== defaultFilters.sku) search.sku = filters.sku;
   if (filters.models.length) search.models = filters.models;
   if (filters.regions.length) search.regions = filters.regions;
+  if (filters.features.length) search.features = filters.features;
   if (filters.capabilities.length) search.capabilities = filters.capabilities;
   if (filters.geoGroups.length) search.geoGroups = filters.geoGroups;
   if (filters.euSovereignOnly) search.euSovereignOnly = true;

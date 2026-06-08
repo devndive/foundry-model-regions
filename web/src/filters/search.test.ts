@@ -14,6 +14,7 @@ describe("filter search params", () => {
       ...defaultFilters,
       sku: "Standard",
       models: ["m1", "m2"],
+      features: ["hosted-agents", "foundry-agents"],
       capabilities: ["audio"],
       euSovereignOnly: true,
       gaOnly: true,
@@ -35,6 +36,20 @@ describe("filter search params", () => {
     expect(parseFilters({ hideDeprecated: false })).toEqual({
       ...defaultFilters,
       hideDeprecated: false,
+    });
+  });
+
+  it("serializes only selected features and parses them back", () => {
+    expect(filtersToSearch({ ...defaultFilters, features: ["hosted-agents"] })).toEqual({
+      features: ["hosted-agents"],
+    });
+    expect(parseFilters({ features: ["hosted-agents"] })).toEqual({
+      ...defaultFilters,
+      features: ["hosted-agents"],
+    });
+    expect(parseFilters({ features: "hosted-agents" })).toEqual({
+      ...defaultFilters,
+      features: ["hosted-agents"],
     });
   });
 

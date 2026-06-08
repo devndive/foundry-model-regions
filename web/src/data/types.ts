@@ -34,3 +34,21 @@ export interface Region {
   geoGroup: string;
   euSovereign: boolean;
 }
+
+export interface Feature {
+  id: string;
+  displayName: string;
+  sourceUrl: string;
+  sectionAnchor: string;
+  regions: string[];
+}
+
+export interface FeatureAvailabilityFact {
+  featureId: string;
+  region: string;
+}
+
+export interface FeaturesArtifact {
+  features: Feature[];
+  availability: FeatureAvailabilityFact[];
+}

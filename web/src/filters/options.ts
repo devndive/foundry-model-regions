@@ -19,6 +19,7 @@ export interface FilterOptions {
   models: Option[];
   modelGroups: OptionGroup[];
   regions: Option[];
+  features: Option[];
 }
 
 const PROVIDER_GROUPS = ["OpenAI", "Anthropic"];
@@ -50,5 +51,6 @@ export function buildOptions(index: AvailabilityIndex): FilterOptions {
     models: index.models.map((m) => ({ value: m.id, label: `${m.name} (${m.version})` })),
     modelGroups: buildModelGroups(index),
     regions: index.regions.map((r) => ({ value: r.id, label: r.displayName })),
+    features: index.features.map((f) => ({ value: f.id, label: f.displayName })),
   };
 }

@@ -57,3 +57,30 @@ describe("buildOptions modelGroups", () => {
     expect(buildOptions(index).modelGroups).toEqual([]);
   });
 });
+
+describe("buildOptions features", () => {
+  it("exposes each indexed feature as an option labelled by displayName", () => {
+    const bundle: NormalizedBundle = { models: [], availability: [] };
+    const features = {
+      features: [
+        {
+          id: "hosted-agents",
+          displayName: "Hosted Agents",
+          sourceUrl: "https://example.com",
+          sectionAnchor: "region-availability",
+          regions: ["eastus"],
+        },
+      ],
+      availability: [{ featureId: "hosted-agents", region: "eastus" }],
+    };
+    const index = buildIndex(bundle, regions, features);
+
+    expect(buildOptions(index).features).toEqual([
+      { value: "hosted-agents", label: "Hosted Agents" },
+    ]);
+  });
+
+  it("exposes no feature options when the index has no features", () => {
+    expect(buildOptions(indexFor([])).features).toEqual([]);
+  });
+});

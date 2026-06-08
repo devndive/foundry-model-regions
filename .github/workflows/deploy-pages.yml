@@ -34,11 +34,12 @@ jobs:
         run: |
           npm run emit-models
           npm run emit-region-metadata
+          npm run emit-features
 
       - name: Copy artifacts into the web app's served directory
         run: |
           mkdir -p web/public/data
-          cp dist/models.json dist/regions.json web/public/data/
+          cp dist/models.json dist/regions.json dist/features.json web/public/data/
 
 # Stage 2: build the static SPA
       - name: Install web dependencies

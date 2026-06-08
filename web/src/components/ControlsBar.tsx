@@ -40,6 +40,12 @@ export function ControlsBar({ filters, options, onChange, onExportCsv, onExportM
         onChange={(regions) => onChange({ regions })}
       />
       <MultiSelect
+        label="Features"
+        options={options.features}
+        selected={filters.features}
+        onChange={(features) => onChange({ features })}
+      />
+      <MultiSelect
         label="Capabilities"
         options={options.capabilities}
         selected={filters.capabilities}

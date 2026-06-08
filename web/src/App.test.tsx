@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { App } from "./App";
 import { buildIndex } from "./data/index";
 import { defaultFilters } from "./matrix/buildMatrix";
-import type { NormalizedBundle, Region } from "./data/types";
+import type { FeaturesArtifact, NormalizedBundle, Region } from "./data/types";
 
 const bundle: NormalizedBundle = {
   models: [
@@ -33,6 +33,19 @@ const bundle: NormalizedBundle = {
 const regions: Region[] = [
   { id: "eastus", displayName: "East US", geoGroup: "us", euSovereign: false },
 ];
+
+const features: FeaturesArtifact = {
+  features: [
+    {
+      id: "hosted-agents",
+      displayName: "Hosted Agents",
+      sourceUrl: "https://example.com",
+      sectionAnchor: "region-availability",
+      regions: ["eastus"],
+    },
+  ],
+  availability: [{ featureId: "hosted-agents", region: "eastus" }],
+};
 
 describe("App", () => {
   it("renders the matrix with a model header", () => {
@@ -66,6 +79,17 @@ describe("App", () => {
     await userEvent.click(toggle);
 
     expect(onFiltersChange).toHaveBeenCalledWith({ hideDeprecated: false });
+  });
+
+  it("requests a feature selection when a Feature is picked", async () => {
+    const index = buildIndex(bundle, regions, features);
+    const onFiltersChange = vi.fn();
+    render(<App index={index} filters={defaultFilters} onFiltersChange={onFiltersChange} />);
+
+    await userEvent.click(screen.getByRole("button", { name: /^Features/ }));
+    await userEvent.click(screen.getByLabelText("Hosted Agents"));
+
+    expect(onFiltersChange).toHaveBeenCalledWith({ features: ["hosted-agents"] });
   });
 
   it("shows an available SKU when the default GlobalStandard is absent from the data", () => {

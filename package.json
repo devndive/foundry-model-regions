@@ -14,6 +14,7 @@
     "emit-models": "tsc && node dist/emit-models.js",
     "emit-region-metadata": "tsc && node dist/emit-region-metadata.js",
     "emit-features": "tsc && node dist/emit-features.js",
+    "check-feature-drift": "tsc && node dist/check-feature-drift.js",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
     "lint": "oxlint",

@@ -2,7 +2,10 @@ import { mkdir, readdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { type Model } from "@azure/arm-cognitiveservices";
 
-const SNAPSHOT_KEY_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}Z$/;
+// The canonical snapshot-key grammar, shared by every cache that keys dated
+// directories off `formatSnapshotKey` (model cache here, feature cache in
+// feature-snapshots.ts). One owner so readers can't disagree on the format.
+export const SNAPSHOT_KEY_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}Z$/;
 
 export function formatSnapshotKey(date: Date): string {
   return date.toISOString().slice(0, 19).replace(/:/g, "-") + "Z";

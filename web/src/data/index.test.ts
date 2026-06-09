@@ -18,8 +18,7 @@ const model = (id: string, over: Partial<import("./types").NormalizedModel> = {}
 const region = (id: string, over: Partial<Region> = {}): Region => ({
   id,
   displayName: id,
-  geoGroup: "us",
-  euSovereign: false,
+  geoGroup: "americas",
   ...over,
 });
 

@@ -17,9 +17,7 @@ function model(id: string, format: string): NormalizedModel {
   };
 }
 
-const regions: Region[] = [
-  { id: "eastus", displayName: "East US", geoGroup: "us", euSovereign: false },
-];
+const regions: Region[] = [{ id: "eastus", displayName: "East US", geoGroup: "americas" }];
 
 function indexFor(models: NormalizedModel[]) {
   const bundle: NormalizedBundle = { models, availability: [] };

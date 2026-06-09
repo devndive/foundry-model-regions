@@ -30,9 +30,7 @@ const bundle: NormalizedBundle = {
     },
   ],
 };
-const regions: Region[] = [
-  { id: "eastus", displayName: "East US", geoGroup: "us", euSovereign: false },
-];
+const regions: Region[] = [{ id: "eastus", displayName: "East US", geoGroup: "americas" }];
 
 const features: FeaturesArtifact = {
   features: [

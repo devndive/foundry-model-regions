@@ -16,7 +16,6 @@ describe("filter search params", () => {
       models: ["m1", "m2"],
       features: ["hosted-agents", "foundry-agents"],
       capabilities: ["audio"],
-      euSovereignOnly: true,
       gaOnly: true,
       swapView: true,
       sort: "name" as const,
@@ -88,7 +87,6 @@ describe("filter search params URL round-trip", () => {
   it("preserves booleans through stringify/parse", () => {
     const state = {
       ...defaultFilters,
-      euSovereignOnly: true,
       gaOnly: true,
       swapView: true,
     };
@@ -119,7 +117,6 @@ describe("filter search params URL round-trip", () => {
       regions: ["eastus"],
       capabilities: ["audio"],
       geoGroups: ["us"],
-      euSovereignOnly: true,
       lifecycle: ["ga"],
       gaOnly: true,
       swapView: true,

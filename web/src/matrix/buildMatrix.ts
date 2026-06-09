@@ -12,7 +12,6 @@ export interface FilterState {
   features: string[];
   capabilities: string[];
   geoGroups: string[];
-  euSovereignOnly: boolean;
   lifecycle: string[];
   gaOnly: boolean;
   hideDeprecated: boolean;
@@ -27,7 +26,6 @@ export const defaultFilters: FilterState = {
   features: [],
   capabilities: [],
   geoGroups: [],
-  euSovereignOnly: false,
   lifecycle: [],
   gaOnly: false,
   hideDeprecated: true,
@@ -99,7 +97,6 @@ export function buildMatrix(index: AvailabilityIndex, filters: FilterState): Mat
   const regions = index.regions.filter((r) => {
     if (regionSet.size > 0 && !regionSet.has(r.id)) return false;
     if (geoSet.size > 0 && !geoSet.has(r.geoGroup)) return false;
-    if (filters.euSovereignOnly && !r.euSovereign) return false;
     return true;
   });
 

@@ -32,7 +32,6 @@ export interface Region {
   id: string;
   displayName: string;
   geoGroup: string;
-  euSovereign: boolean;
 }
 
 export interface Feature {

@@ -24,6 +24,16 @@ export interface FilterOptions {
 
 const PROVIDER_GROUPS = ["OpenAI", "Anthropic"];
 
+// Human-readable labels for the geography groups, mirroring the tab names in the
+// Microsoft reliability regions list.
+const GEO_GROUP_LABELS: Record<string, string> = {
+  americas: "Americas",
+  europe: "Europe",
+  "middle-east": "Middle East",
+  africa: "Africa",
+  "asia-pacific": "Asia Pacific",
+};
+
 function distinct(values: string[]): string[] {
   return [...new Set(values)].filter((v) => v.length > 0).sort();
 }
@@ -45,7 +55,7 @@ export function buildOptions(index: AvailabilityIndex): FilterOptions {
 
   return {
     skus: index.skus.map((s) => ({ value: s, label: s })),
-    geoGroups: geoGroups.map((g) => ({ value: g, label: g })),
+    geoGroups: geoGroups.map((g) => ({ value: g, label: GEO_GROUP_LABELS[g] ?? g })),
     lifecycles: lifecycles.map((l) => ({ value: l, label: l })),
     capabilities: capabilities.map((c) => ({ value: c, label: c })),
     models: index.models.map((m) => ({ value: m.id, label: `${m.name} (${m.version})` })),

@@ -1,87 +1,54 @@
-export type GeoGroup = "europe" | "americas" | "asia";
+// Geography groups mirror the Azure regions list in the Microsoft reliability
+// documentation: https://learn.microsoft.com/azure/reliability/regions-list
+export type GeoGroup = "americas" | "europe" | "middle-east" | "africa" | "asia-pacific";
 
 export interface RegionMetadata {
   id: string;
   displayName: string;
   geoGroup: GeoGroup;
-  euSovereign: boolean;
 }
 
-// The single source of truth for region coverage, grouping and EU
-// classification. Each row states the whole truth about one region.
-//
-// euSovereign marks EU member states only: UK, Switzerland and Norway are
-// geographically European but deliberately not EU-sovereign, so the EU
-// sovereign toggle distinguishes them.
+// The single source of truth for region coverage and grouping. Each row states
+// the whole truth about one region. Regions are grouped by geography exactly as
+// the Microsoft reliability regions list groups them; regions that the list does
+// not include are deliberately omitted here.
 export const REGIONS: readonly RegionMetadata[] = [
-  { id: "westeurope", displayName: "West Europe", geoGroup: "europe", euSovereign: true },
-  { id: "northeurope", displayName: "North Europe", geoGroup: "europe", euSovereign: true },
-  { id: "uksouth", displayName: "UK South", geoGroup: "europe", euSovereign: false },
-  { id: "francecentral", displayName: "France Central", geoGroup: "europe", euSovereign: true },
-  { id: "swedencentral", displayName: "Sweden Central", geoGroup: "europe", euSovereign: true },
-  {
-    id: "switzerlandnorth",
-    displayName: "Switzerland North",
-    geoGroup: "europe",
-    euSovereign: false,
-  },
-  {
-    id: "switzerlandwest",
-    displayName: "Switzerland West",
-    geoGroup: "europe",
-    euSovereign: false,
-  },
-  {
-    id: "germanywestcentral",
-    displayName: "Germany West Central",
-    geoGroup: "europe",
-    euSovereign: true,
-  },
-  { id: "norwayeast", displayName: "Norway East", geoGroup: "europe", euSovereign: false },
-  { id: "polandcentral", displayName: "Poland Central", geoGroup: "europe", euSovereign: true },
-  { id: "italynorth", displayName: "Italy North", geoGroup: "europe", euSovereign: true },
-  { id: "spaincentral", displayName: "Spain Central", geoGroup: "europe", euSovereign: true },
-  { id: "ukwest", displayName: "UK West", geoGroup: "europe", euSovereign: false },
-  { id: "brazilsouth", displayName: "Brazil South", geoGroup: "americas", euSovereign: false },
-  { id: "westus", displayName: "West US", geoGroup: "americas", euSovereign: false },
-  { id: "westus2", displayName: "West US 2", geoGroup: "americas", euSovereign: false },
-  { id: "westcentralus", displayName: "West Central US", geoGroup: "americas", euSovereign: false },
-  {
-    id: "southcentralus",
-    displayName: "South Central US",
-    geoGroup: "americas",
-    euSovereign: false,
-  },
-  { id: "eastus", displayName: "East US", geoGroup: "americas", euSovereign: false },
-  { id: "eastus2", displayName: "East US 2", geoGroup: "americas", euSovereign: false },
-  { id: "canadacentral", displayName: "Canada Central", geoGroup: "americas", euSovereign: false },
-  {
-    id: "northcentralus",
-    displayName: "North Central US",
-    geoGroup: "americas",
-    euSovereign: false,
-  },
-  { id: "centralus", displayName: "Central US", geoGroup: "americas", euSovereign: false },
-  { id: "westus3", displayName: "West US 3", geoGroup: "americas", euSovereign: false },
-  { id: "canadaeast", displayName: "Canada East", geoGroup: "americas", euSovereign: false },
-  { id: "australiaeast", displayName: "Australia East", geoGroup: "asia", euSovereign: false },
-  { id: "southeastasia", displayName: "Southeast Asia", geoGroup: "asia", euSovereign: false },
-  { id: "eastasia", displayName: "East Asia", geoGroup: "asia", euSovereign: false },
-  { id: "japaneast", displayName: "Japan East", geoGroup: "asia", euSovereign: false },
-  { id: "centralindia", displayName: "Central India", geoGroup: "asia", euSovereign: false },
-  { id: "japanwest", displayName: "Japan West", geoGroup: "asia", euSovereign: false },
-  { id: "koreacentral", displayName: "Korea Central", geoGroup: "asia", euSovereign: false },
-  {
-    id: "southafricanorth",
-    displayName: "South Africa North",
-    geoGroup: "asia",
-    euSovereign: false,
-  },
-  { id: "uaenorth", displayName: "UAE North", geoGroup: "asia", euSovereign: false },
-  { id: "jioindiawest", displayName: "Jio India West", geoGroup: "asia", euSovereign: false },
-  { id: "qatarcentral", displayName: "Qatar Central", geoGroup: "asia", euSovereign: false },
-  { id: "southindia", displayName: "South India", geoGroup: "asia", euSovereign: false },
-  { id: "jioindiacentral", displayName: "Jio India Central", geoGroup: "asia", euSovereign: false },
+  { id: "brazilsouth", displayName: "Brazil South", geoGroup: "americas" },
+  { id: "canadacentral", displayName: "Canada Central", geoGroup: "americas" },
+  { id: "canadaeast", displayName: "Canada East", geoGroup: "americas" },
+  { id: "centralus", displayName: "Central US", geoGroup: "americas" },
+  { id: "eastus", displayName: "East US", geoGroup: "americas" },
+  { id: "eastus2", displayName: "East US 2", geoGroup: "americas" },
+  { id: "northcentralus", displayName: "North Central US", geoGroup: "americas" },
+  { id: "southcentralus", displayName: "South Central US", geoGroup: "americas" },
+  { id: "westcentralus", displayName: "West Central US", geoGroup: "americas" },
+  { id: "westus", displayName: "West US", geoGroup: "americas" },
+  { id: "westus2", displayName: "West US 2", geoGroup: "americas" },
+  { id: "westus3", displayName: "West US 3", geoGroup: "americas" },
+  { id: "francecentral", displayName: "France Central", geoGroup: "europe" },
+  { id: "germanywestcentral", displayName: "Germany West Central", geoGroup: "europe" },
+  { id: "italynorth", displayName: "Italy North", geoGroup: "europe" },
+  { id: "northeurope", displayName: "North Europe", geoGroup: "europe" },
+  { id: "norwayeast", displayName: "Norway East", geoGroup: "europe" },
+  { id: "polandcentral", displayName: "Poland Central", geoGroup: "europe" },
+  { id: "spaincentral", displayName: "Spain Central", geoGroup: "europe" },
+  { id: "swedencentral", displayName: "Sweden Central", geoGroup: "europe" },
+  { id: "switzerlandnorth", displayName: "Switzerland North", geoGroup: "europe" },
+  { id: "switzerlandwest", displayName: "Switzerland West", geoGroup: "europe" },
+  { id: "uksouth", displayName: "UK South", geoGroup: "europe" },
+  { id: "ukwest", displayName: "UK West", geoGroup: "europe" },
+  { id: "westeurope", displayName: "West Europe", geoGroup: "europe" },
+  { id: "qatarcentral", displayName: "Qatar Central", geoGroup: "middle-east" },
+  { id: "uaenorth", displayName: "UAE North", geoGroup: "middle-east" },
+  { id: "southafricanorth", displayName: "South Africa North", geoGroup: "africa" },
+  { id: "australiaeast", displayName: "Australia East", geoGroup: "asia-pacific" },
+  { id: "centralindia", displayName: "Central India", geoGroup: "asia-pacific" },
+  { id: "eastasia", displayName: "East Asia", geoGroup: "asia-pacific" },
+  { id: "japaneast", displayName: "Japan East", geoGroup: "asia-pacific" },
+  { id: "japanwest", displayName: "Japan West", geoGroup: "asia-pacific" },
+  { id: "koreacentral", displayName: "Korea Central", geoGroup: "asia-pacific" },
+  { id: "southeastasia", displayName: "Southeast Asia", geoGroup: "asia-pacific" },
+  { id: "southindia", displayName: "South India", geoGroup: "asia-pacific" },
 ];
 
 const REGION_BY_ID: ReadonlyMap<string, RegionMetadata> = new Map(

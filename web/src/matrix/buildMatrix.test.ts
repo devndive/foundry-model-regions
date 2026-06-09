@@ -19,8 +19,7 @@ const model = (id: string, over: Partial<NormalizedModel> = {}): NormalizedModel
 const region = (id: string, over: Partial<Region> = {}): Region => ({
   id,
   displayName: id,
-  geoGroup: "us",
-  euSovereign: false,
+  geoGroup: "americas",
   ...over,
 });
 
@@ -111,27 +110,20 @@ describe("buildMatrix", () => {
     expect(matrix.columns.map((c) => c.id)).toEqual(["vision", "audio"]);
   });
 
-  it("filters regions by geo group and EU sovereign toggle", () => {
+  it("filters regions by geo group", () => {
     const bundle: NormalizedBundle = {
       models: [model("m1")],
       availability: [avail("m1", "eastus"), avail("m1", "westeurope"), avail("m1", "uksouth")],
     };
     const regions = [
-      region("eastus", { geoGroup: "us", euSovereign: false }),
-      region("westeurope", { geoGroup: "europe", euSovereign: true }),
-      region("uksouth", { geoGroup: "europe", euSovereign: false }),
+      region("eastus", { geoGroup: "americas" }),
+      region("westeurope", { geoGroup: "europe" }),
+      region("uksouth", { geoGroup: "europe" }),
     ];
     const index = buildIndex(bundle, regions);
 
     const byGeo = buildMatrix(index, { ...defaultFilters, geoGroups: ["europe"] });
     expect(byGeo.rows.map((r) => r.id)).toEqual(["westeurope", "uksouth"]);
-
-    const euOnly = buildMatrix(index, {
-      ...defaultFilters,
-      geoGroups: ["europe"],
-      euSovereignOnly: true,
-    });
-    expect(euOnly.rows.map((r) => r.id)).toEqual(["westeurope"]);
   });
 
   it("filters models by lifecycle status and GA-only toggle", () => {

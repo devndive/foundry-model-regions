@@ -40,7 +40,7 @@ The testable core is a set of pure modules, TDD'd independently of React:
 
 - `data/index.ts` — `buildIndex` builds the SKU → (model, region) availability lookup
 - `matrix/buildMatrix.ts` — applies all filters (SKU, model/region/capability, geo group,
-  EU sovereign, lifecycle, GA-only), swap view (transpose) and sort, returning the grid
+  lifecycle, GA-only), swap view (transpose) and sort, returning the grid
 - `export/{toCsv,toMarkdown}.ts` — serialize the current filtered matrix
 - `filters/search.ts` — map filter state ↔ URL search params
 

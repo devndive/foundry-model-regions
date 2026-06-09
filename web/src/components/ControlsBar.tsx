@@ -101,14 +101,6 @@ export function ControlsBar({ filters, options, onChange, onExportCsv, onExportM
         />
         Hide deprecated
       </label>
-      <label className="toggle">
-        <input
-          type="checkbox"
-          checked={filters.euSovereignOnly}
-          onChange={(e) => onChange({ euSovereignOnly: e.target.checked })}
-        />
-        EU sovereign
-      </label>
 
       <span className="spacer" />
 

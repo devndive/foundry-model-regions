@@ -7,7 +7,6 @@ export type FilterSearch = Partial<{
   features: string[];
   capabilities: string[];
   geoGroups: string[];
-  euSovereignOnly: boolean;
   lifecycle: string[];
   gaOnly: boolean;
   hideDeprecated: boolean;
@@ -32,7 +31,6 @@ export function parseFilters(search: Record<string, unknown>): FilterState {
     features: strArray(search.features),
     capabilities: strArray(search.capabilities),
     geoGroups: strArray(search.geoGroups),
-    euSovereignOnly: search.euSovereignOnly === true,
     lifecycle: strArray(search.lifecycle),
     gaOnly: search.gaOnly === true,
     hideDeprecated: search.hideDeprecated !== false,
@@ -49,7 +47,6 @@ export function filtersToSearch(filters: FilterState): FilterSearch {
   if (filters.features.length) search.features = filters.features;
   if (filters.capabilities.length) search.capabilities = filters.capabilities;
   if (filters.geoGroups.length) search.geoGroups = filters.geoGroups;
-  if (filters.euSovereignOnly) search.euSovereignOnly = true;
   if (filters.lifecycle.length) search.lifecycle = filters.lifecycle;
   if (filters.gaOnly) search.gaOnly = true;
   if (!filters.hideDeprecated) search.hideDeprecated = false;

@@ -40,8 +40,12 @@
   --geo-americas-edge: #b9d3f1;
   --geo-europe: #eaf6ee;
   --geo-europe-edge: #b7e0c5;
-  --geo-asia: #f6efe6;
-  --geo-asia-edge: #e6cda8;
+  --geo-asia-pacific: #f6efe6;
+  --geo-asia-pacific-edge: #e6cda8;
+  --geo-middle-east: #f3ecf7;
+  --geo-middle-east-edge: #d8c2e6;
+  --geo-africa: #fbeeea;
+  --geo-africa-edge: #f0c6b9;
 
   font-family: "IBM Plex Sans", system-ui, sans-serif;
   color-scheme: light;
@@ -407,9 +411,17 @@ body {
   background: var(--geo-europe);
   border-left-color: var(--geo-europe-edge);
 }
-.geo-asia {
-  background: var(--geo-asia);
-  border-left-color: var(--geo-asia-edge);
+.geo-asia-pacific {
+  background: var(--geo-asia-pacific);
+  border-left-color: var(--geo-asia-pacific-edge);
+}
+.geo-middle-east {
+  background: var(--geo-middle-east);
+  border-left-color: var(--geo-middle-east-edge);
+}
+.geo-africa {
+  background: var(--geo-africa);
+  border-left-color: var(--geo-africa-edge);
 }
 
 tbody tr:hover td {

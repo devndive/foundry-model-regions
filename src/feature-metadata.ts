@@ -26,7 +26,6 @@ const ALL_CONTENT_SAFETY_REGIONS = [
   "southindia",
   "swedencentral",
   "switzerlandnorth",
-  "switzerlandwest",
   "uaenorth",
   "uksouth",
   "westeurope",
@@ -66,7 +65,7 @@ export const FEATURES: readonly Feature[] = [
     displayName: "AI Red Teaming Agent",
     sourceUrl: "https://learn.microsoft.com/en-us/azure/foundry/concepts/ai-red-teaming-agent",
     sectionAnchor: "agentic-risks",
-    regions: ["eastus2", "francecentral", "northcentralus", "swedencentral", "switzerlandwest"],
+    regions: ["eastus2", "francecentral", "northcentralus", "swedencentral"],
   },
   {
     // The article defers its region list to the Azure OpenAI Responses API
@@ -294,7 +293,7 @@ export const FEATURES: readonly Feature[] = [
     sourceUrl:
       "https://learn.microsoft.com/en-us/azure/foundry/concepts/evaluation-regions-limits-virtual-network",
     sectionAnchor: "risk-and-safety-evaluators-and-ai-red-teaming-region-support",
-    regions: ["eastus2", "francecentral", "northcentralus", "swedencentral", "switzerlandwest"],
+    regions: ["eastus2", "francecentral", "northcentralus", "swedencentral"],
   },
 ];
 

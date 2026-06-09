@@ -20,7 +20,6 @@ test("featureMetadata describes a Feature with its source descriptor and region 
     "francecentral",
     "northcentralus",
     "swedencentral",
-    "switzerlandwest",
   ]);
 });
 
@@ -69,13 +68,13 @@ test("Content Safety models every region-availability column as a first-class Fe
   const expectedCounts: Record<string, number> = {
     "content-safety-custom-categories-standard": 3,
     "content-safety-groundedness-detection": 6,
-    "content-safety-image": 21,
+    "content-safety-image": 20,
     "content-safety-multimodal": 2,
-    "content-safety-custom-categories-rapid": 21,
-    "content-safety-prompt-shields": 23,
-    "content-safety-protected-material-text": 23,
-    "content-safety-protected-material-code": 20,
-    "content-safety-text": 23,
+    "content-safety-custom-categories-rapid": 20,
+    "content-safety-prompt-shields": 22,
+    "content-safety-protected-material-text": 22,
+    "content-safety-protected-material-code": 19,
+    "content-safety-text": 22,
   };
 
   for (const [id, count] of Object.entries(expectedCounts)) {
@@ -132,7 +131,7 @@ test("Evaluation surfaces are modelled as first-class Features with their docume
   const counts: Record<string, number> = {
     "agent-playground-evaluations": 15,
     "batch-evaluations": 33,
-    "evaluators-risk-and-safety": 5,
+    "evaluators-risk-and-safety": 4,
   };
 
   for (const [id, count] of Object.entries(counts)) {
@@ -151,7 +150,7 @@ test("Evaluation surfaces are modelled as first-class Features with their docume
   const playground = featureMetadata("agent-playground-evaluations")?.regions ?? [];
   assert.ok(playground.every((r) => batch.has(r)));
 
-  // The risk-and-safety Evaluators surface lists its own five regions. Asserted
+  // The risk-and-safety Evaluators surface lists its own four regions. Asserted
   // directly (not by deep-equal against the AI Red Teaming Agent) so drift in
   // either independent article can't break the other's test.
   assert.deepEqual([...(featureMetadata("evaluators-risk-and-safety")?.regions ?? [])].sort(), [
@@ -159,7 +158,6 @@ test("Evaluation surfaces are modelled as first-class Features with their docume
     "francecentral",
     "northcentralus",
     "swedencentral",
-    "switzerlandwest",
   ]);
 });
 

@@ -7,6 +7,7 @@ import { resolveSku } from "./filters/resolveSku";
 import { ControlsBar } from "./components/ControlsBar";
 import { MatrixTable } from "./components/MatrixTable";
 import { Legend } from "./components/Legend";
+import { DataInfo } from "./components/DataInfo";
 import { toCsv } from "./export/toCsv";
 import { toMarkdown } from "./export/toMarkdown";
 import { download } from "./export/download";
@@ -37,6 +38,7 @@ export function App({ index, filters, onFiltersChange }: Props) {
         <h1>Foundry Model Regional Availability</h1>
       </header>
 
+
       <ControlsBar
         filters={effectiveFilters}
         options={options}
@@ -49,6 +51,7 @@ export function App({ index, filters, onFiltersChange }: Props) {
 
       <Legend />
       <MatrixTable matrix={matrix} />
+      <DataInfo features={index.features} />
     </div>
   );
 }

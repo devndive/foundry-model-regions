@@ -50,12 +50,16 @@ test("REGIONS is the full intended region set, partitioned across the geography 
     "asia-pacific": REGIONS.filter((r) => r.geoGroup === "asia-pacific"),
   };
 
-  assert.equal(byGroup.americas.length, 14);
-  assert.equal(byGroup.europe.length, 15);
-  assert.equal(byGroup["middle-east"].length, 3);
+  assert.equal(byGroup.americas.length, 12);
+  assert.equal(byGroup.europe.length, 12);
+  assert.equal(byGroup["middle-east"].length, 2);
   assert.equal(byGroup.africa.length, 1);
-  assert.equal(byGroup["asia-pacific"].length, 15);
-  assert.equal(REGIONS.length, 48);
+  assert.equal(byGroup["asia-pacific"].length, 8);
+  assert.equal(REGIONS.length, 35);
+
+  // The groups partition REGIONS: every region lands in exactly one group.
+  const grouped = Object.values(byGroup).reduce((sum, group) => sum + group.length, 0);
+  assert.equal(grouped, REGIONS.length);
 
   // No duplicate region ids across the table.
   assert.equal(new Set(REGIONS.map((r) => r.id)).size, REGIONS.length);

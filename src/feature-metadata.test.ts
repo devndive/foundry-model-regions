@@ -58,6 +58,7 @@ test("FEATURES is seeded from the source articles (Foundry Agents and Content Sa
     "foundry-agents",
     "hosted-agents",
     "hosted-agents-invocations-websocket",
+    "managed-virtual-network",
   ]);
   assert.equal(featureMetadata("foundry-agents")?.regions.length, 25);
 });
@@ -158,6 +159,36 @@ test("Evaluation surfaces are modelled as first-class Features with their docume
     "francecentral",
     "northcentralus",
     "swedencentral",
+  ]);
+});
+
+test("Managed Virtual Network is a first-class Feature with its documented region set", () => {
+  const mvn = featureMetadata("managed-virtual-network");
+  assert.equal(mvn?.displayName, "Managed Virtual Network");
+  assert.equal(
+    mvn?.sourceUrl,
+    "https://learn.microsoft.com/en-us/azure/foundry/how-to/managed-virtual-network",
+  );
+  assert.equal(mvn?.sectionAnchor, "limitations");
+  assert.deepEqual([...(mvn?.regions ?? [])].sort(), [
+    "australiaeast",
+    "brazilsouth",
+    "canadaeast",
+    "eastus",
+    "eastus2",
+    "francecentral",
+    "germanywestcentral",
+    "italynorth",
+    "japaneast",
+    "southafricanorth",
+    "southcentralus",
+    "southindia",
+    "spaincentral",
+    "swedencentral",
+    "uaenorth",
+    "uksouth",
+    "westus",
+    "westus3",
   ]);
 });
 

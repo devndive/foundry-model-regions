@@ -1,0 +1,15 @@
+Limitations
+Consider the following limitations before enabling managed network isolation for your Foundry resource.
+You can deploy a managed network Foundry resource in three ways.
+Bicep template in the folder 18-managed-virtual-network in foundry-samples
+Terraform template in the folder 18-managed-virtual-network in foundry-samples
+az rest and Azure CLI commands az cognitiveservices . More on Azure CLI support in this article below.
+There is no Azure Portal UI support to create the managed network yet. Support is coming soon.
+Once your Foundry resource is created, ensure you have assigned the Foundry resource's managed identity the built-in role of Azure AI Enterprise Network Connection Approver (role ID: b556d68e-0be0-4f35-a333-ad7ee1ce17ea ) to ensure the required private endpoint to the Foundry resource is created and approved.
+You can't disable managed virtual network isolation after enabling it. There's no upgrade path from custom virtual network set-up to managed virtual network. A Foundry resource redeployment is required. Deleting your Foundry resource deletes the managed virtual network.
+Support for managed virtual network is only in the following regions: East US, East US2, Japan East, France Central, UAE North, Brazil South, Spain Central, Germany West Central, Italy North, South Central US, Australia East, Sweden Central, Canada East, South Africa North, West US, West US 3, South India, and UK South. Additional region support to follow soon.
+If you require private access to on-premises resources for your Foundry resource, use Application Gateway to configure on-premises access. The same set-up with a private endpoint to Application Gateway and setting up backend pools is supported. Both L4 and L7 traffic are now supported with the Application Gateway in GA.
+If you create FQDN outbound rules when the managed virtual network is in Allow Only Approved Outbound mode, a managed Azure Firewall is created which comes with associated Firewall costs. For more on pricing, see Pricing . The FQDN outbound rules only support ports 80 and 443.
+You can't bring your own Azure Firewall to the managed virtual network. A managed firewall is automatically created for your Foundry account when you use Allow Only Approved Outbound mode.
+You can't reuse the same managed firewall for multiple Foundry accounts. Each Foundry account creates its own managed firewall when you use Allow Only Approved Outbound mode.
+If you create new projects within your Foundry resource that has managed virtual network enabled, you will need to recreate the project capability host as well to ensure the project is using the BYO resources and the managed network. More instructions are in the README for managed network set-up in foundry-samples repository .

@@ -1,0 +1,11 @@
+Supported regions for Agent playground evaluations
+The agent playground evaluations are supported in the following regions:
+Americas Europe
+East US 2 France Central
+West US Norway East
+West US 2 Sweden Central
+West US 3 Germany West Central
+Central US Italy North
+East US Poland Central
+North Central US Spain Central
+South Central US

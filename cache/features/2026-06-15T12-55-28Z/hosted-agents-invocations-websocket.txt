@@ -1,0 +1,27 @@
+Protocols: Responses, Invocations, and Invocations (WebSocket)
+Hosted agent containers can expose one or more protocols. Each protocol is provided by a lightweight library that handles the HTTP or WebSocket server, health checks, and OpenTelemetry integration. The Responses and Invocations protocols are available in all regions that support Hosted agents .
+Important
+The Invocations (WebSocket) protocol ( invocations_ws ) is in preview and is currently available only in North Central US .
+Which protocol should I use?
+Scenario Protocol Why
+Conversational chatbot or assistant Responses The platform manages conversation history, streaming events, and session lifecycle—use any OpenAI-compatible SDK as the client.
+Multi-turn Q&A with RAG or tools Responses Built-in conversation ID threading and tool result handling.
+Background / async processing Responses background: true with platform-managed polling and cancellation—no custom code needed.
+Agent published to Teams or Microsoft 365 Responses + Activity The Responses protocol powers the agent logic; the platform automatically bridges Responses to the Activity protocol for channel delivery.
+Webhook receiver (GitHub, Stripe, Jira, etc.) Invocations The external system sends its own payload format—you can't change it to match /responses.
+Non-conversational processing (classification, extraction, batch) Invocations The input is structured data, not a chat message. Arbitrary JSON in, arbitrary JSON out.
+Custom streaming protocol (AG-UI, etc.) Invocations AG-UI and other agent-UI protocols aren't OpenAI-compatible—you need raw SSE control.
+Protocol bridge (GitHub Copilot, proprietary systems) Invocations The caller has its own protocol that doesn't map to /responses.
+Real-time voice agent (microphone in, speech out) Invocations (WebSocket) Bidirectional streaming over a single persistent connection. Pair with Pipecat, LiveKit, or Voice Live in your container. See Build a voice agent .
+Tip
+Not sure? Start with Responses . You can always add an Invocations endpoint later—a Hosted agent can support both protocols simultaneously.
+Protocol comparison
+Responses Invocations
+Best for Most agents—the platform manages conversation history, streaming lifecycle, and background execution Agents that need full HTTP control, custom payloads, or long-running async workflows
+Payload OpenAI-compatible /responses contract Arbitrary JSON via /invocations—you define the schema
+Client SDK Any OpenAI-compatible SDK (Python, JS, C#) works out of the box Custom client—you define the contract
+Session history Platform-managed via conversation ID You manage sessions (in-memory, Cosmos DB, etc.)
+Streaming Platform-managed ResponseEventStream with lifecycle events Raw SSE—you format and write events directly
+Background / long-running Built-in (background: true + platform-managed polling) Manual task tracking and custom polling endpoints
+Additional protocols
+Hosted agents also support the Activity protocol for Teams and Microsoft 365 channel integration. When you use the Responses protocol for agent logic and publish to Microsoft 365 channels such as Teams, the platform automatically bridges Responses to the Activity protocol for channel delivery—no separate wiring is required. The A2A protocol supports agent-to-agent delegation. Supported protocols can be combined in a single agent.

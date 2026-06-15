@@ -295,6 +295,41 @@ export const FEATURES: readonly Feature[] = [
     sectionAnchor: "risk-and-safety-evaluators-and-ai-red-teaming-region-support",
     regions: ["eastus2", "francecentral", "northcentralus", "swedencentral"],
   },
+  {
+    // Managed virtual network for the new Agent service / Foundry portal. The
+    // supported-region list appears twice in the article: in the lead paragraph
+    // (no heading id) and as an explicit "Support for managed virtual network is
+    // only in the following " bullet under the "Limitations" heading.regions: 
+    // We anchor to "limitations" because it is the addressable heading whose
+    // slice carries the region list, so drift fires when Microsoft edits the
+    // regions (ADR- unlike "understand-isolation-modes", which describes0002) 
+    // outbound modes and contains no region text, so region drift would go
+    // silently unnoticed.
+    id: "managed-virtual-network",
+    displayName: "Managed Virtual Network",
+    sourceUrl: "https://learn.microsoft.com/en-us/azure/foundry/how-to/managed-virtual-network",
+    sectionAnchor: "limitations",
+    regions: [
+      "australiaeast",
+      "brazilsouth",
+      "canadaeast",
+      "eastus",
+      "eastus2",
+      "francecentral",
+      "germanywestcentral",
+      "italynorth",
+      "japaneast",
+      "southafricanorth",
+      "southcentralus",
+      "southindia",
+      "spaincentral",
+      "swedencentral",
+      "uaenorth",
+      "uksouth",
+      "westus",
+      "westus3",
+    ],
+  },
 ];
 
 const FEATURE_BY_ID: ReadonlyMap<string, Feature> = new Map(

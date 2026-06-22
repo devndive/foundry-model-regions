@@ -1,0 +1,68 @@
+name: Daily model-cache refresh
+
+on:
+  schedule:
+    # Daily at 06:00 UTC. Keeps the model-availability cache fresh automatically.
+    # The Azure ARM API can return models and SKUs in varying order, so we use
+    # check-model-drift to detect only real changes, not incidental re-ordering.
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  id-token: write
+
+concurrency:
+  group: refresh-model-cache
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Login to Azure (OIDC)
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Fetch fresh model snapshot
+        run: npm run fetch-models
+
+      - name: Check for model availability changes
+        id: check_drift
+        run: |
+          npm run check-model-drift
+          echo "changed=true" >> $GITHUB_OUTPUT
+        continue-on-error: true
+
+      - name: Commit and push if model availability changed
+        if: steps.check_drift.outcome == 'success' && steps.check_drift.exit_code == 1
+        run: |
+          if [ -n "$(git status --porcelain cache)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add cache
+            git commit -m "chore: refresh model-availability cache ($(date -u +%Y-%m-%dT%H-%M-%SZ))"
+            git push
+          else
+            echo "No cache changes to commit."
+          fi
+
+      - name: Fail if any region fetch error
+        if: steps.check_drift.outcome == 'failure'
+        run: |
+          echo "::error::fetch-models failed for one or more regions. Aborting commit."
+          exit 1

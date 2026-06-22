@@ -48,6 +48,8 @@ jobs:
       # explicitly so the commit step can branch on a real value.
       - name: Check for model availability changes
         id: check_drift
+        env:
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         run: |
           set +e
           npm run check-model-drift

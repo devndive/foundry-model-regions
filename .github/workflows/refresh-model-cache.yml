@@ -41,6 +41,8 @@ jobs:
       # fetch-models exits non-zero if ANY region errors, which fails this step
       # and aborts the job before any commit — a partial dataset is never published.
       - name: Fetch fresh model snapshot
+        env:
+          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         run: npm run fetch-models
 
       # check-model-drift signals via exit code: 0 = unchanged, 1 = changed
@@ -48,8 +50,6 @@ jobs:
       # explicitly so the commit step can branch on a real value.
       - name: Check for model availability changes
         id: check_drift
-        env:
-          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         run: |
           set +e
           npm run check-model-drift

@@ -38,18 +38,29 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+      # fetch-models exits non-zero if ANY region errors, which fails this step
+      # and aborts the job before any commit — a partial dataset is never published.
       - name: Fetch fresh model snapshot
         run: npm run fetch-models
 
+      # check-model-drift signals via exit code: 0 = unchanged, 1 = changed
+      # (incl. a new baseline), 2 = usage error / no snapshot. Capture it
+      # explicitly so the commit step can branch on a real value.
       - name: Check for model availability changes
         id: check_drift
         run: |
+          set +e
           npm run check-model-drift
-          echo "changed=true" >> $GITHUB_OUTPUT
-        continue-on-error: true
+          code=$?
+          set -e
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          if [ "$code" -eq 2 ]; then
+            echo "::error::check-model-drift could not run (no candidate snapshot)."
+            exit 1
+          fi
 
       - name: Commit and push if model availability changed
-        if: steps.check_drift.outcome == 'success' && steps.check_drift.exit_code == 1
+        if: steps.check_drift.outputs.code == '1'
         run: |
           if [ -n "$(git status --porcelain cache)" ]; then
             git config user.name "github-actions[bot]"
@@ -61,8 +72,6 @@ jobs:
             echo "No cache changes to commit."
           fi
 
-      - name: Fail if any region fetch error
-        if: steps.check_drift.outcome == 'failure'
-        run: |
-          echo "::error::fetch-models failed for one or more regions. Aborting commit."
-          exit 1
+      - name: Report no change
+        if: steps.check_drift.outputs.code == '0'
+        run: echo "Model availability facts unchanged — nothing to commit."

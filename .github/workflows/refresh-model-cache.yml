@@ -11,6 +11,8 @@ on:
 permissions:
   contents: write
   id-token: write
+  # Required for `gh workflow run deploy-pages.yml` (workflow_dispatch API).
+  actions: write
 
 concurrency:
   group: refresh-model-cache

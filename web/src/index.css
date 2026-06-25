@@ -279,6 +279,30 @@ body {
   padding: 6px;
 }
 
+.multiselect-search {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 6px;
+  padding: 6px 9px;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  background: var(--panel);
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-family: inherit;
+}
+.multiselect-search:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.multiselect-empty {
+  padding: 6px 9px;
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  font-style: italic;
+}
+
 .multiselect-option {
   display: flex;
   gap: 9px;

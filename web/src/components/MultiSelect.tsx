@@ -7,12 +7,15 @@ interface Props {
   selected: string[];
   onChange: (next: string[]) => void;
   groups?: OptionGroup[];
+  searchable?: boolean;
 }
 
-export function MultiSelect({ label, options, selected, onChange, groups }: Props) {
+export function MultiSelect({ label, options, selected, onChange, groups, searchable }: Props) {
   const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
   const ref = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
   const menuId = useId();
 
   useEffect(() => {
@@ -22,6 +25,11 @@ export function MultiSelect({ label, options, selected, onChange, groups }: Prop
     document.addEventListener("mousedown", onDocClick);
     return () => document.removeEventListener("mousedown", onDocClick);
   }, []);
+
+  useEffect(() => {
+    if (!open) setQuery("");
+    else if (searchable) searchRef.current?.focus();
+  }, [open, searchable]);
 
   const close = () => {
     setOpen(false);
@@ -43,6 +51,10 @@ export function MultiSelect({ label, options, selected, onChange, groups }: Prop
   };
 
   const summary = selected.length === 0 ? label : `${label} (${selected.length})`;
+
+  const term = query.trim().toLowerCase();
+  const visibleOptions =
+    searchable && term ? options.filter((o) => o.label.toLowerCase().includes(term)) : options;
 
   return (
     <div
@@ -68,6 +80,18 @@ export function MultiSelect({ label, options, selected, onChange, groups }: Prop
       </button>
       {open && (
         <div className="multiselect-menu" id={menuId} role="group" aria-label={label}>
+          {searchable && (
+            <input
+              ref={searchRef}
+              type="text"
+              role="searchbox"
+              className="multiselect-search"
+              placeholder={`Search ${label.toLowerCase()}…`}
+              aria-label={`Search ${label}`}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          )}
           {groups && groups.length > 0 && (
             <div className="multiselect-groups">
               {groups.map((group) => {
@@ -91,7 +115,7 @@ export function MultiSelect({ label, options, selected, onChange, groups }: Prop
               Clear
             </button>
           )}
-          {options.map((opt) => (
+          {visibleOptions.map((opt) => (
             <label key={opt.value} className="multiselect-option">
               <input
                 type="checkbox"
@@ -101,6 +125,9 @@ export function MultiSelect({ label, options, selected, onChange, groups }: Prop
               {opt.label}
             </label>
           ))}
+          {searchable && term && visibleOptions.length === 0 && (
+            <div className="multiselect-empty">No matching {label.toLowerCase()}</div>
+          )}
         </div>
       )}
     </div>

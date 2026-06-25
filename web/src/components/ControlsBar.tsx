@@ -32,6 +32,7 @@ export function ControlsBar({ filters, options, onChange, onExportCsv, onExportM
         groups={options.modelGroups}
         selected={filters.models}
         onChange={(models) => onChange({ models })}
+        searchable
       />
       <MultiSelect
         label="Regions"

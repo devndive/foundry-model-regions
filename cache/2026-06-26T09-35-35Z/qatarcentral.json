@@ -1,0 +1,2264 @@
+[
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "whisper",
+      "version": "001",
+      "isDefaultVersion": true,
+      "skus": [],
+      "maxCapacity": 9999,
+      "capabilities": {
+        "scaleType": "Standard",
+        "audio": "true",
+        "audioTranscriptions": "true",
+        "audioTranslations": "true"
+      },
+      "deprecation": {
+        "inference": "2026-12-15T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/whisper/versions/001",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2023-09-14T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2023-09-14T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-4o",
+      "version": "2024-05-13",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-10-01T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 100000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "jsonObjectResponse": "true",
+        "maxContextToken": "128000",
+        "maxOutputToken": "4096",
+        "assistants": "true",
+        "FineTuneTokensMaxValuePerExample": "131072",
+        "FineTuneTokensMaxValue": "2000000000",
+        "allowProvisionedManagedCommitment": "true",
+        "responses": "true",
+        "agentsV2": "true"
+      },
+      "deprecation": {
+        "fineTune": "2026-10-01T00:00:00Z",
+        "inference": "2026-10-01T00:00:00Z"
+      },
+      "replacementConfig": {
+        "targetModelName": "gpt-5.1",
+        "targetModelVersion": "2025-11-13",
+        "autoUpgradeStartDate": "2026-03-09T00:00:00.000Z",
+        "upgradeOnExpiryLeadTimeDays": 23
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-4o/versions/2024-05-13",
+      "lifecycleStatus": "Deprecating",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2024-05-13T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2024-08-21T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-4o",
+      "version": "2024-08-06",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-10-01T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 100000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "assistants": "true",
+        "jsonSchemaResponse": "true",
+        "maxContextToken": "128000",
+        "maxOutputToken": "16384",
+        "FineTuneTokensMaxValuePerExample": "131072",
+        "FineTuneTokensMaxValue": "2000000000",
+        "allowProvisionedManagedCommitment": "true",
+        "responses": "true",
+        "agentsV2": "true"
+      },
+      "deprecation": {
+        "fineTune": "2026-10-01T00:00:00Z",
+        "inference": "2026-10-01T00:00:00Z"
+      },
+      "replacementConfig": {
+        "targetModelName": "gpt-5.1",
+        "targetModelVersion": "2025-11-13",
+        "autoUpgradeStartDate": "2026-03-09T00:00:00.000Z",
+        "upgradeOnExpiryLeadTimeDays": 23
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-4o/versions/2024-08-06",
+      "lifecycleStatus": "Deprecating",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2024-08-06T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2024-08-21T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-4o-mini",
+      "version": "2024-07-18",
+      "isDefaultVersion": true,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-10-01T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 100000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "jsonObjectResponse": "true",
+        "maxContextToken": "128000",
+        "maxOutputToken": "16384",
+        "assistants": "true",
+        "FineTuneTokensMaxValuePerExample": "131072",
+        "FineTuneTokensMaxValue": "2000000000",
+        "allowProvisionedManagedCommitment": "true",
+        "responses": "true",
+        "agentsV2": "true"
+      },
+      "deprecation": {
+        "fineTune": "2026-10-01T00:00:00Z",
+        "inference": "2026-10-01T00:00:00Z"
+      },
+      "replacementConfig": {
+        "targetModelName": "gpt-4.1-mini",
+        "targetModelVersion": "2025-04-14",
+        "autoUpgradeStartDate": "2026-09-17T00:00:00.000Z",
+        "upgradeOnExpiryLeadTimeDays": 23
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-4o-mini/versions/2024-07-18",
+      "lifecycleStatus": "Deprecating",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2024-07-19T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2024-08-21T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-4o",
+      "version": "2024-11-20",
+      "isDefaultVersion": true,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-10-01T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "assistants": "true",
+        "jsonSchemaResponse": "true",
+        "allowProvisionedManagedCommitment": "true",
+        "responses": "true",
+        "agentsV2": "true"
+      },
+      "deprecation": {
+        "inference": "2026-10-01T00:00:00Z"
+      },
+      "replacementConfig": {
+        "targetModelName": "gpt-5.1",
+        "targetModelVersion": "2025-11-13",
+        "autoUpgradeStartDate": "2026-09-17T00:00:00.000Z",
+        "upgradeOnExpiryLeadTimeDays": 7
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-4o/versions/2024-11-20",
+      "lifecycleStatus": "Deprecating",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2024-12-03T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2024-12-03T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-4o-audio-preview",
+      "version": "2024-12-17",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "Provisioned",
+          "usageName": "OpenAI.Provisioned.gpt-4o-audio-preview",
+          "deprecationDate": "2026-03-24T00:00:00.000Z",
+          "capacity": {
+            "minimum": 100,
+            "maximum": 30000,
+            "step": 100,
+            "default": 100
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "completion": "false",
+        "realtime": "false",
+        "jsonObjectResponse": "false",
+        "assistants": "false",
+        "maxContextToken": "128000",
+        "maxOutputToken": "16384",
+        "allowProvisionedManagedCommitment": "false"
+      },
+      "deprecation": {
+        "fineTune": "2026-03-24T00:00:00Z",
+        "inference": "2026-03-24T00:00:00Z",
+        "deprecationStatus": "Planned"
+      },
+      "replacementConfig": {
+        "targetModelName": "gpt-audio",
+        "targetModelVersion": "2025-08-28",
+        "autoUpgradeStartDate": "2025-10-29T00:00:00.000Z",
+        "upgradeOnExpiryLeadTimeDays": 20
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-4o-audio-preview/versions/2024-12-17",
+      "lifecycleStatus": "Deprecated",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-01-21T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-01-21T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "o1",
+      "version": "2024-12-17",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-07-15T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true"
+      },
+      "deprecation": {
+        "inference": "2026-07-15T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/o1/versions/2024-12-17",
+      "lifecycleStatus": "Deprecating",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2024-09-26T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2024-09-26T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-4.1",
+      "version": "2025-04-14",
+      "isDefaultVersion": true,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-10-14T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "priorityTierSkus": "GlobalStandard",
+        "FineTuneTokensMaxValuePerExample": "65536",
+        "FineTuneTokensMaxValue": "2000000000",
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true"
+      },
+      "deprecation": {
+        "fineTune": "2026-10-14T00:00:00Z",
+        "inference": "2026-10-14T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-4.1/versions/2025-04-14",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-04-11T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-04-11T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-4.1-mini",
+      "version": "2025-04-14",
+      "isDefaultVersion": true,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-10-14T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "FineTuneTokensMaxValuePerExample": "65536",
+        "FineTuneTokensMaxValue": "2000000000",
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true"
+      },
+      "deprecation": {
+        "fineTune": "2026-10-14T00:00:00Z",
+        "inference": "2026-10-14T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-4.1-mini/versions/2025-04-14",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-04-11T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-04-11T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-4.1-nano",
+      "version": "2025-04-14",
+      "isDefaultVersion": true,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-10-14T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true",
+        "FineTuneTokensMaxValuePerExample": "32768",
+        "FineTuneTokensMaxValue": "2000000000"
+      },
+      "deprecation": {
+        "fineTune": "2026-10-14T00:00:00Z",
+        "inference": "2026-10-14T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-4.1-nano/versions/2025-04-14",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-04-11T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-04-11T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "o3-mini",
+      "version": "2025-01-31",
+      "isDefaultVersion": true,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-08-02T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "FineTuneTokensMaxValuePerExample": "131072",
+        "FineTuneTokensMaxValue": "2000000000",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true"
+      },
+      "deprecation": {
+        "fineTune": "2026-08-02T00:00:00Z",
+        "inference": "2026-08-02T00:00:00Z"
+      },
+      "replacementConfig": {
+        "targetModelName": "o4-mini",
+        "targetModelVersion": "2025-04-16",
+        "autoUpgradeStartDate": "2026-07-17T00:00:00.000Z",
+        "upgradeOnExpiryLeadTimeDays": 7
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/o3-mini/versions/2025-01-31",
+      "lifecycleStatus": "Deprecating",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-01-28T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-01-28T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "o4-mini",
+      "version": "2025-04-16",
+      "isDefaultVersion": true,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-10-16T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "false",
+        "FineTuneTokensMaxValuePerExample": "131072",
+        "FineTuneTokensMaxValue": "2000000000"
+      },
+      "deprecation": {
+        "fineTune": "2026-10-16T00:00:00Z",
+        "inference": "2026-10-16T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/o4-mini/versions/2025-04-16",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-04-11T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-04-11T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "babbage",
+      "version": "1",
+      "isDefaultVersion": false,
+      "skus": [],
+      "maxCapacity": 3,
+      "capabilities": {
+        "inference": "false",
+        "scaleType": "Manual",
+        "completion": "true",
+        "search": "true",
+        "FineTuneTokensMaxValuePerExample": "4096",
+        "FineTuneTokensMaxValue": "2000000000"
+      },
+      "deprecation": {
+        "fineTune": "2024-06-14T00:00:00Z",
+        "inference": "2024-06-14T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/babbage/versions/1",
+      "lifecycleStatus": "Deprecated",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdAt": "2022-03-01T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedAt": "2023-07-06T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "davinci",
+      "version": "1",
+      "isDefaultVersion": false,
+      "skus": [],
+      "maxCapacity": 3,
+      "capabilities": {
+        "inference": "false",
+        "scaleType": "Manual",
+        "completion": "true",
+        "search": "true",
+        "FineTuneTokensMaxValuePerExample": "4096",
+        "FineTuneTokensMaxValue": "2000000000"
+      },
+      "deprecation": {
+        "fineTune": "2024-06-14T00:00:00Z",
+        "inference": "2024-06-14T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/davinci/versions/1",
+      "lifecycleStatus": "Deprecated",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdAt": "2022-03-01T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedAt": "2023-07-06T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "curie",
+      "version": "1",
+      "isDefaultVersion": false,
+      "skus": [],
+      "maxCapacity": 3,
+      "capabilities": {
+        "inference": "false",
+        "scaleType": "Manual",
+        "completion": "true",
+        "search": "true",
+        "FineTuneTokensMaxValuePerExample": "4096",
+        "FineTuneTokensMaxValue": "2000000000"
+      },
+      "deprecation": {
+        "fineTune": "2024-06-14T00:00:00Z",
+        "inference": "2024-06-14T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/curie/versions/1",
+      "lifecycleStatus": "Deprecated",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdAt": "2022-03-01T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedAt": "2023-07-06T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "ada",
+      "version": "1",
+      "isDefaultVersion": false,
+      "skus": [],
+      "maxCapacity": 3,
+      "capabilities": {
+        "inference": "false",
+        "scaleType": "Manual",
+        "completion": "true",
+        "search": "true",
+        "FineTuneTokensMaxValuePerExample": "4096",
+        "FineTuneTokensMaxValue": "2000000000"
+      },
+      "deprecation": {
+        "fineTune": "2024-06-14T00:00:00Z",
+        "inference": "2024-06-14T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/ada/versions/1",
+      "lifecycleStatus": "Deprecated",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdAt": "2022-03-01T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedAt": "2023-07-06T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5",
+      "version": "2025-08-07",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2027-02-06T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true",
+        "FineTuneTokensMaxValuePerExample": "196608",
+        "FineTuneTokensMaxValue": "2000000000"
+      },
+      "deprecation": {
+        "fineTune": "2027-02-06T00:00:00Z",
+        "inference": "2027-02-06T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5/versions/2025-08-07",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-08-07T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-08-07T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5-mini",
+      "version": "2025-08-07",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2027-02-06T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true"
+      },
+      "deprecation": {
+        "inference": "2027-02-06T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5-mini/versions/2025-08-07",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-08-07T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-08-07T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5.1",
+      "version": "2025-11-13",
+      "isDefaultVersion": true,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2027-05-15T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "responses": "true",
+        "assistants": "true",
+        "priorityTierSkus": "GlobalStandard"
+      },
+      "deprecation": {
+        "fineTune": "2027-05-15T00:00:00Z",
+        "inference": "2027-05-15T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5.1/versions/2025-11-13",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-11-11T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-11-11T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5.1-codex",
+      "version": "2025-11-13",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2027-05-15T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "false",
+        "responses": "true",
+        "agentsV2": "true"
+      },
+      "deprecation": {
+        "inference": "2027-05-15T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5.1-codex/versions/2025-11-13",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-11-07T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-11-07T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5.2",
+      "version": "2025-12-11",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-12-12T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true",
+        "priorityTierSkus": "GlobalStandard"
+      },
+      "deprecation": {
+        "inference": "2026-12-12T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5.2/versions/2025-12-11",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-12-04T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-12-04T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5.2-codex",
+      "version": "2026-01-14",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2027-01-14T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "false",
+        "responses": "true",
+        "agentsV2": "true"
+      },
+      "deprecation": {
+        "inference": "2027-01-14T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5.2-codex/versions/2026-01-14",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2026-01-13T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2026-01-13T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5.3-codex",
+      "version": "2026-02-24",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2027-02-25T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "false",
+        "responses": "true",
+        "agentsV2": "true"
+      },
+      "deprecation": {
+        "inference": "2027-02-25T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5.3-codex/versions/2026-02-24",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2026-02-24T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2026-02-24T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5.4",
+      "version": "2026-03-05",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2027-03-05T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true",
+        "priorityTierSkus": "GlobalStandard"
+      },
+      "deprecation": {
+        "inference": "2027-03-05T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5.4/versions/2026-03-05",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2026-03-02T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2026-03-02T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5.4-mini",
+      "version": "2026-03-17",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2027-08-08T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true",
+        "FineTuneTokensMaxValuePerExample": "196608",
+        "FineTuneTokensMaxValue": "2000000000",
+        "priorityTierSkus": "GlobalStandard"
+      },
+      "deprecation": {
+        "fineTune": "2027-03-18T00:00:00Z",
+        "inference": "2027-03-18T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5.4-mini/versions/2026-03-17",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2026-03-17T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2026-03-17T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5.5",
+      "version": "2026-04-24",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2027-04-23T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true",
+        "priorityTierSkus": "GlobalStandard"
+      },
+      "deprecation": {
+        "inference": "2027-04-24T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5.5/versions/2026-04-24",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2026-04-22T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2026-04-22T00:00:00.000Z"
+      }
+    },
+    "kind": "OpenAI",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "whisper",
+      "version": "001",
+      "isDefaultVersion": true,
+      "skus": [],
+      "maxCapacity": 9999,
+      "capabilities": {
+        "scaleType": "Standard",
+        "audio": "true",
+        "audioTranscriptions": "true",
+        "audioTranslations": "true"
+      },
+      "deprecation": {
+        "inference": "2026-12-15T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/whisper/versions/001",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2023-09-14T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2023-09-14T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-4o",
+      "version": "2024-05-13",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-10-01T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 100000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "jsonObjectResponse": "true",
+        "maxContextToken": "128000",
+        "maxOutputToken": "4096",
+        "assistants": "true",
+        "FineTuneTokensMaxValuePerExample": "131072",
+        "FineTuneTokensMaxValue": "2000000000",
+        "allowProvisionedManagedCommitment": "true",
+        "responses": "true",
+        "agentsV2": "true"
+      },
+      "deprecation": {
+        "fineTune": "2026-10-01T00:00:00Z",
+        "inference": "2026-10-01T00:00:00Z"
+      },
+      "replacementConfig": {
+        "targetModelName": "gpt-5.1",
+        "targetModelVersion": "2025-11-13",
+        "autoUpgradeStartDate": "2026-03-09T00:00:00.000Z",
+        "upgradeOnExpiryLeadTimeDays": 23
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-4o/versions/2024-05-13",
+      "lifecycleStatus": "Deprecating",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2024-05-13T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2024-08-21T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-4o",
+      "version": "2024-08-06",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-10-01T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 100000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "assistants": "true",
+        "jsonSchemaResponse": "true",
+        "maxContextToken": "128000",
+        "maxOutputToken": "16384",
+        "FineTuneTokensMaxValuePerExample": "131072",
+        "FineTuneTokensMaxValue": "2000000000",
+        "allowProvisionedManagedCommitment": "true",
+        "responses": "true",
+        "agentsV2": "true"
+      },
+      "deprecation": {
+        "fineTune": "2026-10-01T00:00:00Z",
+        "inference": "2026-10-01T00:00:00Z"
+      },
+      "replacementConfig": {
+        "targetModelName": "gpt-5.1",
+        "targetModelVersion": "2025-11-13",
+        "autoUpgradeStartDate": "2026-03-09T00:00:00.000Z",
+        "upgradeOnExpiryLeadTimeDays": 23
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-4o/versions/2024-08-06",
+      "lifecycleStatus": "Deprecating",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2024-08-06T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2024-08-21T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-4o-mini",
+      "version": "2024-07-18",
+      "isDefaultVersion": true,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-10-01T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 100000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "jsonObjectResponse": "true",
+        "maxContextToken": "128000",
+        "maxOutputToken": "16384",
+        "assistants": "true",
+        "FineTuneTokensMaxValuePerExample": "131072",
+        "FineTuneTokensMaxValue": "2000000000",
+        "allowProvisionedManagedCommitment": "true",
+        "responses": "true",
+        "agentsV2": "true"
+      },
+      "deprecation": {
+        "fineTune": "2026-10-01T00:00:00Z",
+        "inference": "2026-10-01T00:00:00Z"
+      },
+      "replacementConfig": {
+        "targetModelName": "gpt-4.1-mini",
+        "targetModelVersion": "2025-04-14",
+        "autoUpgradeStartDate": "2026-09-17T00:00:00.000Z",
+        "upgradeOnExpiryLeadTimeDays": 23
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-4o-mini/versions/2024-07-18",
+      "lifecycleStatus": "Deprecating",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2024-07-19T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2024-08-21T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-4o",
+      "version": "2024-11-20",
+      "isDefaultVersion": true,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-10-01T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "assistants": "true",
+        "jsonSchemaResponse": "true",
+        "allowProvisionedManagedCommitment": "true",
+        "responses": "true",
+        "agentsV2": "true"
+      },
+      "deprecation": {
+        "inference": "2026-10-01T00:00:00Z"
+      },
+      "replacementConfig": {
+        "targetModelName": "gpt-5.1",
+        "targetModelVersion": "2025-11-13",
+        "autoUpgradeStartDate": "2026-09-17T00:00:00.000Z",
+        "upgradeOnExpiryLeadTimeDays": 7
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-4o/versions/2024-11-20",
+      "lifecycleStatus": "Deprecating",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2024-12-03T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2024-12-03T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-4o-audio-preview",
+      "version": "2024-12-17",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "Provisioned",
+          "usageName": "OpenAI.Provisioned.gpt-4o-audio-preview",
+          "deprecationDate": "2026-03-24T00:00:00.000Z",
+          "capacity": {
+            "minimum": 100,
+            "maximum": 30000,
+            "step": 100,
+            "default": 100
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "completion": "false",
+        "realtime": "false",
+        "jsonObjectResponse": "false",
+        "assistants": "false",
+        "maxContextToken": "128000",
+        "maxOutputToken": "16384",
+        "allowProvisionedManagedCommitment": "false"
+      },
+      "deprecation": {
+        "fineTune": "2026-03-24T00:00:00Z",
+        "inference": "2026-03-24T00:00:00Z",
+        "deprecationStatus": "Planned"
+      },
+      "replacementConfig": {
+        "targetModelName": "gpt-audio",
+        "targetModelVersion": "2025-08-28",
+        "autoUpgradeStartDate": "2025-10-29T00:00:00.000Z",
+        "upgradeOnExpiryLeadTimeDays": 20
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-4o-audio-preview/versions/2024-12-17",
+      "lifecycleStatus": "Deprecated",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-01-21T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-01-21T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "o1",
+      "version": "2024-12-17",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-07-15T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true"
+      },
+      "deprecation": {
+        "inference": "2026-07-15T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/o1/versions/2024-12-17",
+      "lifecycleStatus": "Deprecating",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2024-09-26T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2024-09-26T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-4.1",
+      "version": "2025-04-14",
+      "isDefaultVersion": true,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-10-14T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "priorityTierSkus": "GlobalStandard",
+        "FineTuneTokensMaxValuePerExample": "65536",
+        "FineTuneTokensMaxValue": "2000000000",
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true"
+      },
+      "deprecation": {
+        "fineTune": "2026-10-14T00:00:00Z",
+        "inference": "2026-10-14T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-4.1/versions/2025-04-14",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-04-11T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-04-11T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-4.1-mini",
+      "version": "2025-04-14",
+      "isDefaultVersion": true,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-10-14T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "FineTuneTokensMaxValuePerExample": "65536",
+        "FineTuneTokensMaxValue": "2000000000",
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true"
+      },
+      "deprecation": {
+        "fineTune": "2026-10-14T00:00:00Z",
+        "inference": "2026-10-14T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-4.1-mini/versions/2025-04-14",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-04-11T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-04-11T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-4.1-nano",
+      "version": "2025-04-14",
+      "isDefaultVersion": true,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-10-14T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true",
+        "FineTuneTokensMaxValuePerExample": "32768",
+        "FineTuneTokensMaxValue": "2000000000"
+      },
+      "deprecation": {
+        "fineTune": "2026-10-14T00:00:00Z",
+        "inference": "2026-10-14T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-4.1-nano/versions/2025-04-14",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-04-11T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-04-11T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "o3-mini",
+      "version": "2025-01-31",
+      "isDefaultVersion": true,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-08-02T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "FineTuneTokensMaxValuePerExample": "131072",
+        "FineTuneTokensMaxValue": "2000000000",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true"
+      },
+      "deprecation": {
+        "fineTune": "2026-08-02T00:00:00Z",
+        "inference": "2026-08-02T00:00:00Z"
+      },
+      "replacementConfig": {
+        "targetModelName": "o4-mini",
+        "targetModelVersion": "2025-04-16",
+        "autoUpgradeStartDate": "2026-07-17T00:00:00.000Z",
+        "upgradeOnExpiryLeadTimeDays": 7
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/o3-mini/versions/2025-01-31",
+      "lifecycleStatus": "Deprecating",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-01-28T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-01-28T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "o4-mini",
+      "version": "2025-04-16",
+      "isDefaultVersion": true,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-10-16T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "false",
+        "FineTuneTokensMaxValuePerExample": "131072",
+        "FineTuneTokensMaxValue": "2000000000"
+      },
+      "deprecation": {
+        "fineTune": "2026-10-16T00:00:00Z",
+        "inference": "2026-10-16T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/o4-mini/versions/2025-04-16",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-04-11T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-04-11T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "babbage",
+      "version": "1",
+      "isDefaultVersion": false,
+      "skus": [],
+      "maxCapacity": 3,
+      "capabilities": {
+        "inference": "false",
+        "scaleType": "Manual",
+        "completion": "true",
+        "search": "true",
+        "FineTuneTokensMaxValuePerExample": "4096",
+        "FineTuneTokensMaxValue": "2000000000"
+      },
+      "deprecation": {
+        "fineTune": "2024-06-14T00:00:00Z",
+        "inference": "2024-06-14T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/babbage/versions/1",
+      "lifecycleStatus": "Deprecated",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdAt": "2022-03-01T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedAt": "2023-07-06T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "davinci",
+      "version": "1",
+      "isDefaultVersion": false,
+      "skus": [],
+      "maxCapacity": 3,
+      "capabilities": {
+        "inference": "false",
+        "scaleType": "Manual",
+        "completion": "true",
+        "search": "true",
+        "FineTuneTokensMaxValuePerExample": "4096",
+        "FineTuneTokensMaxValue": "2000000000"
+      },
+      "deprecation": {
+        "fineTune": "2024-06-14T00:00:00Z",
+        "inference": "2024-06-14T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/davinci/versions/1",
+      "lifecycleStatus": "Deprecated",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdAt": "2022-03-01T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedAt": "2023-07-06T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "curie",
+      "version": "1",
+      "isDefaultVersion": false,
+      "skus": [],
+      "maxCapacity": 3,
+      "capabilities": {
+        "inference": "false",
+        "scaleType": "Manual",
+        "completion": "true",
+        "search": "true",
+        "FineTuneTokensMaxValuePerExample": "4096",
+        "FineTuneTokensMaxValue": "2000000000"
+      },
+      "deprecation": {
+        "fineTune": "2024-06-14T00:00:00Z",
+        "inference": "2024-06-14T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/curie/versions/1",
+      "lifecycleStatus": "Deprecated",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdAt": "2022-03-01T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedAt": "2023-07-06T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "ada",
+      "version": "1",
+      "isDefaultVersion": false,
+      "skus": [],
+      "maxCapacity": 3,
+      "capabilities": {
+        "inference": "false",
+        "scaleType": "Manual",
+        "completion": "true",
+        "search": "true",
+        "FineTuneTokensMaxValuePerExample": "4096",
+        "FineTuneTokensMaxValue": "2000000000"
+      },
+      "deprecation": {
+        "fineTune": "2024-06-14T00:00:00Z",
+        "inference": "2024-06-14T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/ada/versions/1",
+      "lifecycleStatus": "Deprecated",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdAt": "2022-03-01T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedAt": "2023-07-06T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5",
+      "version": "2025-08-07",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2027-02-06T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true",
+        "FineTuneTokensMaxValuePerExample": "196608",
+        "FineTuneTokensMaxValue": "2000000000"
+      },
+      "deprecation": {
+        "fineTune": "2027-02-06T00:00:00Z",
+        "inference": "2027-02-06T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5/versions/2025-08-07",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-08-07T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-08-07T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5-mini",
+      "version": "2025-08-07",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2027-02-06T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true"
+      },
+      "deprecation": {
+        "inference": "2027-02-06T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5-mini/versions/2025-08-07",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-08-07T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-08-07T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5.1",
+      "version": "2025-11-13",
+      "isDefaultVersion": true,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2027-05-15T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "responses": "true",
+        "assistants": "true",
+        "priorityTierSkus": "GlobalStandard"
+      },
+      "deprecation": {
+        "fineTune": "2027-05-15T00:00:00Z",
+        "inference": "2027-05-15T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5.1/versions/2025-11-13",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-11-11T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-11-11T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5.1-codex",
+      "version": "2025-11-13",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2027-05-15T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "false",
+        "responses": "true",
+        "agentsV2": "true"
+      },
+      "deprecation": {
+        "inference": "2027-05-15T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5.1-codex/versions/2025-11-13",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-11-07T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-11-07T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5.2",
+      "version": "2025-12-11",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2026-12-12T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true",
+        "priorityTierSkus": "GlobalStandard"
+      },
+      "deprecation": {
+        "inference": "2026-12-12T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5.2/versions/2025-12-11",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2025-12-04T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2025-12-04T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5.2-codex",
+      "version": "2026-01-14",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2027-01-14T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "false",
+        "responses": "true",
+        "agentsV2": "true"
+      },
+      "deprecation": {
+        "inference": "2027-01-14T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5.2-codex/versions/2026-01-14",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2026-01-13T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2026-01-13T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5.3-codex",
+      "version": "2026-02-24",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2027-02-25T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "false",
+        "responses": "true",
+        "agentsV2": "true"
+      },
+      "deprecation": {
+        "inference": "2027-02-25T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5.3-codex/versions/2026-02-24",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2026-02-24T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2026-02-24T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5.4",
+      "version": "2026-03-05",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2027-03-05T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true",
+        "priorityTierSkus": "GlobalStandard"
+      },
+      "deprecation": {
+        "inference": "2027-03-05T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5.4/versions/2026-03-05",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2026-03-02T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2026-03-02T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5.4-mini",
+      "version": "2026-03-17",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2027-08-08T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true",
+        "FineTuneTokensMaxValuePerExample": "196608",
+        "FineTuneTokensMaxValue": "2000000000",
+        "priorityTierSkus": "GlobalStandard"
+      },
+      "deprecation": {
+        "fineTune": "2027-03-18T00:00:00Z",
+        "inference": "2027-03-18T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5.4-mini/versions/2026-03-17",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2026-03-17T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2026-03-17T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  },
+  {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5.5",
+      "version": "2026-04-24",
+      "isDefaultVersion": false,
+      "skus": [
+        {
+          "name": "GlobalProvisionedManaged",
+          "usageName": "OpenAI.GlobalProvisionedManaged",
+          "deprecationDate": "2027-04-23T00:00:00.000Z",
+          "capacity": {
+            "minimum": 15,
+            "maximum": 30000,
+            "step": 5
+          }
+        }
+      ],
+      "maxCapacity": 3,
+      "capabilities": {
+        "chatCompletion": "true",
+        "responses": "true",
+        "agentsV2": "true",
+        "assistants": "true",
+        "priorityTierSkus": "GlobalStandard"
+      },
+      "deprecation": {
+        "inference": "2027-04-24T00:00:00Z"
+      },
+      "modelCatalogAssetId": "azureml://registries/azure-openai/models/gpt-5.5/versions/2026-04-24",
+      "lifecycleStatus": "GenerallyAvailable",
+      "systemData": {
+        "createdBy": "Microsoft",
+        "createdByType": "Application",
+        "createdAt": "2026-04-22T00:00:00.000Z",
+        "lastModifiedBy": "Microsoft",
+        "lastModifiedByType": "Application",
+        "lastModifiedAt": "2026-04-22T00:00:00.000Z"
+      }
+    },
+    "kind": "AIServices",
+    "skuName": "S0"
+  }
+]

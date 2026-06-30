@@ -27,7 +27,6 @@ const TONES: Record<string, string> = {
   AUDIO: "badge--audio",
   VISION: "badge--vision",
   SEARCH: "badge--search",
-  REASONING: "badge--reason",
   CHAT: "badge--chat",
   EMBEDDINGS: "badge--embed",
 };

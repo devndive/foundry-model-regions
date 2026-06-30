@@ -38,20 +38,21 @@ export function App({ index, filters, onFiltersChange }: Props) {
         <h1>Foundry Model Regional Availability</h1>
       </header>
 
+      <main className="app-main">
+        <ControlsBar
+          filters={effectiveFilters}
+          options={options}
+          onChange={onFiltersChange}
+          onExportCsv={() => download("foundry-availability.csv", toCsv(matrix), "text/csv")}
+          onExportMarkdown={() =>
+            download("foundry-availability.md", toMarkdown(matrix), "text/markdown")
+          }
+        />
 
-      <ControlsBar
-        filters={effectiveFilters}
-        options={options}
-        onChange={onFiltersChange}
-        onExportCsv={() => download("foundry-availability.csv", toCsv(matrix), "text/csv")}
-        onExportMarkdown={() =>
-          download("foundry-availability.md", toMarkdown(matrix), "text/markdown")
-        }
-      />
-
-      <Legend />
-      <MatrixTable matrix={matrix} />
-      <DataInfo features={index.features} />
+        <Legend />
+        <MatrixTable matrix={matrix} />
+        <DataInfo features={index.features} />
+      </main>
     </div>
   );
 }

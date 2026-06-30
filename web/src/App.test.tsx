@@ -109,6 +109,6 @@ describe("App", () => {
     const skuSelect = screen.getByLabelText("SKU type") as HTMLSelectElement;
     expect(skuSelect.value).toBe("Standard");
     // The matrix must reflect the resolved SKU, marking the eastus/m1 cell available.
-    expect(screen.getByRole("cell", { name: "✓" })).toBeInTheDocument();
+    expect(screen.getByRole("cell", { name: "Generally available" })).toBeInTheDocument();
   });
 });

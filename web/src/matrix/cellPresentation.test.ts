@@ -6,7 +6,7 @@ describe("cellPresentation", () => {
     expect(cellPresentation(false, "Preview")).toEqual({
       className: "cell",
       glyph: "",
-      title: "",
+      label: "Not available",
     });
   });
 
@@ -14,6 +14,7 @@ describe("cellPresentation", () => {
     const cell = cellPresentation(true, "GenerallyAvailable");
     expect(cell.className).toBe("cell available");
     expect(cell.glyph).toBe("✓");
+    expect(cell.label).toBe("Generally available");
   });
 
   it("treats unknown-but-available status as generally available", () => {
@@ -24,7 +25,7 @@ describe("cellPresentation", () => {
     const cell = cellPresentation(true, "Preview");
     expect(cell.className).toBe("cell available preview");
     expect(cell.glyph).toBe("◐");
-    expect(cell.title).toBe("Preview");
+    expect(cell.label).toBe("Preview");
   });
 
   it("marks deprecating and deprecated models with a warning glyph", () => {

@@ -2,3 +2,4 @@
 node_modules
 dist/
 drift-report.json
+.impeccable/

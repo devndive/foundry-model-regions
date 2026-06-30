@@ -1,23 +1,29 @@
-@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");
-
 :root {
   /* Surfaces */
   --paper: #f7f8fa;
   --panel: #ffffff;
   --ink: #161a1d;
   --ink-soft: #5a6470;
-  --ink-faint: #8b94a0;
+  --ink-faint: #666e7a;
   --line: #e2e6eb;
   --line-strong: #cdd3da;
+  /* Raised neutral surfaces above panel: sticky matrix header/column and muted chips */
+  --surface-sticky: #eef1f4;
+  --surface-muted: #e7ebef;
 
   /* Brand + states */
   --accent: #0b6bcb;
   --accent-soft: #e8f1fc;
-  --available: #1f9d55;
+
+  /* Brand mark: the four-tile logo dots (blue reuses --accent) */
+  --mark-red: #e0483d;
+  --mark-green: #28a745;
+  --mark-blue: var(--accent);
+  --mark-yellow: #f5b400;
+  --available: #1a7d3e;
   --available-bg: #e4f6ec;
-  --amber: #c98a00;
+  --amber: #9a5f00;
   --amber-bg: #fdf3da;
-  --amber-line: #f0d79a;
   --danger: #c0392b;
   --danger-bg: #fbe6e3;
 
@@ -28,8 +34,6 @@
   --t-vision-bg: #e3effb;
   --t-search: #6a3fc0;
   --t-search-bg: #efe8fb;
-  --t-reason: #d2660a;
-  --t-reason-bg: #fcecdc;
   --t-chat: #14794a;
   --t-chat-bg: #e2f4ea;
   --t-embed: #0f7d8c;
@@ -91,16 +95,16 @@ body {
   border-radius: 3px;
 }
 .brand-mark span:nth-child(1) {
-  background: #e0483d;
+  background: var(--mark-red);
 }
 .brand-mark span:nth-child(2) {
-  background: #28a745;
+  background: var(--mark-green);
 }
 .brand-mark span:nth-child(3) {
-  background: var(--accent);
+  background: var(--mark-blue);
 }
 .brand-mark span:nth-child(4) {
-  background: #f5b400;
+  background: var(--mark-yellow);
 }
 
 .app-header h1 {
@@ -117,7 +121,7 @@ body {
   margin: 28px 0 0;
   background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
 }
 
@@ -160,6 +164,11 @@ body {
 
 .data-info-body a {
   color: var(--accent);
+}
+.data-info-body a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 .data-info-sources {
@@ -248,6 +257,9 @@ body {
 .toggle:hover {
   background: var(--paper);
 }
+.toggle:has(input:focus-visible) {
+  box-shadow: 0 0 0 3px rgba(11, 107, 203, 0.18);
+}
 .toggle input {
   accent-color: var(--accent);
   width: 14px;
@@ -273,7 +285,7 @@ body {
   overflow-y: auto;
   background: var(--panel);
   border: 1px solid var(--line-strong);
-  border-radius: 10px;
+  border-radius: 12px;
   box-shadow: 0 16px 38px rgba(22, 26, 29, 0.16);
   min-width: 230px;
   padding: 6px;
@@ -285,7 +297,7 @@ body {
   margin-bottom: 6px;
   padding: 6px 9px;
   border: 1px solid var(--line-strong);
-  border-radius: 7px;
+  border-radius: 8px;
   background: var(--panel);
   color: var(--ink);
   font-size: 0.82rem;
@@ -294,6 +306,7 @@ body {
 .multiselect-search:focus {
   outline: none;
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(11, 107, 203, 0.18);
 }
 
 .multiselect-empty {
@@ -308,13 +321,17 @@ body {
   gap: 9px;
   align-items: center;
   padding: 6px 9px;
-  border-radius: 7px;
+  border-radius: 8px;
   font-size: 0.82rem;
   cursor: pointer;
   white-space: nowrap;
 }
 .multiselect-option:hover {
   background: var(--accent-soft);
+}
+.multiselect-option:has(input:focus-visible) {
+  background: var(--accent-soft);
+  box-shadow: inset 0 0 0 1px var(--accent);
 }
 .multiselect-option input {
   accent-color: var(--accent);
@@ -332,6 +349,14 @@ body {
   font-size: 0.72rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  border-radius: 8px;
+}
+.multiselect-clear:hover {
+  background: var(--accent-soft);
+}
+.multiselect-clear:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(11, 107, 203, 0.18);
 }
 
 .multiselect-groups {
@@ -355,6 +380,11 @@ body {
 .multiselect-group:hover {
   background: var(--accent-soft);
 }
+.multiselect-group:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(11, 107, 203, 0.18);
+}
 .multiselect-group.is-active {
   background: var(--accent);
   border-color: var(--accent);
@@ -365,6 +395,12 @@ body {
   font-size: 0.6rem;
   color: var(--ink-faint);
   margin-left: 2px;
+  display: inline-block;
+  vertical-align: middle;
+  transition: transform 0.15s ease;
+}
+.control[aria-expanded="true"] .caret {
+  transform: rotate(180deg);
 }
 
 /* ---------- Matrix ---------- */
@@ -376,11 +412,31 @@ body {
   background: var(--panel);
   box-shadow: 0 1px 2px rgba(22, 26, 29, 0.04);
 }
+.matrix-scroll:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow:
+    0 1px 2px rgba(22, 26, 29, 0.04),
+    0 0 0 3px rgba(11, 107, 203, 0.18);
+}
 
 .matrix {
   border-collapse: separate;
   border-spacing: 0;
   font-size: 0.78rem;
+}
+
+.matrix-caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 .matrix th,
@@ -395,7 +451,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 5;
-  background: #eef1f4;
+  background: var(--surface-sticky);
   vertical-align: top;
   padding: 8px 6px;
   border-bottom: 2px solid var(--line-strong);
@@ -405,7 +461,7 @@ body {
   position: sticky;
   left: 0;
   z-index: 6;
-  background: #eef1f4;
+  background: var(--surface-sticky);
   text-align: left;
   white-space: nowrap;
 }
@@ -447,7 +503,7 @@ body {
   font-size: 0.54rem;
   font-weight: 600;
   letter-spacing: 0.08em;
-  background: #e7ebef;
+  background: var(--surface-muted);
   color: var(--ink-soft);
   border-radius: 4px;
   padding: 2px 5px;
@@ -464,10 +520,6 @@ body {
 .badge--search {
   background: var(--t-search-bg);
   color: var(--t-search);
-}
-.badge--reason {
-  background: var(--t-reason-bg);
-  color: var(--t-reason);
 }
 .badge--chat {
   background: var(--t-chat-bg);
@@ -567,4 +619,17 @@ tbody tr:hover td {
   height: 22px;
   border-radius: 4px;
   font-weight: 700;
+}
+
+/* ---------- Motion ---------- */
+/* Motion here only ever conveys state; honor the user's reduced-motion preference. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -16,9 +16,22 @@ export function MatrixTable({ matrix }: { matrix: Matrix }) {
     return <p className="empty">No data matches the current filters.</p>;
   }
 
+  const rowsAre = matrix.swapped ? "models" : "regions";
+  const colsAre = matrix.swapped ? "regions" : "models";
+  const caption =
+    `Azure AI Foundry model availability. Rows are ${rowsAre}, columns are ${colsAre}. ` +
+    `Each cell shows whether the model is generally available, in preview, ` +
+    `deprecating, or not available in that region.`;
+
   return (
-    <div className="matrix-scroll">
+    <div
+      className="matrix-scroll"
+      tabIndex={0}
+      role="region"
+      aria-label="Model availability matrix"
+    >
       <table className="matrix">
+        <caption className="matrix-caption">{caption}</caption>
         <thead>
           <tr>
             <th className="corner sticky-col">{cornerLabel}</th>
@@ -26,7 +39,7 @@ export function MatrixTable({ matrix }: { matrix: Matrix }) {
               const badge =
                 col.kind === "model" && col.model ? capabilityBadge(col.model.capabilities) : "";
               return (
-                <th key={col.id} className="col-head" title={col.label}>
+                <th key={col.id} scope="col" className="col-head" title={col.label}>
                   <div className="col-name">{col.label}</div>
                   {col.kind === "model" && col.model && (
                     <>
@@ -43,6 +56,7 @@ export function MatrixTable({ matrix }: { matrix: Matrix }) {
           {matrix.rows.map((row, ri) => (
             <tr key={row.id}>
               <th
+                scope="row"
                 className={`row-head sticky-col${row.region ? ` geo-${row.region.geoGroup}` : ""}`}
                 title={row.label}
               >
@@ -54,9 +68,10 @@ export function MatrixTable({ matrix }: { matrix: Matrix }) {
                   <td
                     key={matrix.columns[ci].id}
                     className={cell.className}
-                    title={cell.title || undefined}
+                    aria-label={cell.label}
+                    title={available ? cell.label : undefined}
                   >
-                    {cell.glyph}
+                    <span aria-hidden="true">{cell.glyph}</span>
                   </td>
                 );
               })}

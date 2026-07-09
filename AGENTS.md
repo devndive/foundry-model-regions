@@ -18,5 +18,5 @@ Single-context: one `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agent
 
 Before any UI/design work, read `PRODUCT.md` (strategic: register, users, principles,
 anti-references) and `DESIGN.md` (visual system: tokens, typography, components) at the
-repo root. They are the source of truth for the matrix web app (`web/`) — keep new
+repo root. They are the source of truth for the matrix web app (`apps/web/`) — keep new
 screens on-brand and honor the No-Color-Alone and One Voice rules.

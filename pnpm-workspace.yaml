@@ -1,0 +1,11 @@
+packages:
+  - apps/*
+  - packages/*
+
+# Shared toolchain, pinned to the newest of the previously-drifted versions.
+# Referenced from every package via "catalog:" so versions can never drift again.
+catalog:
+  typescript: 6.0.3
+  oxlint: 1.69.0
+  oxfmt: 0.54.0
+  "@types/node": 25.9.3

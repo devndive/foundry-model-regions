@@ -1,0 +1,37 @@
+{
+  "name": "@foundry/pipeline",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "dist/fetch-models.js",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "tsc && node --test \"dist/**/*.test.js\"",
+    "fetch-models": "tsc && node dist/fetch-models.js",
+    "emit-models": "tsc && node dist/emit-models.js",
+    "emit-region-metadata": "tsc && node dist/emit-region-metadata.js",
+    "emit-features": "tsc && node dist/emit-features.js",
+    "check-feature-drift": "tsc && node dist/check-feature-drift.js",
+    "check-model-drift": "tsc && node dist/check-model-drift.js",
+    "sync-data": "mkdir -p ../../apps/web/public/data && cp dist/models.json dist/regions.json dist/features.json ../../apps/web/public/data/",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix"
+  },
+  "dependencies": {
+    "@azure/arm-cognitiveservices": "^9.0.0-beta.2",
+    "@azure/identity": "^4.13.1"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "typescript": "catalog:"
+  }
+}

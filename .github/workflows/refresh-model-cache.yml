@@ -25,13 +25,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: 26
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Login to Azure (OIDC)
         uses: azure/login@v3.0.0
@@ -45,7 +48,7 @@ jobs:
       - name: Fetch fresh model snapshot
         env:
           AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        run: npm run fetch-models
+        run: pnpm --filter @foundry/pipeline fetch-models
 
       # check-model-drift signals via exit code: 0 = unchanged, 1 = changed
       # (incl. a new baseline), 2 = usage error / no snapshot. Capture it
@@ -54,7 +57,7 @@ jobs:
         id: check_drift
         run: |
           set +e
-          npm run check-model-drift
+          pnpm --filter @foundry/pipeline check-model-drift
           code=$?
           set -e
           echo "code=$code" >> "$GITHUB_OUTPUT"
@@ -68,10 +71,10 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         if: steps.check_drift.outputs.code == '1'
         run: |
-          if [ -n "$(git status --porcelain cache)" ]; then
+          if [ -n "$(git status --porcelain packages/pipeline/cache)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add cache
+            git add packages/pipeline/cache
             git commit -m "chore: refresh model-availability cache ($(date -u +%Y-%m-%dT%H-%M-%SZ))"
             git push
             gh workflow run deploy-pages.yml --ref main

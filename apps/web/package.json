@@ -1,5 +1,5 @@
 {
-  "name": "foundry-model-regions-web",
+  "name": "@foundry/web",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "check": "npm run typecheck && vitest run",
+    "check": "pnpm typecheck && vitest run",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -29,9 +29,9 @@
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "6.0.2",
     "jsdom": "29.1.1",
-    "oxfmt": "0.53.0",
-    "oxlint": "^1.67.0",
-    "typescript": "6.0.3",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "typescript": "catalog:",
     "vite": "8.0.16",
     "vitest": "4.1.8"
   }

@@ -22,25 +22,28 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: 26
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Check feature articles for drift
-        run: npm run check-feature-drift
+        run: pnpm --filter @foundry/pipeline check-feature-drift
 
       # Stage 1: a new snapshot directory literally means "drift happened" — commit
       # only the new snapshots, never feature-metadata.ts (humans own correctness).
       - name: Commit new snapshots
         run: |
-          if [ -n "$(git status --porcelain cache/features)" ]; then
+          if [ -n "$(git status --porcelain packages/pipeline/cache/features)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add cache/features
+            git add packages/pipeline/cache/features
             git commit -m "chore: snapshot feature article drift ($(date -u +%Y-%m-%dT%H-%M-%SZ))"
             git push
           else
@@ -55,11 +58,11 @@ jobs:
         run: |
           gh label create needs-triage --color FBCA04 \
             --description "Maintainer needs to evaluate this issue" 2>/dev/null || true
-          count=$(jq '[.[] | select(.opensIssue)] | length' drift-report.json)
+          count=$(jq '[.[] | select(.opensIssue)] | length' packages/pipeline/drift-report.json)
           echo "Opening $count triage issue(s)."
-          for i in $(jq -r 'to_entries[] | select(.value.opensIssue) | .key' drift-report.json); do
-            title=$(jq -r ".[$i].issueTitle" drift-report.json)
-            jq -r ".[$i].issueBody" drift-report.json > /tmp/drift-body.md
+          for i in $(jq -r 'to_entries[] | select(.value.opensIssue) | .key' packages/pipeline/drift-report.json); do
+            title=$(jq -r ".[$i].issueTitle" packages/pipeline/drift-report.json)
+            jq -r ".[$i].issueBody" packages/pipeline/drift-report.json > /tmp/drift-body.md
             gh issue create --title "$title" --body-file /tmp/drift-body.md --label needs-triage
           done
 
@@ -67,8 +70,8 @@ jobs:
       # silent restructure of the article can't slip past unnoticed.
       - name: Fail loudly on unresolved anchors
         run: |
-          if jq -e 'any(.[]; .status == "anchor-missing")' drift-report.json >/dev/null; then
+          if jq -e 'any(.[]; .status == "anchor-missing")' packages/pipeline/drift-report.json >/dev/null; then
             echo "::error::One or more feature section anchors no longer resolve."
-            jq -r '.[] | select(.status == "anchor-missing") | "  - \(.featureId): \(.sourceUrl)#\(.sectionAnchor)"' drift-report.json
+            jq -r '.[] | select(.status == "anchor-missing") | "  - \(.featureId): \(.sourceUrl)#\(.sectionAnchor)"' packages/pipeline/drift-report.json
             exit 1
           fi

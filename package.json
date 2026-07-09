@@ -1,34 +1,21 @@
 {
   "name": "foundry-model-regions",
   "version": "1.0.0",
-  "description": "",
-  "keywords": [],
-  "license": "ISC",
-  "author": "",
+  "private": true,
   "type": "module",
-  "main": "dist/fetch-models.js",
   "scripts": {
-    "build": "tsc",
-    "test": "tsc && node --test \"dist/**/*.test.js\"",
-    "fetch-models": "tsc && node dist/fetch-models.js",
-    "emit-models": "tsc && node dist/emit-models.js",
-    "emit-region-metadata": "tsc && node dist/emit-region-metadata.js",
-    "emit-features": "tsc && node dist/emit-features.js",
-    "check-feature-drift": "tsc && node dist/check-feature-drift.js",
-    "check-model-drift": "tsc && node dist/check-model-drift.js",
-    "fmt": "oxfmt",
-    "fmt:check": "oxfmt --check",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "sync-data": "pnpm --filter @foundry/pipeline sync-data",
     "lint": "oxlint",
-    "lint:fix": "oxlint --fix"
-  },
-  "dependencies": {
-    "@azure/arm-cognitiveservices": "^9.0.0-beta.2",
-    "@azure/identity": "^4.13.1"
+    "lint:fix": "oxlint --fix",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check"
   },
   "devDependencies": {
-    "@types/node": "25.9.3",
-    "oxfmt": "0.54.0",
-    "oxlint": "1.69.0",
-    "typescript": "6.0.3"
-  }
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:"
+  },
+  "packageManager": "pnpm@10.33.0"
 }

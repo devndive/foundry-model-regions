@@ -1,18 +1,10 @@
-// Geography groups mirror the Azure regions list in the Microsoft reliability
-// documentation: https://learn.microsoft.com/azure/reliability/regions-list
-export type GeoGroup = "americas" | "europe" | "middle-east" | "africa" | "asia-pacific";
-
-export interface RegionMetadata {
-  id: string;
-  displayName: string;
-  geoGroup: GeoGroup;
-}
+import type { Region } from "@foundry/data-types";
 
 // The single source of truth for region coverage and grouping. Each row states
 // the whole truth about one region. Regions are grouped by geography exactly as
 // the Microsoft reliability regions list groups them; regions that the list does
 // not include are deliberately omitted here.
-export const REGIONS: readonly RegionMetadata[] = [
+export const REGIONS: readonly Region[] = [
   { id: "brazilsouth", displayName: "Brazil South", geoGroup: "americas" },
   { id: "canadacentral", displayName: "Canada Central", geoGroup: "americas" },
   { id: "canadaeast", displayName: "Canada East", geoGroup: "americas" },
@@ -50,10 +42,10 @@ export const REGIONS: readonly RegionMetadata[] = [
   { id: "southindia", displayName: "South India", geoGroup: "asia-pacific" },
 ];
 
-const REGION_BY_ID: ReadonlyMap<string, RegionMetadata> = new Map(
+const REGION_BY_ID: ReadonlyMap<string, Region> = new Map(
   REGIONS.map((region) => [region.id, region]),
 );
 
-export function regionMetadata(id: string): RegionMetadata | null {
+export function regionMetadata(id: string): Region | null {
   return REGION_BY_ID.get(id) ?? null;
 }

@@ -1,10 +1,4 @@
-export interface Feature {
-  id: string;
-  displayName: string;
-  sourceUrl: string;
-  sectionAnchor: string;
-  regions: readonly string[];
-}
+import type { Feature, FeaturesArtifact } from "@foundry/data-types";
 
 // The full set of tracked regions in the Azure AI Content Safety
 // region-availability table (FairFax / USGov rows excluded). Reused by the
@@ -299,10 +293,10 @@ export const FEATURES: readonly Feature[] = [
     // Managed virtual network for the new Agent service / Foundry portal. The
     // supported-region list appears twice in the article: in the lead paragraph
     // (no heading id) and as an explicit "Support for managed virtual network is
-    // only in the following " bullet under the "Limitations" heading.regions: 
+    // only in the following " bullet under the "Limitations" heading.regions:
     // We anchor to "limitations" because it is the addressable heading whose
     // slice carries the region list, so drift fires when Microsoft edits the
-    // regions (ADR- unlike "understand-isolation-modes", which describes0002) 
+    // regions (ADR- unlike "understand-isolation-modes", which describes0002)
     // outbound modes and contains no region text, so region drift would go
     // silently unnoticed.
     id: "managed-virtual-network",
@@ -338,16 +332,6 @@ const FEATURE_BY_ID: ReadonlyMap<string, Feature> = new Map(
 
 export function featureMetadata(id: string): Feature | null {
   return FEATURE_BY_ID.get(id) ?? null;
-}
-
-export interface FeatureAvailabilityRow {
-  featureId: string;
-  region: string;
-}
-
-export interface FeaturesArtifact {
-  features: readonly Feature[];
-  availability: readonly FeatureAvailabilityRow[];
 }
 
 // Derives the flat, closed-world (featureId, region) availability rows from the

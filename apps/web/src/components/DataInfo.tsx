@@ -1,7 +1,7 @@
-import type { Feature } from "../data/types";
+import type { Feature } from "@foundry/data-types";
 
 interface Props {
-  features: Feature[];
+  features: readonly Feature[];
 }
 
 interface SourceLink {
@@ -26,7 +26,7 @@ function collapseLabels(labels: string[]): string[] {
   });
 }
 
-function featureSources(features: Feature[]): SourceLink[] {
+function featureSources(features: readonly Feature[]): SourceLink[] {
   const byUrl = new Map<string, string[]>();
   for (const feature of features) {
     const labels = byUrl.get(feature.sourceUrl) ?? [];
@@ -62,8 +62,8 @@ export function DataInfo({ features }: Props) {
         <p>
           Foundry features (e.g. AI Red Teaming Agent, Foundry Agents, Hosted Agents) are{" "}
           <strong>not</strong> API-derivable. Their regional availability is read from Microsoft
-          Learn articles and treated as closed-world: a tracked region not listed by a feature&apos;s
-          article is shown as unavailable, not unknown.
+          Learn articles and treated as closed-world: a tracked region not listed by a
+          feature&apos;s article is shown as unavailable, not unknown.
         </p>
 
         {sources.length > 0 && (

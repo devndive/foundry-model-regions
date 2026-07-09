@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { buildIndex } from "../data/index";
 import { buildMatrix, defaultFilters } from "./buildMatrix";
-import type { NormalizedBundle, NormalizedModel, Region } from "../data/types";
+import type { NormalizedBundle, NormalizedModel, Region } from "@foundry/data-types";
 
 const model = (id: string, over: Partial<NormalizedModel> = {}): NormalizedModel => ({
   id,

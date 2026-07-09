@@ -29,6 +29,7 @@
     "@azure/identity": "^4.13.1"
   },
   "devDependencies": {
+    "@foundry/data-types": "workspace:*",
     "@types/node": "catalog:",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",

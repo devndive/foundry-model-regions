@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { renderDriftIssue } from "./drift-issue.js";
-import { type Feature } from "./feature-metadata.js";
+import type { Feature } from "@foundry/data-types";
 
 const FEATURE: Feature = {
   id: "hosted-agents",

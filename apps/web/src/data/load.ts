@@ -1,4 +1,4 @@
-import type { FeaturesArtifact, NormalizedBundle, Region } from "./types";
+import type { FeaturesArtifact, NormalizedBundle, Region } from "@foundry/data-types";
 import { buildIndex, type AvailabilityIndex } from "./index";
 
 const DATA_BASE = `${import.meta.env.BASE_URL}data`;

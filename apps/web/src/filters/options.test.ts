@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { buildOptions } from "./options";
 import { buildIndex } from "../data/index";
-import type { NormalizedBundle, NormalizedModel, Region } from "../data/types";
+import type { NormalizedBundle, NormalizedModel, Region } from "@foundry/data-types";
 
 function model(id: string, format: string): NormalizedModel {
   return {

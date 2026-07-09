@@ -42,6 +42,9 @@ importers:
         specifier: 19.2.7
         version: 19.2.7(react@19.2.7)
     devDependencies:
+      '@foundry/data-types':
+        specifier: workspace:*
+        version: link:../../packages/data-types
       '@testing-library/jest-dom':
         specifier: ^6.6.3
         version: 6.9.1
@@ -79,6 +82,12 @@ importers:
         specifier: 4.1.8
         version: 4.1.8(@types/node@25.9.3)(jsdom@29.1.1)(vite@8.0.16(@types/node@25.9.3))
 
+  packages/data-types:
+    devDependencies:
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+
   packages/pipeline:
     dependencies:
       '@azure/arm-cognitiveservices':
@@ -88,6 +97,9 @@ importers:
         specifier: ^4.13.1
         version: 4.13.1
     devDependencies:
+      '@foundry/data-types':
+        specifier: workspace:*
+        version: link:../data-types
       '@types/node':
         specifier: 'catalog:'
         version: 25.9.3

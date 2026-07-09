@@ -1,13 +1,8 @@
 import { readdir, readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { type Model } from "@azure/arm-cognitiveservices";
-import {
-  type AvailabilityFact,
-  type NormalizedBundle,
-  type NormalizedModel,
-  normalizeModels,
-  type RegionSnapshot,
-} from "./normalize-models.js";
+import type { AvailabilityFact, NormalizedBundle, NormalizedModel } from "@foundry/data-types";
+import { normalizeModels, type RegionSnapshot } from "./normalize-models.js";
 import { SNAPSHOT_KEY_PATTERN } from "./snapshots.js";
 
 export type ModelDriftStatus = "new" | "unchanged" | "changed";

@@ -1,5 +1,5 @@
 import type { AvailabilityIndex } from "../data/index";
-import type { NormalizedModel, Region } from "../data/types";
+import type { NormalizedModel, Region } from "@foundry/data-types";
 
 export type SortKey = "default" | "name" | "availability";
 

@@ -1,4 +1,4 @@
-import { type Feature } from "./feature-metadata.js";
+import type { Feature } from "@foundry/data-types";
 
 // Rendering layer for the drift check: turns a detected drift event into the
 // GitHub-issue title/body the workflow opens. Kept separate from the detection

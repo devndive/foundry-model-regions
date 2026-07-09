@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { loadIndex } from "./load";
-import type { FeaturesArtifact, NormalizedBundle, Region } from "./types";
+import type { FeaturesArtifact, NormalizedBundle, Region } from "@foundry/data-types";
 
 const bundle: NormalizedBundle = {
   models: [

@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { DataInfo } from "./DataInfo";
-import type { Feature } from "../data/types";
+import type { Feature } from "@foundry/data-types";
 
 const features: Feature[] = [
   {

@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import { App } from "./App";
 import { buildIndex } from "./data/index";
 import { defaultFilters } from "./matrix/buildMatrix";
-import type { FeaturesArtifact, NormalizedBundle, Region } from "./data/types";
+import type { FeaturesArtifact, NormalizedBundle, Region } from "@foundry/data-types";
 
 const bundle: NormalizedBundle = {
   models: [

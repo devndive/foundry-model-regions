@@ -1,9 +1,15 @@
-import type { Feature, FeaturesArtifact, NormalizedBundle, NormalizedModel, Region } from "./types";
+import type {
+  Feature,
+  FeaturesArtifact,
+  NormalizedBundle,
+  NormalizedModel,
+  Region,
+} from "@foundry/data-types";
 
 export interface AvailabilityIndex {
   models: NormalizedModel[];
   regions: Region[];
-  features: Feature[];
+  features: readonly Feature[];
   skus: string[];
   isAvailable(sku: string, modelId: string, regionId: string): boolean;
   cellStatus(sku: string, modelId: string, regionId: string): string | null;

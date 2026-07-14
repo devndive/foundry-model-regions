@@ -53,6 +53,29 @@ function without(base: readonly Region[], ...drop: readonly Region[]): readonly 
   return base.filter((region) => !removed.has(region));
 }
 
+const HOSTED_AGENTS_REGIONS = [
+  "australiaeast",
+  "brazilsouth",
+  "canadacentral",
+  "canadaeast",
+  "eastus2",
+  "francecentral",
+  "germanywestcentral",
+  "japaneast",
+  "koreacentral",
+  "northcentralus",
+  "norwayeast",
+  "polandcentral",
+  "southafricanorth",
+  "southeastasia",
+  "southindia",
+  "spaincentral",
+  "swedencentral",
+  "switzerlandnorth",
+  "westus",
+  "westus3",
+] as const;
+
 export const FEATURES: readonly Feature[] = [
   {
     id: "ai-red-teaming-agent",
@@ -103,37 +126,16 @@ export const FEATURES: readonly Feature[] = [
     displayName: "Hosted Agents",
     sourceUrl: "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/hosted-agents",
     sectionAnchor: "region-availability",
-    regions: [
-      "australiaeast",
-      "brazilsouth",
-      "canadacentral",
-      "canadaeast",
-      "eastus2",
-      "francecentral",
-      "germanywestcentral",
-      "japaneast",
-      "koreacentral",
-      "northcentralus",
-      "norwayeast",
-      "polandcentral",
-      "southafricanorth",
-      "southeastasia",
-      "southindia",
-      "spaincentral",
-      "swedencentral",
-      "switzerlandnorth",
-      "westus",
-      "westus3",
-    ],
+    regions: HOSTED_AGENTS_REGIONS,
   },
   {
-    // Sub-feature promoted to a first-class Feature (CONTEXT.md, ADR-0003): the
-    // Invocations (WebSocket) protocol is preview-only in a single region.
+    // Kept as a first-class Feature (CONTEXT.md, ADR-0003) because protocol
+    // availability is documented independently and can drift from its parent.
     id: "hosted-agents-invocations-websocket",
     displayName: "Hosted Agents — Invocations (WebSocket)",
     sourceUrl: "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/hosted-agents",
     sectionAnchor: "protocols-responses-invocations-and-invocations-websocket",
-    regions: ["northcentralus"],
+    regions: HOSTED_AGENTS_REGIONS,
   },
   // Azure AI Content Safety. Its region-availability table keys each column on a
   // distinct capability, so every column is modelled as its own first-class

@@ -16,9 +16,10 @@ accepted
 
 - **A `(feature, region, model)` fact** — rejected: the original assumption that Hosted
   Agents keys availability on a model was wrong. Reading the article, the only extra axis is
-  a **sub-feature** (protocols like Invocations (WebSocket), available in fewer regions than
-  the parent). We model a sub-feature as its **own first-class Feature** with its own region
-  list rather than nesting, keeping every fact a clean `(feature, region)` pair.
+  a **sub-feature** (protocols like Invocations (WebSocket), whose availability is documented
+  independently of the parent). We model a sub-feature as its **own first-class Feature**
+  with its own region list rather than nesting, keeping every fact a clean `(feature, region)`
+  pair.
 - **Open-world ("unknown" for unlisted regions)** — rejected for v1: more truthful but
   forces a tri-state into the matrix and complicates the filter. Revisit if false
   "unavailable" misleads.
@@ -28,7 +29,7 @@ accepted
 
 ## Consequences
 
-- Adding a region-narrowed protocol/sub-feature means adding a Feature row, not changing the
+- Adding a region-scoped protocol/sub-feature means adding a Feature row, not changing the
   fact shape.
 - The closed-world reading lets the UI cleanly drop non-matching region columns; if it ever
   hides a region that's actually fine, that's the signal to reconsider open-world.

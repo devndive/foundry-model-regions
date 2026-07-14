@@ -23,21 +23,15 @@ test("featureMetadata describes a Feature with its source descriptor and region 
   ]);
 });
 
-test("Invocations (WebSocket) is a first-class Feature with a narrower region set than its parent", () => {
+test("Invocations (WebSocket) is a first-class Feature available in every Hosted Agents region", () => {
   const parent = featureMetadata("hosted-agents");
   const websocket = featureMetadata("hosted-agents-invocations-websocket");
 
-  assert.deepEqual([...(websocket?.regions ?? [])], ["northcentralus"]);
   assert.equal(
     websocket?.sourceUrl,
     "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/hosted-agents",
   );
-
-  // Closed-world narrowing: every websocket region is also a parent region,
-  // and the sub-feature is strictly narrower.
-  const parentRegions = new Set(parent?.regions ?? []);
-  assert.ok((websocket?.regions ?? []).every((r) => parentRegions.has(r)));
-  assert.ok((websocket?.regions.length ?? 0) < (parent?.regions.length ?? 0));
+  assert.deepEqual(websocket?.regions, parent?.regions);
 });
 
 test("FEATURES is seeded from the source articles (Foundry Agents and Content Safety included)", () => {
@@ -241,9 +235,15 @@ test("buildFeaturesArtifact emits feature metadata plus flat (featureId, region)
     assert.deepEqual(Object.keys(row).sort(), ["featureId", "region"]);
   }
 
-  assert.ok(
-    artifact.availability.some(
-      (r) => r.featureId === "hosted-agents-invocations-websocket" && r.region === "northcentralus",
-    ),
+  const parentRegions = artifact.availability
+    .filter((row) => row.featureId === "hosted-agents")
+    .map((row) => row.region);
+  const websocketRegions = artifact.availability
+    .filter((row) => row.featureId === "hosted-agents-invocations-websocket")
+    .map((row) => row.region);
+  assert.deepEqual(
+    websocketRegions,
+    parentRegions,
+    "artifact emits WebSocket availability for every Hosted Agents region",
   );
 });

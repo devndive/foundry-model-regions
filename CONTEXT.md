@@ -14,9 +14,9 @@ the Azure ARM API and therefore machine-verifiable.
 A capability of Microsoft Foundry that is **not** a model — e.g. AI Red Teaming Agent,
 Foundry Agents, Hosted Agents. Whether a feature works depends on the region.
 
-A **sub-feature** (e.g. a Hosted Agents *protocol* like Invocations (WebSocket), which has
-a narrower region set than its parent) is modelled as its own first-class Feature with its
-own region list — there is no nested feature hierarchy.
+A **sub-feature** (e.g. a Hosted Agents *protocol* like Invocations (WebSocket), whose
+availability is documented independently of its parent) is modelled as its own first-class
+Feature with its own region list — there is no nested feature hierarchy.
 
 > Deliberately called a **Feature**, never a "capability", because `capabilities` already
 > names the boolean flags on a Model in the models pipeline. The two must not be conflated.

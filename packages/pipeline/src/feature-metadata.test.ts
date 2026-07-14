@@ -60,7 +60,35 @@ test("FEATURES is seeded from the source articles (Foundry Agents and Content Sa
     "hosted-agents-invocations-websocket",
     "managed-virtual-network",
   ]);
-  assert.equal(featureMetadata("foundry-agents")?.regions.length, 25);
+  assert.deepEqual(featureMetadata("foundry-agents")?.regions, [
+    "australiaeast",
+    "brazilsouth",
+    "canadacentral",
+    "canadaeast",
+    "centralus",
+    "eastus",
+    "eastus2",
+    "francecentral",
+    "germanywestcentral",
+    "italynorth",
+    "japaneast",
+    "koreacentral",
+    "northcentralus",
+    "norwayeast",
+    "polandcentral",
+    "southafricanorth",
+    "southcentralus",
+    "southeastasia",
+    "southindia",
+    "spaincentral",
+    "swedencentral",
+    "switzerlandnorth",
+    "uaenorth",
+    "uksouth",
+    "westeurope",
+    "westus",
+    "westus3",
+  ]);
 });
 
 test("Content Safety models every region-availability column as a first-class Feature", () => {

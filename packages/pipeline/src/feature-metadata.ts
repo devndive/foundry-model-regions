@@ -62,8 +62,7 @@ export const FEATURES: readonly Feature[] = [
     regions: ["eastus2", "francecentral", "northcentralus", "swedencentral"],
   },
   {
-    // The article defers its region list to the Azure OpenAI Responses API
-    // "Supported regions" section, so the curated list mirrors that set.
+    // Curated from the "Agents" column of the article's Supported regions table.
     id: "foundry-agents",
     displayName: "Foundry Agents",
     sourceUrl:
@@ -74,6 +73,7 @@ export const FEATURES: readonly Feature[] = [
       "brazilsouth",
       "canadacentral",
       "canadaeast",
+      "centralus",
       "eastus",
       "eastus2",
       "francecentral",
@@ -93,6 +93,7 @@ export const FEATURES: readonly Feature[] = [
       "switzerlandnorth",
       "uaenorth",
       "uksouth",
+      "westeurope",
       "westus",
       "westus3",
     ],

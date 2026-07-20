@@ -214,9 +214,11 @@ export const FEATURES: readonly Feature[] = [
     sectionAnchor: "region-availability",
     regions: ALL_CONTENT_SAFETY_REGIONS,
   },
-  // Evaluation. The article keys each of its three evaluation surfaces on its
-  // own region table, so each is modelled as a first-class Feature
-  // (CONTEXT.md, ADR-0003) — closed-world, tracked regions only.
+  // Evaluation. Each independently documented region set is modelled as a
+  // first-class Feature (CONTEXT.md, ADR-0003) — closed-world, tracked regions
+  // only. Narrow evaluator variants remain separate from the general safety
+  // evaluator set, and evaluation red teaming remains separate from the
+  // standalone AI Red Teaming Agent.
   {
     id: "agent-playground-evaluations",
     displayName: "Agent Playground Evaluations",
@@ -284,15 +286,38 @@ export const FEATURES: readonly Feature[] = [
     ],
   },
   {
-    // The article's "Risk and safety evaluators and AI red teaming region
-    // support" section — the AI-assisted Evaluators surface. Modelled as its
-    // own Feature, distinct from the standalone AI Red Teaming Agent article.
+    // The general safety evaluator table. Switzerland West is documented but
+    // excluded because REGIONS intentionally tracks unrestricted regions only.
     id: "evaluators-risk-and-safety",
     displayName: "Evaluators — Risk and Safety",
     sourceUrl:
       "https://learn.microsoft.com/en-us/azure/foundry/concepts/evaluation-regions-limits-virtual-network",
-    sectionAnchor: "risk-and-safety-evaluators-and-ai-red-teaming-region-support",
-    regions: ["eastus2", "francecentral", "northcentralus", "swedencentral"],
+    sectionAnchor: "supported-regions-for-risk-and-safety-evaluators",
+    regions: ["australiaeast", "eastus2", "francecentral", "northcentralus", "swedencentral"],
+  },
+  {
+    id: "evaluators-groundedness-pro",
+    displayName: "Evaluators — Groundedness Pro",
+    sourceUrl:
+      "https://learn.microsoft.com/en-us/azure/foundry/concepts/evaluation-regions-limits-virtual-network",
+    sectionAnchor: "supported-regions-for-risk-and-safety-evaluators",
+    regions: ["eastus2", "swedencentral"],
+  },
+  {
+    id: "evaluators-protected-material",
+    displayName: "Evaluators — Protected Material",
+    sourceUrl:
+      "https://learn.microsoft.com/en-us/azure/foundry/concepts/evaluation-regions-limits-virtual-network",
+    sectionAnchor: "supported-regions-for-risk-and-safety-evaluators",
+    regions: ["eastus2"],
+  },
+  {
+    id: "evaluations-ai-red-teaming",
+    displayName: "Evaluations — AI Red Teaming",
+    sourceUrl:
+      "https://learn.microsoft.com/en-us/azure/foundry/concepts/evaluation-regions-limits-virtual-network",
+    sectionAnchor: "supported-regions-for-ai-red-teaming",
+    regions: ["eastus2", "northcentralus"],
   },
   {
     // Managed virtual network for the new Agent service / Foundry portal. The

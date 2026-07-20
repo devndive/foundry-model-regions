@@ -48,6 +48,9 @@ test("FEATURES is seeded from the source articles (Foundry Agents and Content Sa
     "content-safety-protected-material-code",
     "content-safety-protected-material-text",
     "content-safety-text",
+    "evaluations-ai-red-teaming",
+    "evaluators-groundedness-pro",
+    "evaluators-protected-material",
     "evaluators-risk-and-safety",
     "foundry-agents",
     "hosted-agents",
@@ -155,7 +158,6 @@ test("Evaluation surfaces are modelled as first-class Features with their docume
   const counts: Record<string, number> = {
     "agent-playground-evaluations": 15,
     "batch-evaluations": 33,
-    "evaluators-risk-and-safety": 4,
   };
 
   for (const [id, count] of Object.entries(counts)) {
@@ -168,21 +170,41 @@ test("Evaluation surfaces are modelled as first-class Features with their docume
     assert.equal(feature?.regions.length, count, `${id} region count`);
   }
 
+  const expected: Record<string, { anchor: string; regions: string[] }> = {
+    "evaluators-risk-and-safety": {
+      anchor: "supported-regions-for-risk-and-safety-evaluators",
+      regions: ["australiaeast", "eastus2", "francecentral", "northcentralus", "swedencentral"],
+    },
+    "evaluators-groundedness-pro": {
+      anchor: "supported-regions-for-risk-and-safety-evaluators",
+      regions: ["eastus2", "swedencentral"],
+    },
+    "evaluators-protected-material": {
+      anchor: "supported-regions-for-risk-and-safety-evaluators",
+      regions: ["eastus2"],
+    },
+    "evaluations-ai-red-teaming": {
+      anchor: "supported-regions-for-ai-red-teaming",
+      regions: ["eastus2", "northcentralus"],
+    },
+  };
+
+  for (const [id, { anchor, regions }] of Object.entries(expected)) {
+    const feature = featureMetadata(id);
+    assert.equal(
+      feature?.sourceUrl,
+      "https://learn.microsoft.com/en-us/azure/foundry/concepts/evaluation-regions-limits-virtual-network",
+      `${id} source`,
+    );
+    assert.equal(feature?.sectionAnchor, anchor, `${id} anchor`);
+    assert.deepEqual(feature?.regions, regions, `${id} regions`);
+  }
+
   // Closed-world: agent playground evaluations are a strict subset of the
   // broader batch evaluations region set.
   const batch = new Set(featureMetadata("batch-evaluations")?.regions ?? []);
   const playground = featureMetadata("agent-playground-evaluations")?.regions ?? [];
   assert.ok(playground.every((r) => batch.has(r)));
-
-  // The risk-and-safety Evaluators surface lists its own four regions. Asserted
-  // directly (not by deep-equal against the AI Red Teaming Agent) so drift in
-  // either independent article can't break the other's test.
-  assert.deepEqual([...(featureMetadata("evaluators-risk-and-safety")?.regions ?? [])].sort(), [
-    "eastus2",
-    "francecentral",
-    "northcentralus",
-    "swedencentral",
-  ]);
 });
 
 test("Managed Virtual Network is a first-class Feature with its documented region set", () => {

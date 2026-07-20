@@ -2,8 +2,8 @@ import type { Region } from "@foundry/data-types";
 
 // The single source of truth for region coverage and grouping. Each row states
 // the whole truth about one region. Regions are grouped by geography exactly as
-// the Microsoft reliability regions list groups them; regions that the list does
-// not include are deliberately omitted here.
+// the Microsoft reliability regions list groups them; restricted-access,
+// coming-soon, and unlisted regions are deliberately omitted here.
 export const REGIONS: readonly Region[] = [
   { id: "brazilsouth", displayName: "Brazil South", geoGroup: "americas" },
   { id: "canadacentral", displayName: "Canada Central", geoGroup: "americas" },

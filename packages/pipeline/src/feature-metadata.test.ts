@@ -79,6 +79,7 @@ test("FEATURES is seeded from the source articles (Foundry Agents and Content Sa
     "switzerlandnorth",
     "uaenorth",
     "uksouth",
+    "westcentralus",
     "westeurope",
     "westus",
     "westus3",

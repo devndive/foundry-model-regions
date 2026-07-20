@@ -85,7 +85,8 @@ export const FEATURES: readonly Feature[] = [
     regions: ["eastus2", "francecentral", "northcentralus", "swedencentral"],
   },
   {
-    // Curated from the "Agents" column of the article's Supported regions table.
+    // Curated from the "Agents" column of the article's Supported regions table,
+    // intersected with the unrestricted regions tracked in REGIONS.
     id: "foundry-agents",
     displayName: "Foundry Agents",
     sourceUrl:
@@ -116,6 +117,7 @@ export const FEATURES: readonly Feature[] = [
       "switzerlandnorth",
       "uaenorth",
       "uksouth",
+      "westcentralus",
       "westeurope",
       "westus",
       "westus3",

@@ -41,6 +41,10 @@ test("regionMetadata omits regions absent from the Microsoft regions list", () =
   assert.equal(regionMetadata("jioindiacentral"), null);
 });
 
+test("regionMetadata omits restricted-access regions", () => {
+  assert.equal(regionMetadata("switzerlandwest"), null);
+});
+
 test("REGIONS is the full intended region set, partitioned across the geography groups", () => {
   const byGroup = {
     americas: REGIONS.filter((r) => r.geoGroup === "americas"),

@@ -104,6 +104,7 @@ export const FEATURES: readonly Feature[] = [
       "germanywestcentral",
       "italynorth",
       "japaneast",
+      "japanwest",
       "koreacentral",
       "northcentralus",
       "norwayeast",

@@ -53,25 +53,39 @@ function without(base: readonly Region[], ...drop: readonly Region[]): readonly 
   return base.filter((region) => !removed.has(region));
 }
 
+// Curated from the article's region-availability list, intersected with the
+// regions tracked in REGIONS. The article also lists Switzerland West, which is
+// not a tracked region; encoding it would break the closed-world guard, so it is
+// deliberately omitted until region-metadata.ts starts tracking it (#28).
 const HOSTED_AGENTS_REGIONS = [
   "australiaeast",
   "brazilsouth",
   "canadacentral",
   "canadaeast",
+  "centralus",
+  "eastus",
   "eastus2",
   "francecentral",
   "germanywestcentral",
+  "italynorth",
   "japaneast",
+  "japanwest",
   "koreacentral",
   "northcentralus",
   "norwayeast",
   "polandcentral",
   "southafricanorth",
+  "southcentralus",
   "southeastasia",
   "southindia",
   "spaincentral",
   "swedencentral",
   "switzerlandnorth",
+  "uaenorth",
+  "uksouth",
+  "ukwest",
+  "westcentralus",
+  "westeurope",
   "westus",
   "westus3",
 ] as const;

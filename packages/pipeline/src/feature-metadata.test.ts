@@ -23,6 +23,43 @@ test("featureMetadata describes a Feature with its source descriptor and region 
   ]);
 });
 
+test("Hosted Agents carries the curated region set from its region-availability list", () => {
+  // Double-entry check against the curated table. The article also lists
+  // Switzerland West, deliberately omitted because it is not a tracked region.
+  assert.deepEqual(featureMetadata("hosted-agents")?.regions, [
+    "australiaeast",
+    "brazilsouth",
+    "canadacentral",
+    "canadaeast",
+    "centralus",
+    "eastus",
+    "eastus2",
+    "francecentral",
+    "germanywestcentral",
+    "italynorth",
+    "japaneast",
+    "japanwest",
+    "koreacentral",
+    "northcentralus",
+    "norwayeast",
+    "polandcentral",
+    "southafricanorth",
+    "southcentralus",
+    "southeastasia",
+    "southindia",
+    "spaincentral",
+    "swedencentral",
+    "switzerlandnorth",
+    "uaenorth",
+    "uksouth",
+    "ukwest",
+    "westcentralus",
+    "westeurope",
+    "westus",
+    "westus3",
+  ]);
+});
+
 test("Invocations (WebSocket) is a first-class Feature available in every Hosted Agents region", () => {
   const parent = featureMetadata("hosted-agents");
   const websocket = featureMetadata("hosted-agents-invocations-websocket");

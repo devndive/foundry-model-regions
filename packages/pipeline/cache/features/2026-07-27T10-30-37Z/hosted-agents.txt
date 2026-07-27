@@ -1,0 +1,35 @@
+Region availability
+Hosted agents are currently available in the following regions:
+Australia East
+Brazil South
+Canada Central
+Canada East
+Central US
+East US
+East US 2
+France Central
+Germany West Central
+Italy North
+Japan East
+Japan West
+Korea Central
+North Central US
+Norway East
+Poland Central
+South Africa North
+South Central US
+South India
+Southeast Asia
+Spain Central
+Sweden Central
+Switzerland North
+Switzerland West
+UAE North
+UK South
+UK West
+West Central US
+West Europe
+West US
+West US 3
+Note
+This list will be updated as additional regions become available.

@@ -25,7 +25,7 @@ test("featureMetadata describes a Feature with its source descriptor and region 
 
 test("Hosted Agents carries the curated region set from its region-availability list", () => {
   // Double-entry check against the curated table. The article also lists
-  // Switzerland West, deliberately omitted because it is not a tracked region.
+  // Switzerland West, discarded because it is not self-serve deployable (ADR-0005).
   assert.deepEqual(featureMetadata("hosted-agents")?.regions, [
     "australiaeast",
     "brazilsouth",

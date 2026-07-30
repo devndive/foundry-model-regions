@@ -2,8 +2,15 @@ import type { Region } from "@foundry/data-types";
 
 // The single source of truth for region coverage and grouping. Each row states
 // the whole truth about one region. Regions are grouped by geography exactly as
-// the Microsoft reliability regions list groups them; restricted-access,
-// coming-soon, and unlisted regions are deliberately omitted here.
+// the Microsoft reliability regions list groups them.
+//
+// A region belongs here only if any customer can deploy into it without
+// requesting special access. Everything else — access-by-request, not yet
+// launched, absent from the Microsoft regions list — stays out indefinitely;
+// that is a decision, not a backlog. Switzerland West is access-by-request and
+// is excluded on that basis, even though several curated feature articles list
+// it: a feature article is evidence about a feature, not about region access.
+// See docs/adr/0005-track-only-self-serve-regions.md.
 export const REGIONS: readonly Region[] = [
   { id: "brazilsouth", displayName: "Brazil South", geoGroup: "americas" },
   { id: "canadacentral", displayName: "Canada Central", geoGroup: "americas" },

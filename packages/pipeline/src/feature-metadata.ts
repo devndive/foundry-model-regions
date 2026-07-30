@@ -55,8 +55,8 @@ function without(base: readonly Region[], ...drop: readonly Region[]): readonly 
 
 // Curated from the article's region-availability list, intersected with the
 // regions tracked in REGIONS. The article also lists Switzerland West, which is
-// not a tracked region; encoding it would break the closed-world guard, so it is
-// deliberately omitted until region-metadata.ts starts tracking it (#28).
+// access-by-request and therefore permanently untracked (ADR-0005), so it is
+// discarded here rather than encoded.
 const HOSTED_AGENTS_REGIONS = [
   "australiaeast",
   "brazilsouth",
@@ -302,7 +302,7 @@ export const FEATURES: readonly Feature[] = [
   },
   {
     // The general safety evaluator table. Switzerland West is documented but
-    // excluded because REGIONS intentionally tracks unrestricted regions only.
+    // excluded because REGIONS tracks self-serve regions only (ADR-0005).
     id: "evaluators-risk-and-safety",
     displayName: "Evaluators — Risk and Safety",
     sourceUrl:

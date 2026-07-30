@@ -41,7 +41,7 @@ test("regionMetadata omits regions absent from the Microsoft regions list", () =
   assert.equal(regionMetadata("jioindiacentral"), null);
 });
 
-test("regionMetadata omits restricted-access regions", () => {
+test("regionMetadata omits regions that are not self-serve deployable", () => {
   assert.equal(regionMetadata("switzerlandwest"), null);
 });
 

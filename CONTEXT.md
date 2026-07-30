@@ -48,3 +48,26 @@ because a Model selection is usually a *menu of acceptable options* (e.g. pickin
 "OpenAI" group means "any OpenAI model is fine"), not a demand that every chosen Model
 coexist in one Region — which almost no Region satisfies. Surviving Region columns then keep
 only the Model rows actually present in at least one of them.
+
+## Tracked Region
+
+An Azure region that any customer can deploy into **without requesting special access**,
+and therefore one this project fetches models for and offers as a selectable column. The
+single criterion for inclusion in `REGIONS`; everything else is an **Untracked Region**.
+_Avoid_: supported region, available region
+
+## Untracked Region
+
+An Azure region that exists but fails the Tracked Region criterion — access-by-request,
+not yet launched, or absent from the Microsoft regions list. Untracked is a deliberate
+state, not a backlog: the reason is recorded at the point of omission. A Foundry Feature's
+article may list an Untracked Region; that listing is discarded, never encoded.
+_Avoid_: restricted region, candidate region, missing region
+
+## Watched Source
+
+A published article section that this project snapshots and diffs for change, identified by
+a URL plus a section anchor. A **Foundry Feature** is one kind of Watched Source; the
+Microsoft regions list — which governs Tracked Region coverage — is another. Being a
+Watched Source says nothing about being a Feature, and only Features reach `features.json`.
+_Avoid_: drift source, article source

@@ -74,6 +74,24 @@ test("Invocations (WebSocket) is a first-class Feature available in every Hosted
 test("FEATURES is seeded from the source articles (Foundry Agents and Content Safety included)", () => {
   assert.deepEqual(FEATURES.map((f) => f.id).sort(), [
     "agent-playground-evaluations",
+    "agent-tool-agent2agent",
+    "agent-tool-azure-ai-search",
+    "agent-tool-browser-automation",
+    "agent-tool-code-interpreter",
+    "agent-tool-computer-use",
+    "agent-tool-fabric-data-agent",
+    "agent-tool-file-search",
+    "agent-tool-function",
+    "agent-tool-grounding-bing-custom-search",
+    "agent-tool-grounding-bing-search",
+    "agent-tool-image-generation",
+    "agent-tool-mcp",
+    "agent-tool-openapi",
+    "agent-tool-sharepoint",
+    "agent-tool-web-search",
+    "agents-grounding-bing-search-private-network",
+    "agents-private-class-a-ip-ranges",
+    "agents-responses-api",
     "ai-red-teaming-agent",
     "batch-evaluations",
     "content-safety-custom-categories-rapid",
@@ -125,6 +143,230 @@ test("FEATURES is seeded from the source articles (Foundry Agents and Content Sa
     "westus",
     "westus3",
   ]);
+});
+
+test("private Class A IP range support is a Feature narrower than base Agent Service availability", () => {
+  const classA = featureMetadata("agents-private-class-a-ip-ranges");
+
+  assert.equal(classA?.displayName, "Foundry Agents — Private Class A IP Ranges");
+  assert.equal(
+    classA?.sourceUrl,
+    "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/limits-quotas-regions",
+  );
+  assert.equal(classA?.sectionAnchor, "supported-regions");
+  assert.deepEqual(classA?.regions, [
+    "australiaeast",
+    "brazilsouth",
+    "canadaeast",
+    "centralus",
+    "eastus",
+    "eastus2",
+    "francecentral",
+    "germanywestcentral",
+    "italynorth",
+    "japaneast",
+    "koreacentral",
+    "northcentralus",
+    "southafricanorth",
+    "southcentralus",
+    "southeastasia",
+    "southindia",
+    "spaincentral",
+    "swedencentral",
+    "uaenorth",
+    "uksouth",
+    "westeurope",
+    "westus",
+    "westus3",
+  ]);
+
+  // The Class A column is a `No` in exactly six regions the Agents column
+  // supports, so it must be a strict subset of `foundry-agents`.
+  const agents = featureMetadata("foundry-agents")?.regions ?? [];
+  const agentsSet = new Set(agents);
+  assert.ok((classA?.regions ?? []).every((r) => agentsSet.has(r)));
+  assert.deepEqual(
+    agents.filter((r) => !new Set(classA?.regions ?? []).has(r)),
+    [
+      "canadacentral",
+      "japanwest",
+      "norwayeast",
+      "polandcentral",
+      "switzerlandnorth",
+      "westcentralus",
+    ],
+  );
+});
+
+test("the Responses API column is its own Feature even while it matches base Agent Service availability", () => {
+  // Kept first-class for the same reason as the Hosted Agents WebSocket protocol
+  // (ADR-0003): it is documented as an independent column and can drift away
+  // from the Agents column at any time.
+  const responses = featureMetadata("agents-responses-api");
+
+  assert.equal(responses?.displayName, "Foundry Agents — Responses API");
+  assert.equal(
+    responses?.sourceUrl,
+    "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/limits-quotas-regions",
+  );
+  assert.equal(responses?.sectionAnchor, "supported-regions");
+  assert.deepEqual(responses?.regions, featureMetadata("foundry-agents")?.regions);
+});
+
+test("private-network Grounding with Bing Search is a Feature that is deliberately not a subset of Foundry Agents", () => {
+  const bing = featureMetadata("agents-grounding-bing-search-private-network");
+
+  assert.equal(bing?.displayName, "Foundry Agents — Grounding with Bing Search (private network)");
+  assert.equal(
+    bing?.sourceUrl,
+    "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/limits-quotas-regions",
+  );
+  // The narrowest heading whose slice carries the region list (ADR-0002), not
+  // the broader `supported-regions` table above it.
+  assert.equal(bing?.sectionAnchor, "regional-support-for-private-networking");
+  assert.deepEqual([...(bing?.regions ?? [])].sort(), [
+    "australiaeast",
+    "brazilsouth",
+    "canadacentral",
+    "canadaeast",
+    "centralus",
+    "eastus",
+    "eastus2",
+    "francecentral",
+    "italynorth",
+    "japaneast",
+    "koreacentral",
+    "norwayeast",
+    "polandcentral",
+    "southafricanorth",
+    "southeastasia",
+    "southindia",
+    "spaincentral",
+    "swedencentral",
+    "switzerlandnorth",
+    "uaenorth",
+    "uksouth",
+    "westeurope",
+    "westus",
+    "westus2",
+    "westus3",
+  ]);
+
+  // The article contradicts itself: this list names West US 2, which the
+  // Supported regions table has no row for at all. Pinned as a deliberate
+  // non-subset so nobody "corrects" it into agreement with `foundry-agents`.
+  const agents = new Set(featureMetadata("foundry-agents")?.regions ?? []);
+  assert.deepEqual(
+    (bing?.regions ?? []).filter((r) => !agents.has(r)),
+    ["westus2"],
+  );
+});
+
+test("every tool column is a Feature narrower than base Agent Service availability", () => {
+  // The region-by-tool table lists 24 regions; the Agents column lists 29. Under
+  // the closed-world rule (ADR-0003) that silence makes even a column reading
+  // `yes` in all 24 rows narrower than `foundry-agents`, so all 15 columns earn
+  // their own Feature rather than only the ones that vary within the table.
+  const uniformColumns = [
+    "agent-tool-agent2agent",
+    "agent-tool-azure-ai-search",
+    "agent-tool-browser-automation",
+    "agent-tool-code-interpreter",
+    "agent-tool-fabric-data-agent",
+    "agent-tool-grounding-bing-custom-search",
+    "agent-tool-grounding-bing-search",
+    "agent-tool-image-generation",
+    "agent-tool-mcp",
+    "agent-tool-openapi",
+    "agent-tool-sharepoint",
+    "agent-tool-web-search",
+  ];
+
+  const baseline = [
+    "australiaeast",
+    "brazilsouth",
+    "canadaeast",
+    "eastus",
+    "eastus2",
+    "francecentral",
+    "germanywestcentral",
+    "italynorth",
+    "japaneast",
+    "koreacentral",
+    "northcentralus",
+    "norwayeast",
+    "polandcentral",
+    "southafricanorth",
+    "southcentralus",
+    "southeastasia",
+    "southindia",
+    "spaincentral",
+    "swedencentral",
+    "switzerlandnorth",
+    "uaenorth",
+    "uksouth",
+    "westus",
+    "westus3",
+  ];
+
+  for (const id of uniformColumns) {
+    const feature = featureMetadata(id);
+    assert.equal(
+      feature?.sourceUrl,
+      "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/limits-quotas-regions",
+      `${id} source`,
+    );
+    assert.equal(feature?.sectionAnchor, "tool-support-by-region-and-model", `${id} anchor`);
+    assert.deepEqual([...(feature?.regions ?? [])].sort(), baseline, `${id} regions`);
+  }
+
+  assert.equal(featureMetadata("agent-tool-web-search")?.displayName, "Agent Tool — Web Search");
+
+  // The five regions where Agent Service is supported but the tool table is
+  // silent. This gap is the whole reason a uniform column is not a duplicate.
+  const agents = featureMetadata("foundry-agents")?.regions ?? [];
+  const baselineSet = new Set(baseline);
+  assert.deepEqual(
+    agents.filter((r) => !baselineSet.has(r)),
+    ["canadacentral", "centralus", "japanwest", "westcentralus", "westeurope"],
+  );
+});
+
+test("tool columns that vary within the table carry their own narrower region sets", () => {
+  assert.deepEqual(featureMetadata("agent-tool-computer-use")?.regions, [
+    "eastus2",
+    "southindia",
+    "swedencentral",
+  ]);
+
+  // Double-entry check against the `without(...)` args: each narrow column must
+  // be the table baseline minus exactly the regions marked `no`, with no strays.
+  const baseline = featureMetadata("agent-tool-web-search")?.regions ?? [];
+  const baselineSet = new Set(baseline);
+
+  const exclusions: Record<string, string[]> = {
+    "agent-tool-file-search": ["brazilsouth", "italynorth"],
+    "agent-tool-function": ["brazilsouth", "northcentralus", "southcentralus", "westus"],
+    "agent-tool-computer-use": baseline
+      .filter((r) => !["eastus2", "southindia", "swedencentral"].includes(r))
+      .sort(),
+  };
+
+  for (const [id, dropped] of Object.entries(exclusions)) {
+    const regions = featureMetadata(id)?.regions ?? [];
+    assert.deepEqual(
+      baseline.filter((r) => !regions.includes(r)).sort(),
+      [...dropped].sort(),
+      `${id} excludes exactly its documented regions`,
+    );
+    assert.ok(
+      regions.every((r) => baselineSet.has(r)),
+      `${id} stays within the tool table baseline`,
+    );
+  }
+
+  assert.equal(featureMetadata("agent-tool-file-search")?.regions.length, 22);
+  assert.equal(featureMetadata("agent-tool-function")?.regions.length, 20);
 });
 
 test("Content Safety models every region-availability column as a first-class Feature", () => {

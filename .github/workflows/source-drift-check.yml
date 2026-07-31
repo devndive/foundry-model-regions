@@ -1,4 +1,4 @@
-name: Feature availability drift check
+name: Watched Source drift check
 
 on:
   schedule:
@@ -12,7 +12,7 @@ permissions:
   issues: write
 
 concurrency:
-  group: feature-drift-check
+  group: source-drift-check
   cancel-in-progress: false
 
 jobs:
@@ -33,18 +33,18 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Check feature articles for drift
-        run: pnpm --filter @foundry/pipeline check-feature-drift
+      - name: Check Watched Sources for drift
+        run: pnpm --filter @foundry/pipeline check-source-drift
 
       # Stage 1: a new snapshot directory literally means "drift happened" — commit
       # only the new snapshots, never feature-metadata.ts (humans own correctness).
       - name: Commit new snapshots
         run: |
-          if [ -n "$(git status --porcelain packages/pipeline/cache/features)" ]; then
+          if [ -n "$(git status --porcelain packages/pipeline/cache/sources)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add packages/pipeline/cache/features
-            git commit -m "chore: snapshot feature article drift ($(date -u +%Y-%m-%dT%H-%M-%SZ))"
+            git add packages/pipeline/cache/sources
+            git commit -m "chore: snapshot Watched Source drift ($(date -u +%Y-%m-%dT%H-%M-%SZ))"
             git push
           else
             echo "No snapshot changes to commit."
@@ -72,7 +72,7 @@ jobs:
       - name: Fail loudly on unresolved anchors
         run: |
           if jq -e 'any(.[]; .status == "anchor-missing")' packages/pipeline/drift-report.json >/dev/null; then
-            echo "::error::One or more feature section anchors no longer resolve."
+            echo "::error::One or more Watched Source anchors no longer resolve."
             jq -r '.[] | select(.status == "anchor-missing") | "  - \(.sourceUrl)#\(.sectionAnchor) (\(.featureIds | join(", ")))"' packages/pipeline/drift-report.json
             exit 1
           fi

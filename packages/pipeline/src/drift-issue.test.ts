@@ -38,7 +38,7 @@ const CONTENT_SAFETY = groupIntoWatchedSources([
 test("renderDriftIssue frames a changed section as a diff block", () => {
   const { title, body } = renderDriftIssue(HOSTED_AGENTS, "changed", " eastus2\n+westus");
 
-  assert.equal(title, "Feature drift: hosted-agents#region-availability (changed)");
+  assert.equal(title, "Source drift: hosted-agents#region-availability (changed)");
   assert.match(body, /status `changed`/);
   assert.match(body, /```diff\n eastus2\n\+westus\n```/);
   assert.match(body, /#region-availability/);
@@ -51,7 +51,7 @@ test("renderDriftIssue titles a vanished anchor as 'anchor missing' and quotes t
     'Section anchor "region-availability" did not resolve in the article.',
   );
 
-  assert.equal(title, "Feature drift: hosted-agents#region-availability (anchor missing)");
+  assert.equal(title, "Source drift: hosted-agents#region-availability (anchor missing)");
   assert.match(body, /the section anchor no longer resolves/);
   assert.match(body, /> Section anchor "region-availability" did not resolve/);
 });
@@ -59,7 +59,7 @@ test("renderDriftIssue titles a vanished anchor as 'anchor missing' and quotes t
 test("one issue names every Feature curated from the changed section", () => {
   const { title, body } = renderDriftIssue(CONTENT_SAFETY, "changed", "+westus");
 
-  assert.equal(title, "Feature drift: overview#region-availability (changed)");
+  assert.equal(title, "Source drift: overview#region-availability (changed)");
   assert.match(body, /- \*\*Content Safety — Analyze Text\*\* \(`content-safety-text`\)/);
   assert.match(body, /- \*\*Content Safety — Analyze Image\*\* \(`content-safety-image`\)/);
 });

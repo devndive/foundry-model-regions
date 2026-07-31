@@ -2,7 +2,7 @@ import type { WatchedSource } from "./watched-sources.js";
 
 // Rendering layer for the drift check: turns a detected drift event into the
 // GitHub-issue title/body the workflow opens. Kept separate from the detection
-// orchestrator (check-feature-drift.ts) so deciding "did it drift?" never mixes
+// orchestrator (check-source-drift.ts) so deciding "did it drift?" never mixes
 // with "how do we describe it to a human?".
 //
 // The unit is a Watched Source, not a Feature: one article edit produces one
@@ -75,7 +75,7 @@ export function renderDriftIssue(
 ): DriftIssue {
   const suffix = status === "anchor-missing" ? "anchor missing" : status;
   return {
-    title: `Feature drift: ${sectionLabel(source)} (${suffix})`,
+    title: `Source drift: ${sectionLabel(source)} (${suffix})`,
     body: buildIssueBody(source, status, detail),
   };
 }

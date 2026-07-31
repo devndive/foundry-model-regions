@@ -10,7 +10,7 @@ import {
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE_DIR = resolve(ROOT_DIR, "cache");
 
-// The machine-verifiable counterpart to the feature-drift check (ADR-0002):
+// The machine-verifiable counterpart to the Watched Source drift check (ADR-0002):
 // decide whether a freshly-fetched model snapshot differs *semantically* from
 // the latest committed one, comparing the canonical Model Availability Facts
 // bundle order-insensitively. Touches no network and writes no commits — it

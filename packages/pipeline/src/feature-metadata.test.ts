@@ -403,7 +403,7 @@ test("Content Safety models every region-availability column as a first-class Fe
 test("Content Safety columns stay anchored to the all-regions baseline (drift guard)", () => {
   // Double-entry check against the `without(...)` args in the source table: it
   // catches source/test divergence in the hand-curated exclusions, not article
-  // correctness (that is `check-feature-drift`'s job, ADR-0002). The all-regions
+  // correctness (that is `check-source-drift`'s job, ADR-0002). The all-regions
   // columns must equal the baseline; the narrower columns must be the baseline
   // minus exactly their listed exclusions, with no stray regions.
   const baseline = featureMetadata("content-safety-text")?.regions ?? [];

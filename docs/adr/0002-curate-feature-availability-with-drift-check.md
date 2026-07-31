@@ -6,7 +6,7 @@ source of truth is a **hand-curated table** (`feature-metadata.ts`, mirroring ho
 `region-metadata.ts` is hand-maintained), and a scheduled **drift check** keeps it honest:
 each feature carries a source descriptor (article URL + section anchor), a GitHub Actions
 workflow snapshots only that section's text into
-`cache/features/<timestamp>/<article-path>--<anchor>.txt`, diffs it against the previous
+`cache/sources/<timestamp>/<article-path>--<anchor>.txt`, diffs it against the previous
 snapshot, and on any change opens a `needs-triage` issue so a human reconciles the table.
 
 Drift is detected per **Watched Source** — one (URL, anchor) section — not per Feature.

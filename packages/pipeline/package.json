@@ -16,7 +16,7 @@
     "emit-models": "tsc && node dist/emit-models.js",
     "emit-region-metadata": "tsc && node dist/emit-region-metadata.js",
     "emit-features": "tsc && node dist/emit-features.js",
-    "check-feature-drift": "tsc && node dist/check-feature-drift.js",
+    "check-source-drift": "tsc && node dist/check-source-drift.js",
     "check-model-drift": "tsc && node dist/check-model-drift.js",
     "sync-data": "mkdir -p ../../apps/web/public/data && cp dist/models.json dist/regions.json dist/features.json ../../apps/web/public/data/",
     "fmt": "oxfmt",

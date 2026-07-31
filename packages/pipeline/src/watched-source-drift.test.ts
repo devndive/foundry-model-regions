@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import type { Feature } from "@foundry/data-types";
-import { detectDrift } from "./feature-drift.js";
+import { detectDrift } from "./watched-source-drift.js";
 import { groupIntoWatchedSources, type WatchedSource } from "./watched-sources.js";
 
 const CONTENT_SAFETY_URL =
@@ -31,7 +31,7 @@ function fakeIO(sections: Record<string, string | Error>, stored: Record<string,
       },
       async writeSnapshot(source: WatchedSource, text: string): Promise<string> {
         written[source.key] = text;
-        return `cache/features/2026-07-30T00-00-00Z/${source.key}.txt`;
+        return `cache/sources/2026-07-30T00-00-00Z/${source.key}.txt`;
       },
     },
   };

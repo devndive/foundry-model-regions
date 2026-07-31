@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 import { SNAPSHOT_KEY_PATTERN } from "./snapshots.js";
 
 // Mirrors the model-cache convention (snapshots.ts) but stores a Watched
-// Source's article section as text under cache/features/<timestamp>/<key>.txt.
+// Source's article section as text under cache/sources/<timestamp>/<key>.txt.
 // A snapshot is written only when the section changed, so a new directory here
 // literally means "drift happened."
 //
@@ -11,12 +11,12 @@ import { SNAPSHOT_KEY_PATTERN } from "./snapshots.js";
 // same section, and snapshotting each of them wrote N byte-identical files.
 
 export async function writeWatchedSourceSnapshot(
-  featuresCacheDir: string,
+  sourcesCacheDir: string,
   snapshotKey: string,
   sourceKey: string,
   text: string,
 ): Promise<void> {
-  const dir = resolve(featuresCacheDir, snapshotKey);
+  const dir = resolve(sourcesCacheDir, snapshotKey);
   await mkdir(dir, { recursive: true });
   await writeFile(resolve(dir, `${sourceKey}.txt`), text, "utf-8");
 }
@@ -31,13 +31,13 @@ export async function writeWatchedSourceSnapshot(
 // baseline. Without the fallback, the first deduped run would report a fresh
 // baseline for every section instead of the truth: nothing changed.
 export async function readLatestWatchedSourceSnapshot(
-  featuresCacheDir: string,
+  sourcesCacheDir: string,
   sourceKey: string,
   legacyFeatureIds: readonly string[] = [],
 ): Promise<string | null> {
   let entries;
   try {
-    entries = await readdir(featuresCacheDir, { withFileTypes: true });
+    entries = await readdir(sourcesCacheDir, { withFileTypes: true });
   } catch {
     return null;
   }
@@ -51,7 +51,7 @@ export async function readLatestWatchedSourceSnapshot(
   for (const key of keys) {
     for (const name of [sourceKey, ...legacyFeatureIds]) {
       try {
-        return await readFile(resolve(featuresCacheDir, key, `${name}.txt`), "utf-8");
+        return await readFile(resolve(sourcesCacheDir, key, `${name}.txt`), "utf-8");
       } catch {
         continue;
       }

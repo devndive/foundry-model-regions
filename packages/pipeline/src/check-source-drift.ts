@@ -3,7 +3,7 @@ import { dirname, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { fetchArticleSection } from "./article-section.js";
 import { FEATURES } from "./feature-metadata.js";
-import { detectDrift, type DriftIO } from "./feature-drift.js";
+import { detectDrift, type DriftIO } from "./watched-source-drift.js";
 import { formatSnapshotKey } from "./snapshots.js";
 import {
   readLatestWatchedSourceSnapshot,
@@ -12,7 +12,7 @@ import {
 import { groupIntoWatchedSources } from "./watched-sources.js";
 
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const FEATURES_CACHE_DIR = resolve(ROOT_DIR, "cache", "features");
+const SOURCES_CACHE_DIR = resolve(ROOT_DIR, "cache", "sources");
 const REPORT_PATH = resolve(ROOT_DIR, "drift-report.json");
 
 // Wires the detection loop to its real boundaries: the live article and the
@@ -22,13 +22,13 @@ function realIO(snapshotKey: string): DriftIO {
     fetchSection: fetchArticleSection,
     readLatestSnapshot: (source) =>
       readLatestWatchedSourceSnapshot(
-        FEATURES_CACHE_DIR,
+        SOURCES_CACHE_DIR,
         source.key,
         source.features.map((feature) => feature.id),
       ),
     writeSnapshot: async (source, text) => {
-      await writeWatchedSourceSnapshot(FEATURES_CACHE_DIR, snapshotKey, source.key, text);
-      return relative(ROOT_DIR, resolve(FEATURES_CACHE_DIR, snapshotKey, `${source.key}.txt`));
+      await writeWatchedSourceSnapshot(SOURCES_CACHE_DIR, snapshotKey, source.key, text);
+      return relative(ROOT_DIR, resolve(SOURCES_CACHE_DIR, snapshotKey, `${source.key}.txt`));
     },
   };
 }

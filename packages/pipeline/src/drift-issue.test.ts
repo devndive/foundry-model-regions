@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import type { Feature } from "@foundry/data-types";
 import { renderDriftIssue } from "./drift-issue.js";
-import { groupIntoWatchedSources } from "./watched-sources.js";
+import { groupIntoWatchedSources, REGIONS_LIST_SOURCE } from "./watched-sources.js";
 
 const CONTENT_SAFETY_URL =
   "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview";
@@ -69,4 +69,19 @@ test("a vanished anchor is likewise reported once, listing every affected Featur
 
   assert.match(body, /`content-safety-text`/);
   assert.match(body, /`content-safety-image`/);
+});
+
+test("a source's triage note replaces the Feature reconcile instruction", () => {
+  const { body } = renderDriftIssue(REGIONS_LIST_SOURCE, "changed", "+Switzerland West");
+
+  assert.match(body, /Tracked Region criterion in ADR-0005/);
+  assert.doesNotMatch(body, /Reconcile `src\/feature-metadata\.ts`/);
+});
+
+test("a Feature-less source's issue omits the affected-Features block", () => {
+  const changed = renderDriftIssue(REGIONS_LIST_SOURCE, "changed", "+Switzerland West");
+  const missing = renderDriftIssue(REGIONS_LIST_SOURCE, "anchor-missing", "did not resolve");
+
+  assert.doesNotMatch(changed.body, /Features curated from this section/);
+  assert.doesNotMatch(missing.body, /Features curated from this section/);
 });

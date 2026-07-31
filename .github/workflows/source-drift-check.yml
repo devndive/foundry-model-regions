@@ -73,6 +73,6 @@ jobs:
         run: |
           if jq -e 'any(.[]; .status == "anchor-missing")' packages/pipeline/drift-report.json >/dev/null; then
             echo "::error::One or more Watched Source anchors no longer resolve."
-            jq -r '.[] | select(.status == "anchor-missing") | "  - \(.sourceUrl)#\(.sectionAnchor) (\(.featureIds | join(", ")))"' packages/pipeline/drift-report.json
+            jq -r '.[] | select(.status == "anchor-missing") | "  - \(.sourceUrl)#\(.sectionAnchor) (\(if (.featureIds | length) > 0 then (.featureIds | join(", ")) else .sourceKey end))"' packages/pipeline/drift-report.json
             exit 1
           fi

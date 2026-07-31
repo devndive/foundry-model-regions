@@ -9,7 +9,7 @@ import {
   readLatestWatchedSourceSnapshot,
   writeWatchedSourceSnapshot,
 } from "./watched-source-snapshots.js";
-import { groupIntoWatchedSources } from "./watched-sources.js";
+import { groupIntoWatchedSources, REGIONS_LIST_SOURCE } from "./watched-sources.js";
 
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const SOURCES_CACHE_DIR = resolve(ROOT_DIR, "cache", "sources");
@@ -34,7 +34,10 @@ function realIO(snapshotKey: string): DriftIO {
 }
 
 async function main(): Promise<void> {
-  const sources = groupIntoWatchedSources(FEATURES);
+  // Feature sections are derived by grouping; the regions list is a Watched
+  // Source with no Features, so it is declared independently and appended here.
+  const featureSources = groupIntoWatchedSources(FEATURES);
+  const sources = [...featureSources, REGIONS_LIST_SOURCE];
   const drift = await detectDrift(sources, realIO(formatSnapshotKey(new Date())));
 
   const drifted = new Set(drift.map((entry) => entry.sourceKey));
@@ -57,7 +60,8 @@ async function main(): Promise<void> {
   const opened = drift.filter((d) => d.opensIssue).length;
   const baselines = drift.filter((d) => d.status === "new").length;
   console.log(
-    `\nDone. ${FEATURES.length} features across ${sources.length} section(s) checked: ` +
+    `\nDone. ${sources.length} Watched Source(s) checked ` +
+      `(${FEATURES.length} feature(s) across ${featureSources.length} section(s)): ` +
       `${unchanged} unchanged, ${baselines} new baseline(s), ${opened} drift event(s) to triage.`,
   );
 }

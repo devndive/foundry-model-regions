@@ -1,7 +1,12 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import type { Feature } from "@foundry/data-types";
-import { groupIntoWatchedSources } from "./watched-sources.js";
+import { FEATURES } from "./feature-metadata.js";
+import {
+  groupIntoWatchedSources,
+  REGIONS_LIST_SOURCE,
+  REGIONS_LIST_URL,
+} from "./watched-sources.js";
 
 const AGENTS_URL = "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/hosted-agents";
 
@@ -78,5 +83,18 @@ test("Watched Source keys distinguish the same anchor on different articles", ()
       "azure-foundry-agents-concepts-hosted-agents--region-availability",
       "azure-ai-services-content-safety-overview--region-availability",
     ],
+  );
+});
+
+test("the regions-list Watched Source carries zero Features", () => {
+  assert.deepEqual(REGIONS_LIST_SOURCE.features, []);
+});
+
+// Guards the shortcut of "just add the regions list as a Feature": that would
+// leak a non-feature into features.json and the matrix UI (ADR-0005).
+test("no Feature is curated from the regions-list article", () => {
+  assert.deepEqual(
+    FEATURES.filter((f) => f.sourceUrl === REGIONS_LIST_URL).map((f) => f.id),
+    [],
   );
 });

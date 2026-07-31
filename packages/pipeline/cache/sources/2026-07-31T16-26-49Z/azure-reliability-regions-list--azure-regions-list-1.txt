@@ -1,0 +1,132 @@
+Azure regions list
+All
+Americas
+Europe
+Middle East
+Africa
+Asia Pacific
+Region Availability zone support Paired region Physical location Geography Programmatic name
+Australia Central Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Australia Central 2 Canberra Australia australiacentral
+Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Australia Central 2 Australia Central Canberra Australia australiacentral2
+Australia East Yes Australia Southeast New South Wales Australia australiaeast
+Australia Southeast Australia East Victoria Australia australiasoutheast
+Austria East Yes N/A Vienna Austria austriaeast
+Belgium Central Yes N/A Brussels Belgium belgiumcentral
+Brazil South Yes South Central US Sao Paulo State Brazil brazilsouth
+Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Brazil Southeast Brazil South Rio Brazil brazilsoutheast
+Canada Central Yes Canada East Toronto Canada canadacentral
+Canada East Canada Central Quebec Canada canadaeast
+Central India Yes South India Pune India centralindia
+Central US Yes East US 2 Iowa United States centralus
+Chile Central Yes N/A Santiago Chile chilecentral
+Denmark East Yes N/A Copenhagen Denmark denmarkeast
+East Asia Yes Southeast Asia Hong Kong Asia Pacific eastasia
+East US Yes West US Virginia United States eastus
+East US 2 Yes Central US Virginia United States eastus2
+France Central Yes Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. France South Paris France francecentral
+Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. France South France Central Marseille France francesouth
+Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Germany North Germany West Central Berlin Germany germanynorth
+Germany West Central Yes Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Germany North Frankfurt Germany germanywestcentral
+India South Central Yes Central India Hyderabad India indiasouthcentral
+Indonesia Central Yes N/A Jakarta Indonesia indonesiacentral
+Israel Central Yes N/A Israel Israel israelcentral
+Italy North Yes N/A Milan Italy italynorth
+Japan East Yes Japan West Tokyo, Saitama Japan japaneast
+Japan West Yes Japan East Osaka Japan japanwest
+Korea Central Yes Korea South Seoul Korea koreacentral
+Korea South Korea Central Busan Korea koreasouth
+Malaysia West Yes N/A Kuala Lumpur Malaysia malaysiawest
+Mexico Central Yes N/A Querétaro State Mexico mexicocentral
+New Zealand North Yes N/A Auckland New Zealand newzealandnorth
+North Central US South Central US Illinois United States northcentralus
+North Europe Yes West Europe Ireland Europe northeurope
+Norway East Yes Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Norway West Norway Norway norwayeast
+Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Norway West Norway East Norway Norway norwaywest
+Poland Central Yes N/A Warsaw Poland polandcentral
+Qatar Central Yes N/A Doha Qatar qatarcentral
+South Africa North Yes Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. South Africa West Johannesburg South Africa southafricanorth
+Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. South Africa West South Africa North Cape Town South Africa southafricawest
+South Central US Yes North Central US Texas United States southcentralus
+South India Central India Chennai India southindia
+Southeast Asia Yes East Asia Singapore Asia Pacific southeastasia
+Spain Central Yes N/A Madrid Spain spaincentral
+Sweden Central Yes Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Sweden South Gävle Sweden swedencentral
+Switzerland North Yes Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Switzerland West Zurich Switzerland switzerlandnorth
+Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Switzerland West Switzerland North Geneva Switzerland switzerlandwest
+Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. UAE Central UAE North Abu Dhabi UAE uaecentral
+UAE North Yes Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. UAE Central Dubai UAE uaenorth
+UK South Yes UK West London United Kingdom uksouth
+UK West UK South Cardiff United Kingdom ukwest
+West Central US West US 2 Wyoming United States westcentralus
+West Europe Yes North Europe Netherlands Europe westeurope
+West India South India Mumbai India westindia
+West US East US California United States westus
+West US 2 Yes West Central US Washington United States westus2
+West US 3 Yes East US Phoenix United States westus3
+Region Availability zone support Paired region Physical location Geography Programmatic name
+Brazil South Yes South Central US Sao Paulo State Brazil brazilsouth
+Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Brazil Southeast Brazil South Rio Brazil brazilsoutheast
+Canada Central Yes Canada East Toronto Canada canadacentral
+Canada East Canada Central Quebec Canada canadaeast
+Central US Yes East US 2 Iowa United States centralus
+Chile Central Yes N/A Santiago Chile chilecentral
+East US Yes West US Virginia United States eastus
+East US 2 Yes Central US Virginia United States eastus2
+Mexico Central Yes N/A Querétaro State Mexico mexicocentral
+North Central US South Central US Illinois United States northcentralus
+South Central US Yes North Central US Texas United States southcentralus
+West Central US West US 2 Wyoming United States westcentralus
+West US East US California United States westus
+West US 2 Yes West Central US Washington United States westus2
+West US 3 Yes East US Phoenix United States westus3
+Region Availability zone support Paired region Physical location Geography Programmatic name
+Austria East Yes N/A Vienna Austria austriaeast
+Belgium Central Yes N/A Brussels Belgium belgiumcentral
+Denmark East Yes N/A Copenhagen Denmark denmarkeast
+France Central Yes Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. France South Paris France francecentral
+Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. France South France Central Marseille France francesouth
+Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Germany North Germany West Central Berlin Germany germanynorth
+Germany West Central Yes Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Germany North Frankfurt Germany germanywestcentral
+Italy North Yes N/A Milan Italy italynorth
+North Europe Yes West Europe Ireland Europe northeurope
+Norway East Yes Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Norway West Norway Norway norwayeast
+Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Norway West Norway East Norway Norway norwaywest
+Poland Central Yes N/A Warsaw Poland polandcentral
+Spain Central Yes N/A Madrid Spain spaincentral
+Sweden Central Yes Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Sweden South Gävle Sweden swedencentral
+Switzerland North Yes Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Switzerland West Zurich Switzerland switzerlandnorth
+Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Switzerland West Switzerland North Geneva Switzerland switzerlandwest
+UK South Yes UK West London United Kingdom uksouth
+UK West UK South Cardiff United Kingdom ukwest
+West Europe Yes North Europe Netherlands Europe westeurope
+Region Availability zone support Paired region Physical location Geography Programmatic name
+Israel Central Yes N/A Israel Israel israelcentral
+Qatar Central Yes N/A Doha Qatar qatarcentral
+Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. UAE Central UAE North Abu Dhabi UAE uaecentral
+UAE North Yes Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. UAE Central Dubai UAE uaenorth
+Region Availability zone support Paired region Physical location Geography Programmatic name
+South Africa North Yes Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. South Africa West Johannesburg South Africa southafricanorth
+Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. South Africa West South Africa North Cape Town South Africa southafricawest
+Region Availability zone support Paired region Physical location Geography Programmatic name
+Australia Central Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Australia Central 2 Canberra Australia australiacentral
+Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Australia Central 2 Australia Central Canberra Australia australiacentral2
+Australia East Yes Australia Southeast New South Wales Australia australiaeast
+Australia Southeast Australia East Victoria Australia australiasoutheast
+Central India Yes South India Pune India centralindia
+East Asia Yes Southeast Asia Hong Kong Asia Pacific eastasia
+India South Central Yes Central India Hyderabad India indiasouthcentral
+Indonesia Central Yes N/A Jakarta Indonesia indonesiacentral
+Japan East Yes Japan West Tokyo, Saitama Japan japaneast
+Japan West Yes Japan East Osaka Japan japanwest
+Korea Central Yes Korea South Seoul Korea koreacentral
+Korea South Korea Central Busan Korea koreasouth
+Malaysia West Yes N/A Kuala Lumpur Malaysia malaysiawest
+New Zealand North Yes N/A Auckland New Zealand newzealandnorth
+South India Central India Chennai India southindia
+Southeast Asia Yes East Asia Singapore Asia Pacific southeastasia
+West India South India Mumbai India westindia
+Azure programmatic region names
+To retrieve a list of regions, including the names that can be used for programming and scripting, you can use the following methods:
+Azure CLI - az account list-locations
+Azure PowerShell - Get-AzLocation
+Azure Resource Manager REST API

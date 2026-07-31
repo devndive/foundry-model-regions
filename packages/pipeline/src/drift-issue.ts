@@ -31,37 +31,35 @@ function featureList(source: WatchedSource): string {
 function buildIssueBody(source: WatchedSource, status: DriftStatus, detail: string): string {
   const articleLink = `${source.sourceUrl}#${source.sectionAnchor}`;
   const reconcile =
+    source.triageNote ??
     "Reconcile `src/feature-metadata.ts` with the article for each Feature below. The " +
-    "drift workflow never edits the curated table — humans own correctness.";
-  const affected = ["Features curated from this section:", "", featureList(source)].join("\n");
+      "drift workflow never edits the curated table — humans own correctness.";
+  // A Watched Source curating no Features has nothing to list; the heading alone
+  // would read as "affected: none" rather than "not applicable".
+  const affected =
+    source.features.length > 0
+      ? ["Features curated from this section:", "", featureList(source), ""]
+      : [];
 
-  if (status === "anchor-missing") {
-    return [
-      `Drift detected for **${sectionLabel(source)}**: the section anchor no longer resolves.`,
-      "",
-      `Article: ${articleLink}`,
-      "",
-      affected,
-      "",
-      `A vanished section is itself a valid drift signal. ${reconcile}`,
-      "",
-      "> " + detail,
-      "",
-    ].join("\n");
-  }
+  const headline =
+    status === "anchor-missing"
+      ? `Drift detected for **${sectionLabel(source)}**: the section anchor no longer resolves.`
+      : `Drift detected for **${sectionLabel(source)}**, status \`${status}\`.`;
+  const guidance =
+    status === "anchor-missing"
+      ? `A vanished section is itself a valid drift signal. ${reconcile}`
+      : reconcile;
+  const evidence = status === "anchor-missing" ? ["> " + detail] : ["```diff", detail, "```"];
 
   return [
-    `Drift detected for **${sectionLabel(source)}**, status \`${status}\`.`,
+    headline,
     "",
     `Article: ${articleLink}`,
     "",
-    affected,
+    ...affected,
+    guidance,
     "",
-    reconcile,
-    "",
-    "```diff",
-    detail,
-    "```",
+    ...evidence,
     "",
   ].join("\n");
 }

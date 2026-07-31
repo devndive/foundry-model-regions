@@ -48,6 +48,49 @@ test("extractSection throws loudly when the anchor does not resolve", () => {
   );
 });
 
+test("extractSection keeps an image's alt text, the only mark of a restricted region", () => {
+  const html =
+    `<h2 id="regions">Regions</h2>` +
+    `<table><tr><td><img alt="Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area."> Switzerland West</td></tr></table>` +
+    `<h2 id="next">Next</h2>`;
+
+  const text = extractSection(html, "regions");
+
+  assert.equal(
+    text,
+    "Regions\nIcon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area. Switzerland West",
+  );
+});
+
+test("extractSection drops an image with no alt text rather than leaving a stray token", () => {
+  const html =
+    `<h2 id="regions">Regions</h2>` +
+    `<p><img src="/media/spacer.png" data-alt="not alt"> East US 2</p>` +
+    `<h2 id="next">Next</h2>`;
+
+  assert.equal(extractSection(html, "regions"), "Regions\nEast US 2");
+});
+
+test("extractSection distinguishes a restricted region row from a self-serve one", () => {
+  const RESTRICTED_ICON = `<img src="media/icon-region-restricted.svg" alt="Icon that shows that access to this region is restricted to support specific customer scenarios, such as disaster recovery within a specific geographic area." data-linktype="relative-path">`;
+  const CHECKMARK = `<img src="media/icon-checkmark.svg" alt="Yes" data-linktype="relative-path">`;
+  const row = (zoneCell: string, nameCell: string) =>
+    `<tr><td>Switzerland North</td><td>${zoneCell}</td><td>${nameCell} Switzerland West</td></tr>`;
+
+  const restricted = extractSection(
+    `<h2 id="regions">Regions</h2><table>${row(CHECKMARK, RESTRICTED_ICON)}</table><h2 id="next">Next</h2>`,
+    "regions",
+  );
+  const selfServe = extractSection(
+    `<h2 id="regions">Regions</h2><table>${row(CHECKMARK, "")}</table><h2 id="next">Next</h2>`,
+    "regions",
+  );
+
+  assert.match(restricted, /Switzerland North Yes Icon that shows that access .* Switzerland West/);
+  assert.equal(selfServe, "Regions\nSwitzerland North Yes Switzerland West");
+  assert.notEqual(restricted, selfServe);
+});
+
 test("extractSection collapses whitespace into clean, comparable lines", () => {
   const messy = `<h2 id="a">Heading</h2><p>line   with\n\textra   space</p><h2 id="b">Next</h2>`;
   const text = extractSection(messy, "a");

@@ -1,0 +1,5 @@
+Regional support for private networking
+When you use a private network configuration, such as a network-secured standard agent, the following regional requirements apply:
+Foundry resource and virtual network region. You must deploy the Foundry resource in the same region as its virtual network. You can deploy other Azure resources, such as Azure Cosmos DB, Azure AI Search, and Azure Storage, in different regions. Consider the cost implications of cross-region deployments.
+Grounding with Bing Search. Only the following regions are supported: West Europe, Canada East, Switzerland North, Spain Central, UAE North, Korea Central, Poland Central, Southeast Asia, West US, West US 2, West US 3, East US, East US 2, Central US, South India, Japan East, UK South, France Central, Norway East, Australia East, Canada Central, Sweden Central, South Africa North, Italy North, Brazil South.
+For more information, see Use a virtual network with Foundry Agent Service .

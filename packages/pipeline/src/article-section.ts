@@ -12,11 +12,22 @@ function escapeRegExp(value: string): string {
 // HTML whitespace.
 const LINE_BREAK = "\u0000";
 
+// An image's alt text is content, not chrome: on the Microsoft regions list a
+// restricted-access region is marked by an icon and nothing else, so stripping
+// the tag would make a restricted row read exactly like a self-serve one
+// (ADR-0006). An image without alt text describes nothing and contributes
+// nothing.
+function imageAltText(imgTag: string): string {
+  const alt = /\salt=(?:"([^"]*)"|'([^']*)')/i.exec(imgTag);
+  return alt ? ` ${alt[1] ?? alt[2]} ` : " ";
+}
+
 function htmlToText(html: string): string {
   return html
     .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, " ")
     .replace(/<\/(p|div|li|h[1-6]|tr|table|ul|ol|section|article)>/gi, LINE_BREAK)
     .replace(/<br\s*\/?>/gi, LINE_BREAK)
+    .replace(/<img\b[^>]*>/gi, imageAltText)
     .replace(/<[^>]+>/g, " ")
     .replace(/&nbsp;/gi, " ")
     .replace(/&amp;/gi, "&")

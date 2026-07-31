@@ -4,7 +4,7 @@ import { type Model } from "@azure/arm-cognitiveservices";
 
 // The canonical snapshot-key grammar, shared by every cache that keys dated
 // directories off `formatSnapshotKey` (model cache here, feature cache in
-// feature-snapshots.ts). One owner so readers can't disagree on the format.
+// watched-source-snapshots.ts). One owner so readers can't disagree on the format.
 export const SNAPSHOT_KEY_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}Z$/;
 
 export function formatSnapshotKey(date: Date): string {

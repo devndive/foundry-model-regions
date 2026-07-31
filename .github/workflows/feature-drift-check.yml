@@ -51,7 +51,8 @@ jobs:
           fi
 
       # Stage 2: feed the existing triage workflow — one needs-triage issue per
-      # drift event (changed sections and vanished anchors), with the diff inline.
+      # drift event. A drift event is a changed (or vanished) *section*, so one
+      # issue covers every Feature curated from it, with the diff inline.
       - name: Open triage issues for drift
         env:
           GH_TOKEN: ${{ github.token }}
@@ -72,6 +73,6 @@ jobs:
         run: |
           if jq -e 'any(.[]; .status == "anchor-missing")' packages/pipeline/drift-report.json >/dev/null; then
             echo "::error::One or more feature section anchors no longer resolve."
-            jq -r '.[] | select(.status == "anchor-missing") | "  - \(.featureId): \(.sourceUrl)#\(.sectionAnchor)"' packages/pipeline/drift-report.json
+            jq -r '.[] | select(.status == "anchor-missing") | "  - \(.sourceUrl)#\(.sectionAnchor) (\(.featureIds | join(", ")))"' packages/pipeline/drift-report.json
             exit 1
           fi

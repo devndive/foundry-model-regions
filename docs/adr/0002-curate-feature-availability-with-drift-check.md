@@ -5,9 +5,16 @@ not exposed by any Azure API — it only exists as prose in Microsoft Learn arti
 source of truth is a **hand-curated table** (`feature-metadata.ts`, mirroring how
 `region-metadata.ts` is hand-maintained), and a scheduled **drift check** keeps it honest:
 each feature carries a source descriptor (article URL + section anchor), a GitHub Actions
-workflow snapshots only that section's text into `cache/features/<timestamp>/<id>.txt`,
-diffs it against the previous snapshot, and on any change opens a `needs-triage` issue so a
-human reconciles the table.
+workflow snapshots only that section's text into
+`cache/features/<timestamp>/<article-path>--<anchor>.txt`, diffs it against the previous
+snapshot, and on any change opens a `needs-triage` issue so a human reconciles the table.
+
+Drift is detected per **Watched Source** — one (URL, anchor) section — not per Feature.
+Several Features are routinely curated from the same section (every column of the Content
+Safety region-availability table, every column of the Agents tool table), so a per-Feature
+loop fetched the same section N times, wrote N byte-identical snapshots and opened N
+identical issues for one article edit. The section is the unit of change; the issue names
+every Feature curated from it, and one human pass reconciles them together.
 
 ## Status
 
@@ -35,3 +42,6 @@ accepted
 - A feature's curated regions must be a subset of `REGIONS`; a unit test fails on a stray
   region, forcing new regions into `region-metadata.ts` first (which also starts fetching
   their models).
+- Snapshots committed under the old per-Feature filenames stay readable: a section falls
+  back to any of its Features' legacy `<featureId>.txt` files, so the first deduped run is
+  a real comparison rather than a false "new baseline" for every section.

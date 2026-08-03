@@ -1,0 +1,177 @@
+{
+  "state_version": 2,
+  "owner": "skill-manager",
+  "managed_skills": [
+    {
+      "identity": {
+        "source": "https://github.com/mattpocock/skills",
+        "path": "skills/engineering/ask-matt"
+      },
+      "destination_path": "engineering/ask-matt",
+      "resolved_commit": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+      "digest": "sha256:4ab0afbfc6b082512c82f63f8c0f0678c8f03049f95a83fb54db6d7dd1a2f284"
+    },
+    {
+      "identity": {
+        "source": "https://github.com/mattpocock/skills",
+        "path": "skills/engineering/code-review"
+      },
+      "destination_path": "engineering/code-review",
+      "resolved_commit": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+      "digest": "sha256:f94e943fbfab9ddd3d310fd555a1aa69c0a7cf36d419ad810608d74f110b5397"
+    },
+    {
+      "identity": {
+        "source": "https://github.com/mattpocock/skills",
+        "path": "skills/engineering/codebase-design"
+      },
+      "destination_path": "engineering/codebase-design",
+      "resolved_commit": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+      "digest": "sha256:0018d6ee693d2ccf2dd166ff11aedd713bf372e492e94786e94f9c9c6aa9fb7b"
+    },
+    {
+      "identity": {
+        "source": "https://github.com/mattpocock/skills",
+        "path": "skills/engineering/diagnosing-bugs"
+      },
+      "destination_path": "engineering/diagnosing-bugs",
+      "resolved_commit": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+      "digest": "sha256:44a507fe643af5997432db55a712f6d39761733fd2f8e5c7413a4c6826f1217d"
+    },
+    {
+      "identity": {
+        "source": "https://github.com/mattpocock/skills",
+        "path": "skills/engineering/domain-modeling"
+      },
+      "destination_path": "engineering/domain-modeling",
+      "resolved_commit": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+      "digest": "sha256:f5fed75030c66626cb4725e80261497b35910cd58706383849093b22ac5d3f21"
+    },
+    {
+      "identity": {
+        "source": "https://github.com/mattpocock/skills",
+        "path": "skills/engineering/grill-with-docs"
+      },
+      "destination_path": "engineering/grill-with-docs",
+      "resolved_commit": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+      "digest": "sha256:52a2e30968c0cbd03bd6d0a0f44ae4b21de5abc9d95d3ad25e4d409a7042e0ab"
+    },
+    {
+      "identity": {
+        "source": "https://github.com/mattpocock/skills",
+        "path": "skills/engineering/implement"
+      },
+      "destination_path": "engineering/implement",
+      "resolved_commit": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+      "digest": "sha256:e9731a11e6793a5867dc1ea9edac9e3e49ecdf56253d003db4204b56a2cf166b"
+    },
+    {
+      "identity": {
+        "source": "https://github.com/mattpocock/skills",
+        "path": "skills/engineering/improve-codebase-architecture"
+      },
+      "destination_path": "engineering/improve-codebase-architecture",
+      "resolved_commit": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+      "digest": "sha256:259c47fd519dce98e1c98ad589ba24bafefa8df09b083366b477e5c088e4555a"
+    },
+    {
+      "identity": {
+        "source": "https://github.com/mattpocock/skills",
+        "path": "skills/engineering/prototype"
+      },
+      "destination_path": "engineering/prototype",
+      "resolved_commit": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+      "digest": "sha256:f9890c39a63d298e758f2087efc39febe78fd004638d0fca8dcd6dc1009d859f"
+    },
+    {
+      "identity": {
+        "source": "https://github.com/mattpocock/skills",
+        "path": "skills/engineering/research"
+      },
+      "destination_path": "engineering/research",
+      "resolved_commit": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+      "digest": "sha256:aab93f952bfb2c8df3eccd8b3b0791838769f0ce3444743ec72f68a753c8da0d"
+    },
+    {
+      "identity": {
+        "source": "https://github.com/mattpocock/skills",
+        "path": "skills/engineering/resolving-merge-conflicts"
+      },
+      "destination_path": "engineering/resolving-merge-conflicts",
+      "resolved_commit": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+      "digest": "sha256:5a3e1ac4984468ba6e16dd19f837983b0b48f17140936082eed55cdc18eb3dff"
+    },
+    {
+      "identity": {
+        "source": "https://github.com/mattpocock/skills",
+        "path": "skills/engineering/setup-matt-pocock-skills"
+      },
+      "destination_path": "engineering/setup-matt-pocock-skills",
+      "resolved_commit": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+      "digest": "sha256:aec8feccda0e9b81c78083f851b1799aced06616dbe0d738ea76fbd6a1b5dbad"
+    },
+    {
+      "identity": {
+        "source": "https://github.com/mattpocock/skills",
+        "path": "skills/engineering/tdd"
+      },
+      "destination_path": "engineering/tdd",
+      "resolved_commit": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+      "digest": "sha256:f0978f9e804741b1b912651b8910e6ca9f95a7893bd7c0e60d8f6b94d400f94f"
+    },
+    {
+      "identity": {
+        "source": "https://github.com/mattpocock/skills",
+        "path": "skills/engineering/to-spec"
+      },
+      "destination_path": "engineering/to-spec",
+      "resolved_commit": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+      "digest": "sha256:714d10e50281927854f739efa2a023271f702ca7a4c57600a5a0f9abde56aab7"
+    },
+    {
+      "identity": {
+        "source": "https://github.com/mattpocock/skills",
+        "path": "skills/engineering/to-tickets"
+      },
+      "destination_path": "engineering/to-tickets",
+      "resolved_commit": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+      "digest": "sha256:2fa73ba37b8fe7a6605a157d7d2c5558b967c33f6de5f12f84fe23a5a9fdcfd1"
+    },
+    {
+      "identity": {
+        "source": "https://github.com/mattpocock/skills",
+        "path": "skills/engineering/triage"
+      },
+      "destination_path": "engineering/triage",
+      "resolved_commit": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+      "digest": "sha256:c3093f5a3bf9549b20af2cfba2a4a30713018bd34ea655e7162e00ebd3ad208e"
+    },
+    {
+      "identity": {
+        "source": "https://github.com/mattpocock/skills",
+        "path": "skills/engineering/wayfinder"
+      },
+      "destination_path": "engineering/wayfinder",
+      "resolved_commit": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+      "digest": "sha256:e50142bf6c4ec000a127bc0b808491ba0303d42f9d2c14d60af9e681603873c8"
+    },
+    {
+      "identity": {
+        "source": "https://github.com/mattpocock/skills",
+        "path": "skills/productivity/grill-me"
+      },
+      "destination_path": "productivity/grill-me",
+      "resolved_commit": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+      "digest": "sha256:bec152d2fbe46fc089394618c0601deccfa80c050da3c936b13a263a3da9796c"
+    },
+    {
+      "identity": {
+        "source": "https://github.com/mattpocock/skills",
+        "path": "skills/productivity/grilling"
+      },
+      "destination_path": "productivity/grilling",
+      "resolved_commit": "2ab958093e83e0ec752e6c1c5932da465bf23e0c",
+      "digest": "sha256:5ce6cb948ee858ef5467f1ec691ae0818e6b964a7082762fa1dfa6d7451db3c5"
+    }
+  ]
+}

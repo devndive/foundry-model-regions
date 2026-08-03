@@ -21,6 +21,20 @@ Feature with its own region list — there is no nested feature hierarchy.
 > Deliberately called a **Feature**, never a "capability", because `capabilities` already
 > names the boolean flags on a Model in the models pipeline. The two must not be conflated.
 
+## Feature Group
+
+A curated subject area that a **Foundry Feature** is filed under for presentation — e.g.
+Agent Tools, Content Safety, Evaluation. Purely a bucket for reading: it grants no facts,
+implies no subset relation between its members, and is **not** the feature hierarchy that
+ADR-0003 rejects. A parent-shaped Feature (`Foundry Agents`) sits inside its Group as a
+peer of the others, not above them.
+
+Curated rather than derived from the source article, so a Group can unite Features that
+Microsoft documents apart (AI Red Teaming Agent sits in Evaluation beside Evaluations —
+AI Red Teaming) and a Group may therefore span more than one **Watched Source**. Article
+provenance is carried per-Feature by `sourceUrl`, never by the Group.
+_Avoid_: feature category, feature family, feature section
+
 ## Feature Availability Fact
 
 A statement that a **Foundry Feature** is available in a **Region**: a closed-world

@@ -11,7 +11,7 @@ import {
 const AGENTS_URL = "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/hosted-agents";
 
 function feature(id: string, sectionAnchor: string, sourceUrl = AGENTS_URL): Feature {
-  return { id, displayName: id, sourceUrl, sectionAnchor, regions: [] };
+  return { id, displayName: id, group: "hosted-agents", sourceUrl, sectionAnchor, regions: [] };
 }
 
 test("Features sharing a URL and anchor collapse into one Watched Source", () => {

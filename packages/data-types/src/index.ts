@@ -45,9 +45,24 @@ export interface Region {
   geoGroup: GeoGroup;
 }
 
+// The curated subject area a Foundry Feature is filed under for presentation.
+// A bucket for reading only: it grants no facts and implies no subset relation
+// between its members, so it is not the feature hierarchy ADR-0003 rejects. It
+// may span Watched Sources — Evaluation deliberately unites the standalone AI
+// Red Teaming Agent with the evaluation red teaming documented elsewhere.
+// See CONTEXT.md and docs/adr/0007-*.md.
+export type FeatureGroup =
+  | "foundry-agents"
+  | "agent-tools"
+  | "hosted-agents"
+  | "content-safety"
+  | "evaluation"
+  | "networking";
+
 export interface Feature {
   id: string;
   displayName: string;
+  group: FeatureGroup;
   sourceUrl: string;
   sectionAnchor: string;
   regions: readonly string[];

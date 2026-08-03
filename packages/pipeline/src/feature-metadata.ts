@@ -188,6 +188,7 @@ function agentTool(id: string, toolName: string, regions: readonly string[]): Fe
   return {
     id,
     displayName: `Agent Tool — ${toolName}`,
+    group: "agent-tools",
     sourceUrl: AGENTS_ARTICLE_URL,
     sectionAnchor: AGENT_TOOL_SECTION_ANCHOR,
     regions,
@@ -198,6 +199,7 @@ export const FEATURES: readonly Feature[] = [
   {
     id: "ai-red-teaming-agent",
     displayName: "AI Red Teaming Agent",
+    group: "evaluation",
     sourceUrl: "https://learn.microsoft.com/en-us/azure/foundry/concepts/ai-red-teaming-agent",
     sectionAnchor: "agentic-risks",
     regions: ["eastus2", "francecentral", "northcentralus", "swedencentral"],
@@ -208,6 +210,7 @@ export const FEATURES: readonly Feature[] = [
     // this one deliberately stays the plain "is Agent Service here?" answer.
     id: "foundry-agents",
     displayName: "Foundry Agents",
+    group: "foundry-agents",
     sourceUrl: AGENTS_ARTICLE_URL,
     sectionAnchor: "supported-regions",
     regions: FOUNDRY_AGENTS_REGIONS,
@@ -218,6 +221,7 @@ export const FEATURES: readonly Feature[] = [
     // Hosted Agents protocols: it is documented independently and can diverge.
     id: "agents-responses-api",
     displayName: "Foundry Agents — Responses API",
+    group: "foundry-agents",
     sourceUrl: AGENTS_ARTICLE_URL,
     sectionAnchor: "supported-regions",
     regions: FOUNDRY_AGENTS_REGIONS,
@@ -228,6 +232,7 @@ export const FEATURES: readonly Feature[] = [
     // rule out a region that base Agent Service availability would allow.
     id: "agents-private-class-a-ip-ranges",
     displayName: "Foundry Agents — Private Class A IP Ranges",
+    group: "foundry-agents",
     sourceUrl: AGENTS_ARTICLE_URL,
     sectionAnchor: "supported-regions",
     regions: without(
@@ -250,6 +255,7 @@ export const FEATURES: readonly Feature[] = [
     // Microsoft's; we encode both sections as written.
     id: "agents-grounding-bing-search-private-network",
     displayName: "Foundry Agents — Grounding with Bing Search (private network)",
+    group: "foundry-agents",
     sourceUrl: AGENTS_ARTICLE_URL,
     sectionAnchor: "regional-support-for-private-networking",
     regions: [
@@ -300,6 +306,7 @@ export const FEATURES: readonly Feature[] = [
   {
     id: "hosted-agents",
     displayName: "Hosted Agents",
+    group: "hosted-agents",
     sourceUrl: "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/hosted-agents",
     sectionAnchor: "region-availability",
     regions: HOSTED_AGENTS_REGIONS,
@@ -309,6 +316,7 @@ export const FEATURES: readonly Feature[] = [
     // availability is documented independently and can drift from its parent.
     id: "hosted-agents-invocations-websocket",
     displayName: "Hosted Agents — Invocations (WebSocket)",
+    group: "hosted-agents",
     sourceUrl: "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/hosted-agents",
     sectionAnchor: "protocols-responses-invocations-and-invocations-websocket",
     regions: HOSTED_AGENTS_REGIONS,
@@ -320,6 +328,7 @@ export const FEATURES: readonly Feature[] = [
   {
     id: "content-safety-custom-categories-standard",
     displayName: "Content Safety — Custom Categories (standard)",
+    group: "content-safety",
     sourceUrl: "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview",
     sectionAnchor: "region-availability",
     regions: ["australiaeast", "eastus", "switzerlandnorth"],
@@ -327,6 +336,7 @@ export const FEATURES: readonly Feature[] = [
   {
     id: "content-safety-groundedness-detection",
     displayName: "Content Safety — Groundedness Detection",
+    group: "content-safety",
     sourceUrl: "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview",
     sectionAnchor: "region-availability",
     regions: ["eastus", "eastus2", "francecentral", "swedencentral", "uksouth", "westus"],
@@ -334,6 +344,7 @@ export const FEATURES: readonly Feature[] = [
   {
     id: "content-safety-image",
     displayName: "Content Safety — Analyze Image",
+    group: "content-safety",
     sourceUrl: "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview",
     sectionAnchor: "region-availability",
     // All tracked regions except Germany West Central and Italy North.
@@ -342,6 +353,7 @@ export const FEATURES: readonly Feature[] = [
   {
     id: "content-safety-multimodal",
     displayName: "Content Safety — Multimodal (Image with Text)",
+    group: "content-safety",
     sourceUrl: "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview",
     sectionAnchor: "region-availability",
     regions: ["eastus", "westeurope"],
@@ -349,6 +361,7 @@ export const FEATURES: readonly Feature[] = [
   {
     id: "content-safety-custom-categories-rapid",
     displayName: "Content Safety — Custom Categories (rapid)",
+    group: "content-safety",
     sourceUrl: "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview",
     sectionAnchor: "region-availability",
     // All tracked regions except Korea Central and Poland Central.
@@ -357,6 +370,7 @@ export const FEATURES: readonly Feature[] = [
   {
     id: "content-safety-prompt-shields",
     displayName: "Content Safety — Prompt Shields",
+    group: "content-safety",
     sourceUrl: "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview",
     sectionAnchor: "region-availability",
     regions: ALL_CONTENT_SAFETY_REGIONS,
@@ -364,6 +378,7 @@ export const FEATURES: readonly Feature[] = [
   {
     id: "content-safety-protected-material-text",
     displayName: "Content Safety — Protected Material (Text)",
+    group: "content-safety",
     sourceUrl: "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview",
     sectionAnchor: "region-availability",
     regions: ALL_CONTENT_SAFETY_REGIONS,
@@ -371,6 +386,7 @@ export const FEATURES: readonly Feature[] = [
   {
     id: "content-safety-protected-material-code",
     displayName: "Content Safety — Protected Material (Code)",
+    group: "content-safety",
     sourceUrl: "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview",
     sectionAnchor: "region-availability",
     // All tracked regions except Germany West Central, Italy North and Korea Central.
@@ -384,6 +400,7 @@ export const FEATURES: readonly Feature[] = [
   {
     id: "content-safety-text",
     displayName: "Content Safety — Analyze Text",
+    group: "content-safety",
     sourceUrl: "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview",
     sectionAnchor: "region-availability",
     regions: ALL_CONTENT_SAFETY_REGIONS,
@@ -396,6 +413,7 @@ export const FEATURES: readonly Feature[] = [
   {
     id: "agent-playground-evaluations",
     displayName: "Agent Playground Evaluations",
+    group: "evaluation",
     sourceUrl:
       "https://learn.microsoft.com/en-us/azure/foundry/concepts/evaluation-regions-limits-virtual-network",
     sectionAnchor: "supported-regions-for-agent-playground-evaluations",
@@ -420,6 +438,7 @@ export const FEATURES: readonly Feature[] = [
   {
     id: "batch-evaluations",
     displayName: "Batch Evaluations",
+    group: "evaluation",
     sourceUrl:
       "https://learn.microsoft.com/en-us/azure/foundry/concepts/evaluation-regions-limits-virtual-network",
     sectionAnchor: "supported-regions-for-batch-evaluations",
@@ -464,6 +483,7 @@ export const FEATURES: readonly Feature[] = [
     // excluded because REGIONS tracks self-serve regions only (ADR-0005).
     id: "evaluators-risk-and-safety",
     displayName: "Evaluators — Risk and Safety",
+    group: "evaluation",
     sourceUrl:
       "https://learn.microsoft.com/en-us/azure/foundry/concepts/evaluation-regions-limits-virtual-network",
     sectionAnchor: "supported-regions-for-risk-and-safety-evaluators",
@@ -472,6 +492,7 @@ export const FEATURES: readonly Feature[] = [
   {
     id: "evaluators-groundedness-pro",
     displayName: "Evaluators — Groundedness Pro",
+    group: "evaluation",
     sourceUrl:
       "https://learn.microsoft.com/en-us/azure/foundry/concepts/evaluation-regions-limits-virtual-network",
     sectionAnchor: "supported-regions-for-risk-and-safety-evaluators",
@@ -480,6 +501,7 @@ export const FEATURES: readonly Feature[] = [
   {
     id: "evaluators-protected-material",
     displayName: "Evaluators — Protected Material",
+    group: "evaluation",
     sourceUrl:
       "https://learn.microsoft.com/en-us/azure/foundry/concepts/evaluation-regions-limits-virtual-network",
     sectionAnchor: "supported-regions-for-risk-and-safety-evaluators",
@@ -488,6 +510,7 @@ export const FEATURES: readonly Feature[] = [
   {
     id: "evaluations-ai-red-teaming",
     displayName: "Evaluations — AI Red Teaming",
+    group: "evaluation",
     sourceUrl:
       "https://learn.microsoft.com/en-us/azure/foundry/concepts/evaluation-regions-limits-virtual-network",
     sectionAnchor: "supported-regions-for-ai-red-teaming",
@@ -505,6 +528,7 @@ export const FEATURES: readonly Feature[] = [
     // silently unnoticed.
     id: "managed-virtual-network",
     displayName: "Managed Virtual Network",
+    group: "networking",
     sourceUrl: "https://learn.microsoft.com/en-us/azure/foundry/how-to/managed-virtual-network",
     sectionAnchor: "limitations",
     regions: [

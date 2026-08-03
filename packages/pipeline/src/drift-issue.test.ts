@@ -7,8 +7,14 @@ import { groupIntoWatchedSources, REGIONS_LIST_SOURCE } from "./watched-sources.
 const CONTENT_SAFETY_URL =
   "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview";
 
-function feature(id: string, displayName: string, sourceUrl: string, anchor: string): Feature {
-  return { id, displayName, sourceUrl, sectionAnchor: anchor, regions: ["eastus2"] };
+function feature(
+  id: string,
+  displayName: string,
+  sourceUrl: string,
+  anchor: string,
+  group: Feature["group"] = "hosted-agents",
+): Feature {
+  return { id, displayName, group, sourceUrl, sectionAnchor: anchor, regions: ["eastus2"] };
 }
 
 const HOSTED_AGENTS = groupIntoWatchedSources([
@@ -26,12 +32,14 @@ const CONTENT_SAFETY = groupIntoWatchedSources([
     "Content Safety — Analyze Text",
     CONTENT_SAFETY_URL,
     "region-availability",
+    "content-safety",
   ),
   feature(
     "content-safety-image",
     "Content Safety — Analyze Image",
     CONTENT_SAFETY_URL,
     "region-availability",
+    "content-safety",
   ),
 ])[0]!;
 

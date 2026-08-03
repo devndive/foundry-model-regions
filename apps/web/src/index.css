@@ -270,6 +270,117 @@ body {
   flex: 1 1 auto;
 }
 
+/* ---------- FeaturesPicker ----------
+   Features are AND'd, so this is not a dropdown of independent choices but a
+   standing statement of what a Region must support. The strip carries that
+   statement whether the panel is open or shut; the panel is in-flow content
+   inside the .controls card, so it stays chrome-less — a card is never nested
+   inside a card, and only a hairline separates it from the row above. */
+.features-requirements {
+  flex-basis: 100%;
+  order: 98;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  max-height: 96px;
+  overflow-y: auto;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+
+/* Prose, so body type: mono is reserved for recorded data, not for sentences. */
+.features-requirements-lead {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+.features-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* The operator is the one recorded token in the sentence, so it is mono. */
+.features-conjunction {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.features-chip-remove {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid var(--line-strong);
+  background: var(--panel);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 3px 9px;
+  font-family: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+.features-chip-remove:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+.features-chip-remove:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(11, 107, 203, 0.18);
+}
+
+.features-panel {
+  flex-basis: 100%;
+  order: 99;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 4px 18px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.features-group {
+  border: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+/* The group name is the legend, so every checkbox is announced with the
+   qualifier its short label leaves out. Set in the Label tier (DESIGN.md §3):
+   mono here marks structure, not prose. */
+.features-group-legend {
+  padding: 0 0 4px;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 600;
+  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.features-option {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 4px 6px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.features-option:hover {
+  background: var(--accent-soft);
+}
+.features-option:has(input:focus-visible) {
+  background: var(--accent-soft);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+.features-option input {
+  accent-color: var(--accent);
+}
+
 /* ---------- MultiSelect ---------- */
 .multiselect {
   position: relative;

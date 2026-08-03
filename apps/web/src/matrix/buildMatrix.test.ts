@@ -304,6 +304,7 @@ describe("buildMatrix", () => {
         {
           id: "hosted-agents",
           displayName: "Hosted Agents",
+          group: "hosted-agents" as const,
           sourceUrl: "https://example.com",
           sectionAnchor: "region-availability",
           regions: ["eastus"],
@@ -335,6 +336,7 @@ describe("buildMatrix", () => {
         {
           id: "feat",
           displayName: "Feat",
+          group: "hosted-agents" as const,
           sourceUrl: "https://example.com",
           sectionAnchor: "x",
           regions: ["eastus", "westus"],
@@ -379,6 +381,7 @@ describe("buildMatrix", () => {
         {
           id: "art",
           displayName: "AI Red Teaming Agent",
+          group: "evaluation" as const,
           sourceUrl: "https://example.com",
           sectionAnchor: "agentic-risks",
           regions: ["francecentral"],
@@ -416,6 +419,7 @@ describe("buildMatrix", () => {
         {
           id: "feat",
           displayName: "Feat",
+          group: "hosted-agents" as const,
           sourceUrl: "https://example.com",
           sectionAnchor: "x",
           regions: ["eastus"],

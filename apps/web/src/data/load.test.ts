@@ -34,6 +34,7 @@ const featuresArtifact: FeaturesArtifact = {
     {
       id: "hosted-agents",
       displayName: "Hosted Agents",
+      group: "hosted-agents" as const,
       sourceUrl: "https://example.com",
       sectionAnchor: "region-availability",
       regions: ["eastus"],

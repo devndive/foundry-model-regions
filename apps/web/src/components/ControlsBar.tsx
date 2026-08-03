@@ -1,6 +1,7 @@
 import type { FilterState, SortKey } from "../matrix/buildMatrix";
 import type { FilterOptions } from "../filters/options";
 import { MultiSelect } from "./MultiSelect";
+import { FeaturesPicker } from "./FeaturesPicker";
 
 interface Props {
   filters: FilterState;
@@ -40,9 +41,9 @@ export function ControlsBar({ filters, options, onChange, onExportCsv, onExportM
         selected={filters.regions}
         onChange={(regions) => onChange({ regions })}
       />
-      <MultiSelect
-        label="Features"
-        options={options.features}
+      <FeaturesPicker
+        groups={options.featureGroups}
+        features={options.features}
         selected={filters.features}
         onChange={(features) => onChange({ features })}
       />

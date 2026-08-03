@@ -8,7 +8,7 @@ const CONTENT_SAFETY_URL =
   "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview";
 
 function feature(id: string, anchor: string, sourceUrl = CONTENT_SAFETY_URL): Feature {
-  return { id, displayName: id, sourceUrl, sectionAnchor: anchor, regions: ["eastus2"] };
+  return { id, displayName: id, group: "content-safety", sourceUrl, sectionAnchor: anchor, regions: ["eastus2"] };
 }
 
 // A recording stand-in for the two system boundaries the detection loop touches:

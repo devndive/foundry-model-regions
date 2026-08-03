@@ -525,6 +525,39 @@ test("every Feature region is a tracked region in REGIONS (closed-world guard)",
   assert.deepEqual(strays, []);
 });
 
+test("every Feature is filed in a Feature Group, and every declared Group has members", () => {
+  // The compiler already rejects an unknown group string. What it cannot catch is
+  // a Group left declared after its last Feature moves out, so the guard is stated
+  // as an exact membership count rather than a subset check (ADR-0007).
+  const expected: Record<string, number> = {
+    "foundry-agents": 4,
+    "agent-tools": 15,
+    "hosted-agents": 2,
+    "content-safety": 9,
+    evaluation: 7,
+    networking: 1,
+  };
+
+  const counts: Record<string, number> = {};
+  for (const feature of FEATURES) {
+    counts[feature.group] = (counts[feature.group] ?? 0) + 1;
+  }
+
+  assert.deepEqual(counts, expected);
+  assert.equal(
+    Object.values(expected).reduce((a, b) => a + b, 0),
+    FEATURES.length,
+  );
+});
+
+test("the standalone AI Red Teaming Agent is filed beside evaluation red teaming", () => {
+  // Microsoft documents these in two different articles; a Feature Group is a
+  // curated subject area, not an article, so they sit in one column where the
+  // distinction between them is visible (ADR-0007, CONTEXT.md).
+  assert.equal(featureMetadata("ai-red-teaming-agent")?.group, "evaluation");
+  assert.equal(featureMetadata("evaluations-ai-red-teaming")?.group, "evaluation");
+});
+
 test("buildFeaturesArtifact emits feature metadata plus flat (featureId, region) rows", () => {
   const artifact = buildFeaturesArtifact();
 

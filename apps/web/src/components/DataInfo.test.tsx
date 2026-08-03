@@ -7,6 +7,7 @@ const features: Feature[] = [
   {
     id: "hosted-agents",
     displayName: "Hosted Agents",
+    group: "hosted-agents" as const,
     sourceUrl: "https://learn.microsoft.com/hosted-agents",
     sectionAnchor: "region-availability",
     regions: ["eastus"],
@@ -14,6 +15,7 @@ const features: Feature[] = [
   {
     id: "foundry-agents",
     displayName: "Foundry Agents",
+    group: "foundry-agents" as const,
     sourceUrl: "https://learn.microsoft.com/hosted-agents",
     sectionAnchor: "supported-regions",
     regions: ["eastus"],
@@ -53,6 +55,7 @@ describe("DataInfo", () => {
     ].map((displayName, i) => ({
       id: `cs-${i}`,
       displayName,
+      group: "content-safety" as const,
       sourceUrl: url,
       sectionAnchor: "regions",
       regions: ["eastus"],

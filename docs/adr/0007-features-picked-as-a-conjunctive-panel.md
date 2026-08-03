@@ -54,3 +54,8 @@ accepted
 - Uniform `" — "` stripping leaves `AI Red Teaming Agent` next to `AI Red Teaming` in the
   Evaluation column. Accepted: they are adjacent, so the distinction is at least visible, and
   chips in the strip always render the full `displayName`.
+- The strip sentence is body type, but `AND` is set in mono. This looks like a Mono-Means-Record
+  breach and isn't: `AND` is not a word in the sentence, it is the operator being applied, and
+  setting it apart is what stops the strip reading as an English list where order or partial
+  matches might count. Group legends are mono for the same reason — they are the Label tier
+  (DESIGN.md §3), marking structure rather than prose.

@@ -129,36 +129,10 @@ const FOUNDRY_AGENTS_REGIONS = [
 const AGENTS_ARTICLE_URL =
   "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/limits-quotas-regions";
 
-// The region rows of the article's region-by-tool table. Only 24 regions appear
-// here, against 29 in the Agents column — the table is simply silent about
-// canadacentral, centralus, japanwest, westcentralus and westeurope, which the
-// closed-world rule (ADR-0003) reads as "tool unavailable", not "unknown".
-const AGENT_TOOL_TABLE_REGIONS = [
-  "australiaeast",
-  "brazilsouth",
-  "canadaeast",
-  "eastus",
-  "eastus2",
-  "francecentral",
-  "germanywestcentral",
-  "italynorth",
-  "japaneast",
-  "koreacentral",
-  "northcentralus",
-  "norwayeast",
-  "polandcentral",
-  "southafricanorth",
-  "southcentralus",
-  "southeastasia",
-  "southindia",
-  "spaincentral",
-  "swedencentral",
-  "switzerlandnorth",
-  "uaenorth",
-  "uksouth",
-  "westus",
-  "westus3",
-] as const;
+// After intersecting the article's region-by-tool table with tracked REGIONS,
+// its rows match the base Agent Service regions exactly. The article also lists
+// Switzerland West, which stays excluded under ADR-0005.
+const AGENT_TOOL_TABLE_REGIONS = FOUNDRY_AGENTS_REGIONS;
 
 // The anchor covers two tables: the region-by-tool table encoded below and a
 // model-by-tool matrix. Only the former becomes Feature Availability Facts — a
@@ -166,13 +140,12 @@ const AGENT_TOOL_TABLE_REGIONS = [
 // the model matrix is deliberately left unrepresented and merely snapshotted.
 const AGENT_TOOL_SECTION_ANCHOR = "tool-support-by-region-and-model";
 
-// Every tool column reading `yes` in all 24 rows of the region-by-tool table.
-// Each stays a first-class Feature because the table's silence about five
-// Agent Service regions makes it strictly narrower than `foundry-agents`.
+// Every tool column reading `yes` in all tracked rows of the region-by-tool
+// table. Each stays a first-class Feature because its support is documented
+// independently and can diverge from base Agent Service availability.
 const UNIFORM_AGENT_TOOLS: readonly (readonly [string, string])[] = [
   ["agent-tool-agent2agent", "Agent2Agent"],
   ["agent-tool-azure-ai-search", "Azure AI Search"],
-  ["agent-tool-browser-automation", "Browser Automation"],
   ["agent-tool-code-interpreter", "Code Interpreter"],
   ["agent-tool-fabric-data-agent", "Fabric Data Agent"],
   ["agent-tool-grounding-bing-custom-search", "Grounding with Bing Custom Search"],
@@ -291,6 +264,11 @@ export const FEATURES: readonly Feature[] = [
   ...UNIFORM_AGENT_TOOLS.map(([id, toolName]) => agentTool(id, toolName, AGENT_TOOL_TABLE_REGIONS)),
   // Columns whose support varies within the table itself.
   agentTool(
+    "agent-tool-browser-automation",
+    "Browser Automation",
+    without(AGENT_TOOL_TABLE_REGIONS, "japanwest", "westcentralus"),
+  ),
+  agentTool(
     "agent-tool-file-search",
     "File Search",
     without(AGENT_TOOL_TABLE_REGIONS, "brazilsouth", "italynorth"),
@@ -300,9 +278,18 @@ export const FEATURES: readonly Feature[] = [
     "Function",
     without(AGENT_TOOL_TABLE_REGIONS, "brazilsouth", "northcentralus", "southcentralus", "westus"),
   ),
-  // Listed explicitly rather than via `without(...)`: only three of the 24 rows
+  // Listed explicitly rather than via `without(...)`: only eight of the 29 rows
   // say `yes`, so the exclusion list would be the noisier half.
-  agentTool("agent-tool-computer-use", "Computer Use", ["eastus2", "southindia", "swedencentral"]),
+  agentTool("agent-tool-computer-use", "Computer Use", [
+    "canadacentral",
+    "centralus",
+    "eastus2",
+    "japanwest",
+    "southindia",
+    "swedencentral",
+    "westcentralus",
+    "westeurope",
+  ]),
   {
     id: "hosted-agents",
     displayName: "Hosted Agents",

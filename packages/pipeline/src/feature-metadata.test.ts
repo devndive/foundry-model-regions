@@ -262,15 +262,12 @@ test("private-network Grounding with Bing Search is a Feature that is deliberate
   );
 });
 
-test("every tool column is a Feature narrower than base Agent Service availability", () => {
-  // The region-by-tool table lists 24 regions; the Agents column lists 29. Under
-  // the closed-world rule (ADR-0003) that silence makes even a column reading
-  // `yes` in all 24 rows narrower than `foundry-agents`, so all 15 columns earn
-  // their own Feature rather than only the ones that vary within the table.
+test("every uniform tool column is a Feature across all tracked Agent Service regions", () => {
+  // Even when a tool currently matches base Agent Service availability, it stays
+  // first-class because the tool table documents it independently and can drift.
   const uniformColumns = [
     "agent-tool-agent2agent",
     "agent-tool-azure-ai-search",
-    "agent-tool-browser-automation",
     "agent-tool-code-interpreter",
     "agent-tool-fabric-data-agent",
     "agent-tool-grounding-bing-custom-search",
@@ -285,13 +282,16 @@ test("every tool column is a Feature narrower than base Agent Service availabili
   const baseline = [
     "australiaeast",
     "brazilsouth",
+    "canadacentral",
     "canadaeast",
+    "centralus",
     "eastus",
     "eastus2",
     "francecentral",
     "germanywestcentral",
     "italynorth",
     "japaneast",
+    "japanwest",
     "koreacentral",
     "northcentralus",
     "norwayeast",
@@ -305,6 +305,8 @@ test("every tool column is a Feature narrower than base Agent Service availabili
     "switzerlandnorth",
     "uaenorth",
     "uksouth",
+    "westcentralus",
+    "westeurope",
     "westus",
     "westus3",
   ];
@@ -322,21 +324,20 @@ test("every tool column is a Feature narrower than base Agent Service availabili
 
   assert.equal(featureMetadata("agent-tool-web-search")?.displayName, "Agent Tool — Web Search");
 
-  // The five regions where Agent Service is supported but the tool table is
-  // silent. This gap is the whole reason a uniform column is not a duplicate.
   const agents = featureMetadata("foundry-agents")?.regions ?? [];
-  const baselineSet = new Set(baseline);
-  assert.deepEqual(
-    agents.filter((r) => !baselineSet.has(r)),
-    ["canadacentral", "centralus", "japanwest", "westcentralus", "westeurope"],
-  );
+  assert.deepEqual(baseline, agents);
 });
 
 test("tool columns that vary within the table carry their own narrower region sets", () => {
   assert.deepEqual(featureMetadata("agent-tool-computer-use")?.regions, [
+    "canadacentral",
+    "centralus",
     "eastus2",
+    "japanwest",
     "southindia",
     "swedencentral",
+    "westcentralus",
+    "westeurope",
   ]);
 
   // Double-entry check against the `without(...)` args: each narrow column must
@@ -345,10 +346,23 @@ test("tool columns that vary within the table carry their own narrower region se
   const baselineSet = new Set(baseline);
 
   const exclusions: Record<string, string[]> = {
+    "agent-tool-browser-automation": ["japanwest", "westcentralus"],
     "agent-tool-file-search": ["brazilsouth", "italynorth"],
     "agent-tool-function": ["brazilsouth", "northcentralus", "southcentralus", "westus"],
     "agent-tool-computer-use": baseline
-      .filter((r) => !["eastus2", "southindia", "swedencentral"].includes(r))
+      .filter(
+        (r) =>
+          ![
+            "canadacentral",
+            "centralus",
+            "eastus2",
+            "japanwest",
+            "southindia",
+            "swedencentral",
+            "westcentralus",
+            "westeurope",
+          ].includes(r),
+      )
       .sort(),
   };
 
@@ -365,8 +379,10 @@ test("tool columns that vary within the table carry their own narrower region se
     );
   }
 
-  assert.equal(featureMetadata("agent-tool-file-search")?.regions.length, 22);
-  assert.equal(featureMetadata("agent-tool-function")?.regions.length, 20);
+  assert.equal(featureMetadata("agent-tool-browser-automation")?.regions.length, 27);
+  assert.equal(featureMetadata("agent-tool-file-search")?.regions.length, 27);
+  assert.equal(featureMetadata("agent-tool-function")?.regions.length, 25);
+  assert.equal(featureMetadata("agent-tool-computer-use")?.regions.length, 8);
 });
 
 test("Content Safety models every region-availability column as a first-class Feature", () => {

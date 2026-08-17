@@ -487,7 +487,14 @@ export const FEATURES: readonly Feature[] = [
     sourceUrl:
       "https://learn.microsoft.com/en-us/azure/foundry/concepts/evaluation-regions-limits-virtual-network",
     sectionAnchor: "supported-regions-for-risk-and-safety-evaluators",
-    regions: ["australiaeast", "eastus2", "francecentral", "northcentralus", "swedencentral"],
+    regions: [
+      "australiaeast",
+      "eastus2",
+      "francecentral",
+      "germanywestcentral",
+      "northcentralus",
+      "swedencentral",
+    ],
   },
   {
     id: "evaluators-groundedness-pro",

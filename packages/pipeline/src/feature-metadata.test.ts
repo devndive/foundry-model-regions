@@ -453,7 +453,14 @@ test("Evaluation surfaces are modelled as first-class Features with their docume
   const expected: Record<string, { anchor: string; regions: string[] }> = {
     "evaluators-risk-and-safety": {
       anchor: "supported-regions-for-risk-and-safety-evaluators",
-      regions: ["australiaeast", "eastus2", "francecentral", "northcentralus", "swedencentral"],
+      regions: [
+        "australiaeast",
+        "eastus2",
+        "francecentral",
+        "germanywestcentral",
+        "northcentralus",
+        "swedencentral",
+      ],
     },
     "evaluators-groundedness-pro": {
       anchor: "supported-regions-for-risk-and-safety-evaluators",

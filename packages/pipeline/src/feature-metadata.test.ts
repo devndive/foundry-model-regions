@@ -145,7 +145,7 @@ test("FEATURES is seeded from the source articles (Foundry Agents and Content Sa
   ]);
 });
 
-test("private Class A IP range support is a Feature narrower than base Agent Service availability", () => {
+test("private Class A IP range support is independently modelled and currently matches Agent Service", () => {
   const classA = featureMetadata("agents-private-class-a-ip-ranges");
 
   assert.equal(classA?.displayName, "Foundry Agents — Private Class A IP Ranges");
@@ -157,6 +157,7 @@ test("private Class A IP range support is a Feature narrower than base Agent Ser
   assert.deepEqual(classA?.regions, [
     "australiaeast",
     "brazilsouth",
+    "canadacentral",
     "canadaeast",
     "centralus",
     "eastus",
@@ -165,37 +166,27 @@ test("private Class A IP range support is a Feature narrower than base Agent Ser
     "germanywestcentral",
     "italynorth",
     "japaneast",
+    "japanwest",
     "koreacentral",
     "northcentralus",
+    "norwayeast",
+    "polandcentral",
     "southafricanorth",
     "southcentralus",
     "southeastasia",
     "southindia",
     "spaincentral",
     "swedencentral",
+    "switzerlandnorth",
     "uaenorth",
     "uksouth",
+    "westcentralus",
     "westeurope",
     "westus",
     "westus3",
   ]);
 
-  // The Class A column is a `No` in exactly six regions the Agents column
-  // supports, so it must be a strict subset of `foundry-agents`.
-  const agents = featureMetadata("foundry-agents")?.regions ?? [];
-  const agentsSet = new Set(agents);
-  assert.ok((classA?.regions ?? []).every((r) => agentsSet.has(r)));
-  assert.deepEqual(
-    agents.filter((r) => !new Set(classA?.regions ?? []).has(r)),
-    [
-      "canadacentral",
-      "japanwest",
-      "norwayeast",
-      "polandcentral",
-      "switzerlandnorth",
-      "westcentralus",
-    ],
-  );
+  assert.deepEqual(classA?.regions, featureMetadata("foundry-agents")?.regions);
 });
 
 test("the Responses API column is its own Feature even while it matches base Agent Service availability", () => {

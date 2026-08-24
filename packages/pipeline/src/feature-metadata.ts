@@ -201,22 +201,14 @@ export const FEATURES: readonly Feature[] = [
   },
   {
     // The "Class A*" column of the same table: support for private Class A IP
-    // address ranges (10.x.x.x). A strict subset of the Agents column, so it can
-    // rule out a region that base Agent Service availability would allow.
+    // address ranges (10.x.x.x). It currently matches the Agents column, but
+    // remains first-class because Microsoft documents it independently.
     id: "agents-private-class-a-ip-ranges",
     displayName: "Foundry Agents — Private Class A IP Ranges",
     group: "foundry-agents",
     sourceUrl: AGENTS_ARTICLE_URL,
     sectionAnchor: "supported-regions",
-    regions: without(
-      FOUNDRY_AGENTS_REGIONS,
-      "canadacentral",
-      "japanwest",
-      "norwayeast",
-      "polandcentral",
-      "switzerlandnorth",
-      "westcentralus",
-    ),
+    regions: FOUNDRY_AGENTS_REGIONS,
   },
   {
     // The private-networking subsection's Grounding with Bing Search region list.

@@ -1,0 +1,19 @@
+Supported regions for risk and safety evaluators
+These regions support the following safety evaluators: Hate and unfairness, Sexual, Violent, Self-harm, Indirect attack, Code vulnerabilities, and Ungrounded attributes.
+Americas Europe Asia Pacific
+Brazil South France Central Australia East
+Canada Central Germany West Central
+Canada East Italy North
+Central US Norway East
+East US Poland Central
+East US 2 Spain Central
+North Central US Sweden Central
+South Central US Switzerland North
+West Central US Switzerland West
+West US West Europe
+West US 3
+Supported regions for Groundedness Pro:
+East US 2
+Sweden Central
+Supported regions for Protected material:
+East US 2

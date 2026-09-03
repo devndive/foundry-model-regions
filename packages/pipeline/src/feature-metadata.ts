@@ -200,6 +200,17 @@ export const FEATURES: readonly Feature[] = [
     regions: FOUNDRY_AGENTS_REGIONS,
   },
   {
+    // The "Private VNet" column covers network-secured/BYO virtual networks, not
+    // the Microsoft-managed network represented by `managed-virtual-network`.
+    // It currently matches the Agents column but can diverge independently.
+    id: "agents-private-vnet",
+    displayName: "Foundry Agents — Private VNet",
+    group: "foundry-agents",
+    sourceUrl: AGENTS_ARTICLE_URL,
+    sectionAnchor: "supported-regions",
+    regions: FOUNDRY_AGENTS_REGIONS,
+  },
+  {
     // The "Class A*" column of the same table: support for private Class A IP
     // address ranges (10.x.x.x). It currently matches the Agents column, but
     // remains first-class because Microsoft documents it independently.

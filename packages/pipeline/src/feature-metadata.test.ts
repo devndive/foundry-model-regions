@@ -91,6 +91,7 @@ test("FEATURES is seeded from the source articles (Foundry Agents and Content Sa
     "agent-tool-web-search",
     "agents-grounding-bing-search-private-network",
     "agents-private-class-a-ip-ranges",
+    "agents-private-vnet",
     "agents-responses-api",
     "ai-red-teaming-agent",
     "batch-evaluations",
@@ -202,6 +203,19 @@ test("the Responses API column is its own Feature even while it matches base Age
   );
   assert.equal(responses?.sectionAnchor, "supported-regions");
   assert.deepEqual(responses?.regions, featureMetadata("foundry-agents")?.regions);
+});
+
+test("Private VNet support is independently modelled and distinct from Managed Virtual Network", () => {
+  const privateVnet = featureMetadata("agents-private-vnet");
+
+  assert.equal(privateVnet?.displayName, "Foundry Agents — Private VNet");
+  assert.equal(
+    privateVnet?.sourceUrl,
+    "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/limits-quotas-regions",
+  );
+  assert.equal(privateVnet?.sectionAnchor, "supported-regions");
+  assert.deepEqual(privateVnet?.regions, featureMetadata("foundry-agents")?.regions);
+  assert.notDeepEqual(privateVnet?.regions, featureMetadata("managed-virtual-network")?.regions);
 });
 
 test("private-network Grounding with Bing Search is a Feature that is deliberately not a subset of Foundry Agents", () => {
@@ -544,7 +558,7 @@ test("every Feature is filed in a Feature Group, and every declared Group has me
   // a Group left declared after its last Feature moves out, so the guard is stated
   // as an exact membership count rather than a subset check (ADR-0007).
   const expected: Record<string, number> = {
-    "foundry-agents": 4,
+    "foundry-agents": 5,
     "agent-tools": 15,
     "hosted-agents": 2,
     "content-safety": 9,

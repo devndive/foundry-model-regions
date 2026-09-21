@@ -1,0 +1,3 @@
+Region availability
+To use the Content Safety APIs, you must create your Azure AI Content Safety resource in a supported region. Follow this link to view region availability
+Feel free to contact us if your business needs other regions to be available.

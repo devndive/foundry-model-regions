@@ -1,0 +1,42 @@
+Supported regions
+The following table shows regional support for the Responses API , agents, and voice-based agents (preview). It also shows support for private Class A IP address ranges.
+For voice-based agents, the region must support Agent Service and the required Voice Live capabilities for the selected model and channel.
+Region Responses API Agents Voice-based agents (preview) Private VNet
+Australia East Yes Yes Yes Yes
+Brazil South Yes Yes Yes Yes
+Canada Central Yes Yes Yes Yes
+Canada East Yes Yes Yes Yes
+Central US Yes Yes Yes Yes
+East US Yes Yes Yes Yes
+East US 2 Yes Yes Yes Yes
+France Central Yes Yes Yes Yes
+Germany West Central Yes Yes Yes Yes
+Italy North Yes Yes Yes Yes
+Japan East Yes Yes Yes Yes
+Japan West Yes Yes Yes Yes
+Korea Central Yes Yes Yes Yes
+North Central US Yes Yes Yes Yes
+Norway East Yes Yes Yes Yes
+Poland Central Yes Yes No Yes
+South Africa North Yes Yes Yes Yes
+South Central US Yes Yes Yes Yes
+Southeast Asia Yes Yes Yes Yes
+South India Yes Yes Yes Yes
+Spain Central Yes Yes No Yes
+Sweden Central Yes Yes Yes Yes
+Switzerland North Yes Yes Yes Yes
+Switzerland West Yes Yes Yes Yes
+UAE North Yes Yes Yes Yes
+UK South Yes Yes Yes Yes
+West Central US Yes Yes Yes Yes
+West Europe Yes Yes Yes Yes
+West US Yes Yes Yes Yes
+West US 3 Yes Yes Yes Yes
+Some Azure OpenAI models aren't available in every region. For details, see Region availability for Foundry Models sold by Azure .
+Important
+Not all tools are available in every region. For example, file search isn't available in Italy North and Brazil South. For the full tool-by-region matrix, see Tool support by region and model .
+Regional support for private networking
+When you use a private network configuration, such as a network-secured standard agent, the following regional requirements apply:
+Foundry resource and virtual network region. You must deploy the Foundry resource in the same region as its virtual network. You can deploy other Azure resources, such as Azure Cosmos DB, Azure AI Search, and Azure Storage, in different regions. Consider the cost implications of cross-region deployments.
+Grounding with Bing Search. Only the following regions are supported: West Europe, Canada East, Switzerland North, Spain Central, UAE North, Korea Central, Poland Central, Southeast Asia, West US, West US 2, West US 3, East US, East US 2, Central US, South India, Japan East, UK South, France Central, Norway East, Australia East, Canada Central, Sweden Central, South Africa North, Italy North, Brazil South.
+For more information, see Use a virtual network with Foundry Agent Service .

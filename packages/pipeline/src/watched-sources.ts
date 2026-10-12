@@ -54,6 +54,20 @@ export function groupIntoWatchedSources(features: readonly Feature[]): readonly 
     });
   }
 
+  // This table also governs a Feature whose primary provenance is another
+  // article. Keep that dependency in triage guidance, not the curated-from list.
+  for (const source of sources.values()) {
+    if (source.features.some((feature) => feature.id === "agents-private-vnet")) {
+      source.triageNote =
+        "Reconcile `src/feature-metadata.ts` with the article for each Feature listed here, " +
+        "and also reconcile `managed-virtual-network`: its own article delegates general " +
+        "managed-network availability to this table's Private VNet column. Check the " +
+        "managed-network article's separate restriction for the new Agent service, Responses API, " +
+        "and new Foundry portal too. The drift workflow never edits the curated table; " +
+        "humans own correctness.";
+    }
+  }
+
   return [...sources.values()];
 }
 

@@ -205,17 +205,21 @@ test("the Responses API column is its own Feature even while it matches base Age
   assert.deepEqual(responses?.regions, featureMetadata("foundry-agents")?.regions);
 });
 
-test("Private VNet support is independently modelled and distinct from Managed Virtual Network", () => {
+test("Private VNet and Managed Virtual Network retain independent identities and provenance", () => {
   const privateVnet = featureMetadata("agents-private-vnet");
+  const managedVnet = featureMetadata("managed-virtual-network");
 
-  assert.equal(privateVnet?.displayName, "Foundry Agents — Private VNet");
+  assert.ok(privateVnet && managedVnet);
+  assert.equal(privateVnet.displayName, "Foundry Agents — Private VNet");
   assert.equal(
-    privateVnet?.sourceUrl,
+    privateVnet.sourceUrl,
     "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/limits-quotas-regions",
   );
-  assert.equal(privateVnet?.sectionAnchor, "supported-regions");
-  assert.deepEqual(privateVnet?.regions, featureMetadata("foundry-agents")?.regions);
-  assert.notDeepEqual(privateVnet?.regions, featureMetadata("managed-virtual-network")?.regions);
+  assert.equal(privateVnet.sectionAnchor, "supported-regions");
+  assert.deepEqual(privateVnet.regions, featureMetadata("foundry-agents")?.regions);
+  assert.notEqual(privateVnet.id, managedVnet.id);
+  assert.notEqual(privateVnet.group, managedVnet.group);
+  assert.notEqual(privateVnet.sourceUrl, managedVnet.sourceUrl);
 });
 
 test("private-network Grounding with Bing Search is a Feature that is deliberately not a subset of Foundry Agents", () => {
@@ -558,34 +562,57 @@ test("Evaluation surfaces are modelled as first-class Features with their docume
   assert.ok(playground.every((r) => batch.has(r)));
 });
 
-test("Managed Virtual Network is a first-class Feature with its documented region set", () => {
+test("Managed Virtual Network follows all 29 tracked Private VNet regions with an explicit scope caveat", () => {
   const mvn = featureMetadata("managed-virtual-network");
-  assert.equal(mvn?.displayName, "Managed Virtual Network");
+  assert.ok(mvn);
+  assert.equal(mvn.displayName, "Managed Virtual Network");
+  assert.equal(mvn.group, "networking");
   assert.equal(
-    mvn?.sourceUrl,
+    mvn.sourceUrl,
     "https://learn.microsoft.com/en-us/azure/foundry/how-to/managed-virtual-network",
   );
-  assert.equal(mvn?.sectionAnchor, "limitations");
-  assert.deepEqual([...(mvn?.regions ?? [])].sort(), [
+  assert.equal(mvn.sectionAnchor, "limitations");
+  assert.deepEqual([...mvn.regions].sort(), [
     "australiaeast",
     "brazilsouth",
+    "canadacentral",
     "canadaeast",
+    "centralus",
     "eastus",
     "eastus2",
     "francecentral",
     "germanywestcentral",
     "italynorth",
     "japaneast",
+    "japanwest",
+    "koreacentral",
+    "northcentralus",
+    "norwayeast",
+    "polandcentral",
     "southafricanorth",
     "southcentralus",
+    "southeastasia",
     "southindia",
     "spaincentral",
     "swedencentral",
+    "switzerlandnorth",
     "uaenorth",
     "uksouth",
+    "westcentralus",
+    "westeurope",
     "westus",
     "westus3",
   ]);
+  assert.deepEqual(mvn.regions, featureMetadata("agents-private-vnet")?.regions);
+  assert.match(mvn.availabilityNote ?? "", /new Agent service/);
+  assert.match(mvn.availabilityNote ?? "", /Responses API/);
+  assert.match(mvn.availabilityNote ?? "", /new Foundry portal/);
+  assert.match(mvn.availabilityNote ?? "", /18 regions/);
+  const emittedRegions = buildFeaturesArtifact()
+    .availability.filter((row) => row.featureId === mvn.id)
+    .map((row) => row.region);
+  assert.equal(emittedRegions.length, 29);
+  assert.deepEqual(emittedRegions, mvn.regions);
 });
 
 test("every Feature region is a tracked region in REGIONS (closed-world guard)", () => {

@@ -42,6 +42,10 @@ accepted
 - A feature's curated regions must be a subset of `REGIONS`; a unit test fails on a stray
   region, forcing new regions into `region-metadata.ts` first (which also starts fetching
   their models).
+- When an article delegates availability to another Watched Source, that source's
+  `triageNote` names the dependent Feature for manual reconciliation without changing its
+  primary provenance. The Agents Private VNet table therefore also prompts reconciliation
+  of Managed Virtual Network, even when the managed-network article's reference is unchanged.
 - Snapshots committed under the old per-Feature filenames stay readable: a section falls
   back to any of its Features' legacy `<featureId>.txt` files, so the first deduped run is
   a real comparison rather than a false "new baseline" for every section.

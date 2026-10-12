@@ -27,6 +27,13 @@ Every week the websites get queried and checked if they changed.
 
 If so, an issue will be created that has to be reviewed manually.
 
+General **Managed Virtual Network** availability follows the Foundry Agents **Private
+VNet** region set. The managed-network article separately documents a narrower region
+list for the new Agent service, Responses API, and new Foundry portal; the Feature's
+availability note distinguishes that combination from general managed-network support.
+Drift in the Private VNet table also prompts manual reconciliation of Managed Virtual
+Network, which retains its own article provenance.
+
 Content Safety entries describe **standalone Azure AI Content Safety guardrail-level
 availability in resource regions**, not independent API-variant region sets or a
 guarantee of in-region processing or data residency. Features without defensible current

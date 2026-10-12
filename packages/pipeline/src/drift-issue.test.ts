@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import type { Feature } from "@foundry/data-types";
 import { renderDriftIssue } from "./drift-issue.js";
+import { FEATURES } from "./feature-metadata.js";
 import { groupIntoWatchedSources, REGIONS_LIST_SOURCE } from "./watched-sources.js";
 
 const CONTENT_SAFETY_URL =
@@ -84,6 +85,37 @@ test("a source's triage note replaces the Feature reconcile instruction", () => 
 
   assert.match(body, /Tracked Region criterion in ADR-0005/);
   assert.doesNotMatch(body, /Reconcile `src\/feature-metadata\.ts`/);
+});
+
+test("Private VNet source drift requests Managed Virtual Network reconciliation without changing provenance", () => {
+  const sources = groupIntoWatchedSources(FEATURES);
+  const privateVnet = sources.find((source) =>
+    source.features.some((feature) => feature.id === "agents-private-vnet"),
+  );
+  const managedVnet = sources.find((source) =>
+    source.features.some((feature) => feature.id === "managed-virtual-network"),
+  );
+  assert.ok(privateVnet && managedVnet);
+  assert.equal(
+    privateVnet.key,
+    "azure-foundry-agents-concepts-limits-quotas-regions--supported-regions",
+  );
+  assert.equal(managedVnet.key, "azure-foundry-how-to-managed-virtual-network--limitations");
+  assert.deepEqual(
+    managedVnet.features.map((feature) => feature.id),
+    ["managed-virtual-network"],
+  );
+  assert.ok(!privateVnet.features.some((feature) => feature.id === "managed-virtual-network"));
+
+  for (const status of ["changed", "anchor-missing"] as const) {
+    const { body } = renderDriftIssue(privateVnet, status, "Private VNet support changed");
+    assert.match(body, /Reconcile `src\/feature-metadata\.ts`/);
+    assert.match(body, /also reconcile `managed-virtual-network`/);
+    assert.match(body, /Private VNet/);
+    assert.match(body, /own article/);
+    assert.match(body, /humans own correctness/);
+    assert.doesNotMatch(body, /- \*\*Managed Virtual Network\*\*/);
+  }
 });
 
 test("a Feature-less source's issue omits the affected-Features block", () => {

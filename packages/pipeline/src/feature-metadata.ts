@@ -186,6 +186,10 @@ const FOUNDRY_AGENTS_REGIONS = [
 const AGENTS_ARTICLE_URL =
   "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/limits-quotas-regions";
 
+// The Private VNet column currently matches Agent Service availability. Managed
+// Virtual Network delegates to this column, so reconcile both when it changes.
+const PRIVATE_VNET_REGIONS = FOUNDRY_AGENTS_REGIONS;
+
 // After intersecting the article's region-by-tool table with tracked REGIONS,
 // its rows match the base Agent Service regions exactly. The article also lists
 // Switzerland West, which stays excluded under ADR-0005.
@@ -265,7 +269,7 @@ export const FEATURES: readonly Feature[] = [
     group: "foundry-agents",
     sourceUrl: AGENTS_ARTICLE_URL,
     sectionAnchor: "supported-regions",
-    regions: FOUNDRY_AGENTS_REGIONS,
+    regions: PRIVATE_VNET_REGIONS,
   },
   {
     // The "Class A*" column of the same table: support for private Class A IP
@@ -540,40 +544,19 @@ export const FEATURES: readonly Feature[] = [
     regions: ["eastus2", "northcentralus"],
   },
   {
-    // Managed virtual network for the new Agent service / Foundry portal. The
-    // supported-region list appears twice in the article: in the lead paragraph
-    // (no heading id) and as an explicit "Support for managed virtual network is
-    // only in the following " bullet under the "Limitations" heading.
-    // We anchor to "limitations" because it is the addressable heading whose
-    // slice carries the region list, so drift fires when Microsoft edits the
-    // regions (ADR-0002), unlike "understand-isolation-modes", which describes
-    // outbound modes and contains no region text, so region drift would go
-    // silently unnoticed.
+    // General managed-network availability follows the Private VNet column of
+    // the Agents table, as explicitly delegated by this article's limitations.
+    // Keep its own provenance and watch both sections for manual reconciliation.
     id: "managed-virtual-network",
     displayName: "Managed Virtual Network",
     group: "networking",
     sourceUrl: "https://learn.microsoft.com/en-us/azure/foundry/how-to/managed-virtual-network",
     sectionAnchor: "limitations",
-    regions: [
-      "australiaeast",
-      "brazilsouth",
-      "canadaeast",
-      "eastus",
-      "eastus2",
-      "francecentral",
-      "germanywestcentral",
-      "italynorth",
-      "japaneast",
-      "southafricanorth",
-      "southcentralus",
-      "southindia",
-      "spaincentral",
-      "swedencentral",
-      "uaenorth",
-      "uksouth",
-      "westus",
-      "westus3",
-    ],
+    regions: PRIVATE_VNET_REGIONS,
+    availabilityNote:
+      "General managed-network availability follows Foundry Agents' Private VNet regions. " +
+      "The article separately limits managed networking with the new Agent service, Responses API, " +
+      "and new Foundry portal to 18 regions; this entry does not establish that combination's availability.",
   },
 ];
 

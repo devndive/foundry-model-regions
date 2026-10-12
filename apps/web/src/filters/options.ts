@@ -1,9 +1,14 @@
 import type { AvailabilityIndex } from "../data/index";
-import type { FeatureGroup } from "@foundry/data-types";
+import type { FeatureGroup, WithdrawnFeature } from "@foundry/data-types";
 
 export interface Option {
   value: string;
   label: string;
+}
+
+export interface FeatureOption extends Option {
+  sourceUrl: string;
+  availabilityNote?: string;
 }
 
 export interface OptionGroup {
@@ -30,7 +35,8 @@ export interface FilterOptions {
   models: Option[];
   modelGroups: OptionGroup[];
   regions: Option[];
-  features: Option[];
+  features: FeatureOption[];
+  withdrawnFeatures: readonly WithdrawnFeature[];
   featureGroups: FeatureOptionGroup[];
 }
 
@@ -107,7 +113,13 @@ export function buildOptions(index: AvailabilityIndex): FilterOptions {
     models: index.models.map((m) => ({ value: m.id, label: `${m.name} (${m.version})` })),
     modelGroups: buildModelGroups(index),
     regions: index.regions.map((r) => ({ value: r.id, label: r.displayName })),
-    features: index.features.map((f) => ({ value: f.id, label: f.displayName })),
+    features: index.features.map((f) => ({
+      value: f.id,
+      label: f.displayName,
+      sourceUrl: `${f.sourceUrl}#${f.sectionAnchor}`,
+      availabilityNote: f.availabilityNote,
+    })),
+    withdrawnFeatures: index.withdrawnFeatures,
     featureGroups: buildFeatureGroups(index),
   };
 }

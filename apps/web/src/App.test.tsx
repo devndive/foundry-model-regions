@@ -3,7 +3,8 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { App } from "./App";
 import { buildIndex } from "./data/index";
-import { defaultFilters } from "./matrix/buildMatrix";
+import { defaultFilters, type FilterState } from "./matrix/buildMatrix";
+import { filtersToSearch, parseFilters } from "./filters/search";
 import type { FeaturesArtifact, NormalizedBundle, Region } from "@foundry/data-types";
 
 const bundle: NormalizedBundle = {
@@ -111,5 +112,60 @@ describe("App", () => {
     expect(skuSelect.value).toBe("Standard");
     // The matrix must reflect the resolved SKU, marking the eastus/m1 cell available.
     expect(screen.getByRole("cell", { name: "Generally available" })).toBeInTheDocument();
+  });
+
+  it("preserves an obsolete shared-URL requirement until explicit removal and blocks recommendations and exports", async () => {
+    const index = buildIndex(bundle, regions, {
+      ...features,
+      withdrawnFeatures: [
+        {
+          id: "content-safety-image",
+          displayName: "Content Safety — Analyze Image",
+          reason: "Current regional documentation no longer independently lists Analyze Image.",
+        },
+      ],
+      availability: [
+        ...features.availability,
+        { featureId: "content-safety-image", region: "eastus" },
+      ],
+    });
+    const filters: FilterState = parseFilters(
+      filtersToSearch({
+        ...defaultFilters,
+        features: ["content-safety-image", "hosted-agents"],
+        models: ["m1"],
+        regions: ["eastus"],
+        capabilities: ["chatCompletion"],
+      }),
+    );
+    const onFiltersChange = vi.fn();
+    const user = userEvent.setup();
+    const { rerender } = render(
+      <App index={index} filters={filters} onFiltersChange={onFiltersChange} />,
+    );
+
+    expect(screen.getByRole("alert")).toHaveTextContent("Analyze Image");
+    expect(
+      screen.queryByRole("region", { name: "Model availability matrix" }),
+    ).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Export to CSV" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Export to Markdown" })).toBeDisabled();
+    expect(onFiltersChange).not.toHaveBeenCalled();
+
+    await user.click(screen.getByRole("button", { name: /Remove requirement.*Analyze Image/ }));
+    expect(onFiltersChange).toHaveBeenCalledExactlyOnceWith({ features: ["hosted-agents"] });
+    expect(filtersToSearch(filters).features).toEqual(["content-safety-image", "hosted-agents"]);
+
+    rerender(
+      <App
+        index={index}
+        filters={{ ...filters, features: ["hosted-agents"] }}
+        onFiltersChange={onFiltersChange}
+      />,
+    );
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+    expect(screen.getByRole("cell", { name: "Generally available" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Export to CSV" })).toBeEnabled();
+    expect(screen.getByRole("button", { name: "Export to Markdown" })).toBeEnabled();
   });
 });

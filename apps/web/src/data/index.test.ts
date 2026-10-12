@@ -67,15 +67,34 @@ describe("buildIndex", () => {
     const index = buildIndex(bundle, regions, features);
 
     expect(index.features.map((f) => f.id)).toEqual(["hosted-agents"]);
+    expect(index.withdrawnFeatures).toEqual([]);
     expect(index.isFeatureAvailable("hosted-agents", "eastus")).toBe(true);
     expect(index.isFeatureAvailable("hosted-agents", "westus")).toBe(false);
     expect(index.isFeatureAvailable("unknown-feature", "eastus")).toBe(false);
+  });
+
+  it("preserves withdrawn labels without accepting orphaned availability facts", () => {
+    const withdrawn = {
+      id: "content-safety-image",
+      displayName: "Content Safety — Analyze Image",
+      reason: "The current table documents Content harms, not an independent image region set.",
+    };
+    const index = buildIndex({ models: [], availability: [] }, [region("eastus")], {
+      features: [],
+      withdrawnFeatures: [withdrawn],
+      availability: [{ featureId: withdrawn.id, region: "eastus" }],
+    });
+
+    expect(index.withdrawnFeatures).toEqual([withdrawn]);
+    expect(index.features).toEqual([]);
+    expect(index.isFeatureAvailable(withdrawn.id, "eastus")).toBe(false);
   });
 
   it("exposes an empty feature list when no features artifact is provided", () => {
     const index = buildIndex({ models: [], availability: [] }, [region("eastus")]);
 
     expect(index.features).toEqual([]);
+    expect(index.withdrawnFeatures).toEqual([]);
     expect(index.isFeatureAvailable("hosted-agents", "eastus")).toBe(false);
   });
 });

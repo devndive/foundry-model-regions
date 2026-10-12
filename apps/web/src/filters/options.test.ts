@@ -123,9 +123,7 @@ describe("buildOptions featureGroups", () => {
       feature("hosted-agents", "Hosted Agents", "hosted-agents"),
     ]);
 
-    const labels = buildOptions(index).featureGroups.flatMap((g) =>
-      g.options.map((o) => o.label),
-    );
+    const labels = buildOptions(index).featureGroups.flatMap((g) => g.options.map((o) => o.label));
     expect(labels).toEqual(["Hosted Agents", "Image moderation"]);
   });
 
@@ -134,9 +132,7 @@ describe("buildOptions featureGroups", () => {
       feature("x", "Evaluators — Risk and safety — preview", "evaluation"),
     ]);
 
-    expect(buildOptions(index).featureGroups[0].options[0].label).toBe(
-      "Risk and safety — preview",
-    );
+    expect(buildOptions(index).featureGroups[0].options[0].label).toBe("Risk and safety — preview");
   });
 
   it("omits a group no indexed feature belongs to", () => {
@@ -151,13 +147,16 @@ describe("buildOptions featureGroups", () => {
     ]);
 
     expect(buildOptions(index).features).toEqual([
-      { value: "content-safety-image", label: "Content Safety — Image moderation" },
+      {
+        value: "content-safety-image",
+        label: "Content Safety — Image moderation",
+        sourceUrl: "https://example.com#region-availability",
+      },
     ]);
   });
 });
 
 describe("buildOptions features", () => {
-
   it("exposes each indexed feature as an option labelled by displayName", () => {
     const bundle: NormalizedBundle = { models: [], availability: [] };
     const features = {
@@ -176,7 +175,49 @@ describe("buildOptions features", () => {
     const index = buildIndex(bundle, regions, features);
 
     expect(buildOptions(index).features).toEqual([
-      { value: "hosted-agents", label: "Hosted Agents" },
+      {
+        value: "hosted-agents",
+        label: "Hosted Agents",
+        sourceUrl: "https://example.com#region-availability",
+      },
+    ]);
+  });
+
+  it("keeps withdrawn identities out of selectable options and carries scope notes with source anchors", () => {
+    const withdrawn = {
+      id: "content-safety-image",
+      displayName: "Content Safety — Analyze Image",
+      reason: "Its independent regional list is no longer documented.",
+    };
+    const availabilityNote = "Resource-region availability is not a data residency guarantee.";
+    const index = buildIndex({ models: [], availability: [] }, regions, {
+      features: [
+        {
+          id: "content-safety-content-harms",
+          displayName: "Content Safety — Content harms",
+          group: "content-safety",
+          sourceUrl: "https://example.com/content-safety",
+          sectionAnchor: "guardrails-in-azure-ai-content-safety",
+          availabilityNote,
+          regions: ["eastus"],
+        },
+      ],
+      withdrawnFeatures: [withdrawn],
+      availability: [{ featureId: "content-safety-content-harms", region: "eastus" }],
+    });
+    const options = buildOptions(index);
+
+    expect(options.withdrawnFeatures).toEqual([withdrawn]);
+    expect(options.features).toEqual([
+      {
+        value: "content-safety-content-harms",
+        label: "Content Safety — Content harms",
+        sourceUrl: "https://example.com/content-safety#guardrails-in-azure-ai-content-safety",
+        availabilityNote,
+      },
+    ]);
+    expect(options.featureGroups[0].options.map((option) => option.value)).toEqual([
+      "content-safety-content-harms",
     ]);
   });
 

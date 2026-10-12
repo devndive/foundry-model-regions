@@ -1,7 +1,10 @@
 import assert from "node:assert/strict";
+import { dirname, resolve } from "node:path";
 import { test } from "node:test";
+import { fileURLToPath } from "node:url";
 import type { Feature } from "@foundry/data-types";
 import { FEATURES } from "./feature-metadata.js";
+import { readLatestWatchedSourceSnapshot } from "./watched-source-snapshots.js";
 import {
   groupIntoWatchedSources,
   REGIONS_LIST_SOURCE,
@@ -88,6 +91,46 @@ test("Watched Source keys distinguish the same anchor on different articles", ()
 
 test("the regions-list Watched Source carries zero Features", () => {
   assert.deepEqual(REGIONS_LIST_SOURCE.features, []);
+});
+
+test("all four Content Safety Features watch the current standalone product tables together", () => {
+  const sources = groupIntoWatchedSources(
+    FEATURES.filter((feature) => feature.group === "content-safety"),
+  );
+  assert.equal(sources.length, 1);
+  assert.equal(
+    sources[0]?.key,
+    "azure-ai-services-content-safety-region-availability--guardrails-in-azure-ai-content-safety",
+  );
+  assert.equal(sources[0]?.features.length, 4);
+  assert.equal(sources[0]?.sectionAnchor, "guardrails-in-azure-ai-content-safety");
+  assert.ok(FEATURES.every((feature) => !feature.sourceUrl.endsWith("content-safety/overview")));
+});
+
+test("the reconciled Content Safety baseline includes all geography tables and the routing caveat", async () => {
+  const [source] = groupIntoWatchedSources(
+    FEATURES.filter((feature) => feature.group === "content-safety"),
+  );
+  assert.ok(source);
+  const cache = resolve(dirname(fileURLToPath(import.meta.url)), "..", "cache", "sources");
+  const snapshot = await readLatestWatchedSourceSnapshot(cache, source.key);
+  assert.ok(snapshot, "An explicit baseline must exist under the new Watched Source key");
+  for (const text of [
+    "Guardrails in Azure AI Content Safety",
+    "Americas",
+    "Europe",
+    "Asia Pacific",
+    "Middle East & Africa",
+    "Content harms",
+    "Prompt shields",
+    "Protected material",
+    "Groundedness",
+    "global or data zone routing",
+    ...new Set(source.features.flatMap((feature) => feature.regions)),
+  ]) {
+    assert.ok(snapshot.includes(text), `The baseline must include ${text}`);
+  }
+  assert.ok(!snapshot.includes("Guardrails in Foundry"));
 });
 
 // Guards the shortcut of "just add the regions list as a Feature": that would

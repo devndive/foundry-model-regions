@@ -331,6 +331,62 @@ body {
   box-shadow: 0 0 0 3px rgba(11, 107, 203, 0.18);
 }
 
+.features-chip-status {
+  color: var(--amber);
+  font-size: 0.72rem;
+}
+
+.features-warning,
+.features-note {
+  flex-basis: 100%;
+  order: 98;
+  font-size: 0.8rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+.features-warning {
+  border-left: 3px solid var(--amber);
+  border-radius: 4px;
+  padding: 10px 12px;
+  background: var(--amber-bg);
+  color: var(--ink);
+}
+
+.features-warning p,
+.features-warning ul {
+  margin: 4px 0 0;
+}
+
+.features-warning ul {
+  padding-left: 18px;
+}
+
+.features-warning li + li {
+  margin-top: 4px;
+}
+
+.features-note {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.features-note a {
+  color: var(--accent);
+}
+
+.features-note a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.control:disabled {
+  color: var(--ink-soft);
+  background: var(--surface-muted);
+  border-color: var(--line);
+  cursor: not-allowed;
+}
+
 .features-panel {
   flex-basis: 100%;
   order: 99;

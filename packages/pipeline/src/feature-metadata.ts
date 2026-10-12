@@ -1,10 +1,11 @@
-import type { Feature, FeaturesArtifact } from "@foundry/data-types";
+import type { Feature, FeaturesArtifact, WithdrawnFeature } from "@foundry/data-types";
 
-// The full set of tracked regions in the Azure AI Content Safety
-// region-availability table (FairFax / USGov rows excluded). Reused by the
-// Content Safety columns that are available in every tracked region.
+// The standalone Azure AI Content Safety table, intersected with REGIONS.
+// Switzerland West is documented but deliberately untracked (ADR-0005).
 const ALL_CONTENT_SAFETY_REGIONS = [
   "australiaeast",
+  "brazilsouth",
+  "canadacentral",
   "canadaeast",
   "centralus",
   "eastus",
@@ -16,8 +17,11 @@ const ALL_CONTENT_SAFETY_REGIONS = [
   "koreacentral",
   "northcentralus",
   "polandcentral",
+  "southafricanorth",
   "southcentralus",
+  "southeastasia",
   "southindia",
+  "spaincentral",
   "swedencentral",
   "switzerlandnorth",
   "uaenorth",
@@ -27,6 +31,59 @@ const ALL_CONTENT_SAFETY_REGIONS = [
   "westus2",
   "westus3",
 ] as const;
+
+const CONTENT_SAFETY_URL =
+  "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/region-availability";
+const CONTENT_SAFETY_ANCHOR = "guardrails-in-azure-ai-content-safety";
+const CONTENT_SAFETY_AVAILABILITY_NOTE =
+  "Standalone Azure AI Content Safety entries follow documented guardrail rows, not " +
+  "independent API-variant region lists. Availability refers to resource regions, not " +
+  "in-region processing or data residency; global or data-zone routing may process data elsewhere.";
+
+export const WITHDRAWN_FEATURES: readonly WithdrawnFeature[] = [
+  {
+    id: "content-safety-text",
+    displayName: "Content Safety — Analyze Text",
+    reason:
+      "Replaced by the broader Content harms entry; current regional tables do not independently list Analyze Text.",
+  },
+  {
+    id: "content-safety-image",
+    displayName: "Content Safety — Analyze Image",
+    reason:
+      "Replaced by the broader Content harms entry; current regional tables do not independently list Analyze Image.",
+  },
+  {
+    id: "content-safety-protected-material-text",
+    displayName: "Content Safety — Protected Material (Text)",
+    reason:
+      "Replaced by the broader Protected material entry; current regional tables do not independently list the text variant.",
+  },
+  {
+    id: "content-safety-protected-material-code",
+    displayName: "Content Safety — Protected Material (Code)",
+    reason:
+      "Replaced by the broader Protected material entry; current regional tables do not independently list the code variant.",
+  },
+  {
+    id: "content-safety-multimodal",
+    displayName: "Content Safety — Multimodal (Image with Text)",
+    reason:
+      "Withdrawn from this catalog because the inspected current documentation supplies no Multimodal regional list; this does not establish service unavailability.",
+  },
+  {
+    id: "content-safety-custom-categories-standard",
+    displayName: "Content Safety — Custom Categories (standard)",
+    reason:
+      "Documentation announces retirement on September 1, 2026, and supplies no current independent regional row.",
+  },
+  {
+    id: "content-safety-custom-categories-rapid",
+    displayName: "Content Safety — Custom Categories (rapid)",
+    reason:
+      "Withdrawn from this catalog because the inspected current documentation supplies no regional list for the rapid variant; this does not establish service unavailability.",
+  },
+];
 
 // The canonical base set minus a few explicitly-named regions. Keeps the
 // "all regions except X, Y" intent executable instead of re-listing a near-copy
@@ -311,89 +368,43 @@ export const FEATURES: readonly Feature[] = [
     sectionAnchor: "protocols-responses-invocations-and-invocations-websocket",
     regions: HOSTED_AGENTS_REGIONS,
   },
-  // Azure AI Content Safety. Its region-availability table keys each column on a
-  // distinct capability, so every column is modelled as its own first-class
-  // Feature (CONTEXT.md, ADR-0003) — closed-world, tracked regions only, with the
-  // FairFax (USGov) rows excluded.
+  // Standalone Content Safety guardrail rows, not Foundry-integrated guardrails
+  // or independently undocumented API variants (ADR-0008).
   {
-    id: "content-safety-custom-categories-standard",
-    displayName: "Content Safety — Custom Categories (standard)",
+    id: "content-safety-content-harms",
+    displayName: "Content Safety — Content harms",
     group: "content-safety",
-    sourceUrl: "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview",
-    sectionAnchor: "region-availability",
-    regions: ["australiaeast", "eastus", "switzerlandnorth"],
+    sourceUrl: CONTENT_SAFETY_URL,
+    sectionAnchor: CONTENT_SAFETY_ANCHOR,
+    regions: ALL_CONTENT_SAFETY_REGIONS,
+    availabilityNote: CONTENT_SAFETY_AVAILABILITY_NOTE,
   },
   {
     id: "content-safety-groundedness-detection",
     displayName: "Content Safety — Groundedness Detection",
     group: "content-safety",
-    sourceUrl: "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview",
-    sectionAnchor: "region-availability",
-    regions: ["eastus", "eastus2", "francecentral", "swedencentral", "uksouth", "westus"],
-  },
-  {
-    id: "content-safety-image",
-    displayName: "Content Safety — Analyze Image",
-    group: "content-safety",
-    sourceUrl: "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview",
-    sectionAnchor: "region-availability",
-    // All tracked regions except Germany West Central and Italy North.
-    regions: without(ALL_CONTENT_SAFETY_REGIONS, "germanywestcentral", "italynorth"),
-  },
-  {
-    id: "content-safety-multimodal",
-    displayName: "Content Safety — Multimodal (Image with Text)",
-    group: "content-safety",
-    sourceUrl: "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview",
-    sectionAnchor: "region-availability",
-    regions: ["eastus", "westeurope"],
-  },
-  {
-    id: "content-safety-custom-categories-rapid",
-    displayName: "Content Safety — Custom Categories (rapid)",
-    group: "content-safety",
-    sourceUrl: "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview",
-    sectionAnchor: "region-availability",
-    // All tracked regions except Korea Central and Poland Central.
-    regions: without(ALL_CONTENT_SAFETY_REGIONS, "koreacentral", "polandcentral"),
+    sourceUrl: CONTENT_SAFETY_URL,
+    sectionAnchor: CONTENT_SAFETY_ANCHOR,
+    regions: ["canadaeast", "eastus", "eastus2", "swedencentral", "uksouth", "westus"],
+    availabilityNote: CONTENT_SAFETY_AVAILABILITY_NOTE,
   },
   {
     id: "content-safety-prompt-shields",
     displayName: "Content Safety — Prompt Shields",
     group: "content-safety",
-    sourceUrl: "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview",
-    sectionAnchor: "region-availability",
+    sourceUrl: CONTENT_SAFETY_URL,
+    sectionAnchor: CONTENT_SAFETY_ANCHOR,
     regions: ALL_CONTENT_SAFETY_REGIONS,
+    availabilityNote: CONTENT_SAFETY_AVAILABILITY_NOTE,
   },
   {
-    id: "content-safety-protected-material-text",
-    displayName: "Content Safety — Protected Material (Text)",
+    id: "content-safety-protected-material",
+    displayName: "Content Safety — Protected material",
     group: "content-safety",
-    sourceUrl: "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview",
-    sectionAnchor: "region-availability",
+    sourceUrl: CONTENT_SAFETY_URL,
+    sectionAnchor: CONTENT_SAFETY_ANCHOR,
     regions: ALL_CONTENT_SAFETY_REGIONS,
-  },
-  {
-    id: "content-safety-protected-material-code",
-    displayName: "Content Safety — Protected Material (Code)",
-    group: "content-safety",
-    sourceUrl: "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview",
-    sectionAnchor: "region-availability",
-    // All tracked regions except Germany West Central, Italy North and Korea Central.
-    regions: without(
-      ALL_CONTENT_SAFETY_REGIONS,
-      "germanywestcentral",
-      "italynorth",
-      "koreacentral",
-    ),
-  },
-  {
-    id: "content-safety-text",
-    displayName: "Content Safety — Analyze Text",
-    group: "content-safety",
-    sourceUrl: "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview",
-    sectionAnchor: "region-availability",
-    regions: ALL_CONTENT_SAFETY_REGIONS,
+    availabilityNote: CONTENT_SAFETY_AVAILABILITY_NOTE,
   },
   // Evaluation. Each independently documented region set is modelled as a
   // first-class Feature (CONTEXT.md, ADR-0003) — closed-world, tracked regions
@@ -580,5 +591,5 @@ export function buildFeaturesArtifact(): FeaturesArtifact {
   const availability = FEATURES.flatMap((feature) =>
     feature.regions.map((region) => ({ featureId: feature.id, region })),
   );
-  return { features: FEATURES, availability };
+  return { features: FEATURES, availability, withdrawnFeatures: WITHDRAWN_FEATURES };
 }

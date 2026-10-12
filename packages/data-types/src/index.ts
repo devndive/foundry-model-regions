@@ -66,6 +66,15 @@ export interface Feature {
   sourceUrl: string;
   sectionAnchor: string;
   regions: readonly string[];
+  availabilityNote?: string;
+}
+
+// Catalog history for shared URLs, not evidence that the underlying service
+// retired or is unavailable. Withdrawn Features emit no availability facts.
+export interface WithdrawnFeature {
+  id: string;
+  displayName: string;
+  reason: string;
 }
 
 // A Feature Availability Fact: a closed-world (feature, region) pair stating a
@@ -78,4 +87,6 @@ export interface FeatureAvailabilityFact {
 export interface FeaturesArtifact {
   features: readonly Feature[];
   availability: readonly FeatureAvailabilityFact[];
+  // Optional for compatibility with artifacts published before catalog history.
+  withdrawnFeatures?: readonly WithdrawnFeature[];
 }

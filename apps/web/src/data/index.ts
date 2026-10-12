@@ -4,12 +4,14 @@ import type {
   NormalizedBundle,
   NormalizedModel,
   Region,
+  WithdrawnFeature,
 } from "@foundry/data-types";
 
 export interface AvailabilityIndex {
   models: NormalizedModel[];
   regions: Region[];
   features: readonly Feature[];
+  withdrawnFeatures: readonly WithdrawnFeature[];
   skus: string[];
   isAvailable(sku: string, modelId: string, regionId: string): boolean;
   cellStatus(sku: string, modelId: string, regionId: string): string | null;
@@ -37,6 +39,7 @@ export function buildIndex(
   }
 
   const featurePresent = new Set<string>();
+  const activeFeatureIds = new Set(featuresArtifact?.features.map((feature) => feature.id));
   for (const fact of featuresArtifact?.availability ?? []) {
     featurePresent.add(featureKey(fact.featureId, fact.region));
   }
@@ -45,10 +48,11 @@ export function buildIndex(
     models: bundle.models,
     regions,
     features: featuresArtifact?.features ?? [],
+    withdrawnFeatures: featuresArtifact?.withdrawnFeatures ?? [],
     skus: [...skuSet].sort(),
     isAvailable: (sku, modelId, regionId) => present.has(key(sku, modelId, regionId)),
     cellStatus: (sku, modelId, regionId) => status.get(key(sku, modelId, regionId)) ?? null,
     isFeatureAvailable: (featureId, regionId) =>
-      featurePresent.has(featureKey(featureId, regionId)),
+      activeFeatureIds.has(featureId) && featurePresent.has(featureKey(featureId, regionId)),
   };
 }

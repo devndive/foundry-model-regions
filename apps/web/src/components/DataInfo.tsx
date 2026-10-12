@@ -40,6 +40,11 @@ function featureSources(features: readonly Feature[]): SourceLink[] {
 
 export function DataInfo({ features }: Props) {
   const sources = featureSources(features);
+  const notes = [
+    ...new Set(
+      features.flatMap((feature) => (feature.availabilityNote ? [feature.availabilityNote] : [])),
+    ),
+  ];
 
   return (
     <section className="data-info" aria-label="Data sources">
@@ -65,6 +70,10 @@ export function DataInfo({ features }: Props) {
           Learn articles and treated as closed-world: a tracked region not listed by a
           feature&apos;s article is shown as unavailable, not unknown.
         </p>
+
+        {notes.map((note) => (
+          <p key={note}>{note}</p>
+        ))}
 
         {sources.length > 0 && (
           <>

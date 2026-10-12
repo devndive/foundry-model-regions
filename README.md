@@ -20,8 +20,17 @@ Every day, the model chache is updated if there are any changes. Changes get pus
 
 ### Features
 
-Parsed from the websites. See documentation on the website to see the source.
+Hand-curated from Microsoft Learn articles. The web app links to the sources; the
+weekly watcher detects documentation changes but never automatically edits regional facts.
 
 Every week the websites get queried and checked if they changed.
 
 If so, an issue will be created that has to be reviewed manually.
+
+Content Safety entries describe **standalone Azure AI Content Safety guardrail-level
+availability in resource regions**, not independent API-variant region sets or a
+guarantee of in-region processing or data residency. Features without defensible current
+regional evidence are withdrawn from the published catalog, not marked unavailable
+everywhere. Shared URLs retain withdrawn requirements with a warning until the reader
+explicitly removes or replaces them. See
+[ADR-0008](docs/adr/0008-reconcile-content-safety-at-documented-guardrail-granularity.md).

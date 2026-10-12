@@ -46,6 +46,13 @@ describe("DataInfo", () => {
     expect(screen.queryByRole("link")).not.toBeInTheDocument();
   });
 
+  it("displays a shared availability caveat once, even before a Feature is selected", () => {
+    const availabilityNote =
+      "Content Safety availability describes resource regions, not in-region processing or data residency.";
+    render(<DataInfo features={features.map((feature) => ({ ...feature, availabilityNote }))} />);
+    expect(screen.getAllByText(availabilityNote)).toHaveLength(1);
+  });
+
   it("collapses a shared prefix family into a single starred label", () => {
     const url = "https://learn.microsoft.com/content-safety";
     const contentSafety: Feature[] = [

@@ -12,6 +12,13 @@ interface Props {
 }
 
 export function ControlsBar({ filters, options, onChange, onExportCsv, onExportMarkdown }: Props) {
+  const hasUntrackedRequirements = filters.features.some(
+    (id) => !options.features.some((feature) => feature.value === id),
+  );
+  const exportNote = hasUntrackedRequirements
+    ? "Remove or replace untracked Feature requirements before exporting."
+    : undefined;
+
   return (
     <div className="controls">
       <select
@@ -44,6 +51,7 @@ export function ControlsBar({ filters, options, onChange, onExportCsv, onExportM
       <FeaturesPicker
         groups={options.featureGroups}
         features={options.features}
+        withdrawnFeatures={options.withdrawnFeatures}
         selected={filters.features}
         onChange={(features) => onChange({ features })}
       />
@@ -106,10 +114,22 @@ export function ControlsBar({ filters, options, onChange, onExportCsv, onExportM
 
       <span className="spacer" />
 
-      <button type="button" className="control" onClick={onExportMarkdown}>
+      <button
+        type="button"
+        className="control"
+        onClick={onExportMarkdown}
+        disabled={hasUntrackedRequirements}
+        title={exportNote}
+      >
         Export to Markdown
       </button>
-      <button type="button" className="control control--primary" onClick={onExportCsv}>
+      <button
+        type="button"
+        className="control control--primary"
+        onClick={onExportCsv}
+        disabled={hasUntrackedRequirements}
+        title={exportNote}
+      >
         Export to CSV
       </button>
     </div>

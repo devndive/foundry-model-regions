@@ -1,9 +1,11 @@
 import { useEffect, useId, useRef, useState } from "react";
-import type { FeatureOptionGroup, Option } from "../filters/options";
+import type { WithdrawnFeature } from "@foundry/data-types";
+import type { FeatureOption, FeatureOptionGroup } from "../filters/options";
 
 interface Props {
   groups: FeatureOptionGroup[];
-  features: Option[];
+  features: FeatureOption[];
+  withdrawnFeatures?: readonly WithdrawnFeature[];
   selected: string[];
   onChange: (next: string[]) => void;
 }
@@ -12,7 +14,13 @@ interface Props {
 // So this picker is not a Models-style dropdown with group toggles — there is no
 // "select this whole group", and the conjunction is spelled out in a standing
 // strip that survives collapsing the panel. See docs/adr/0007-*.md.
-export function FeaturesPicker({ groups, features, selected, onChange }: Props) {
+export function FeaturesPicker({
+  groups,
+  features,
+  withdrawnFeatures = [],
+  selected,
+  onChange,
+}: Props) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -32,12 +40,20 @@ export function FeaturesPicker({ groups, features, selected, onChange }: Props) 
   }, [open]);
 
   const toggle = (value: string) => {
-    onChange(
-      selected.includes(value) ? selected.filter((v) => v !== value) : [...selected, value],
-    );
+    onChange(selected.includes(value) ? selected.filter((v) => v !== value) : [...selected, value]);
   };
 
-  const fullName = (value: string) => features.find((f) => f.value === value)?.label ?? value;
+  const fullName = (value: string) =>
+    features.find((f) => f.value === value)?.label ??
+    withdrawnFeatures.find((f) => f.id === value)?.displayName ??
+    value;
+  const unlisted = selected.filter((value) => !features.some((f) => f.value === value));
+  const notes = new Map<string, string>();
+  for (const feature of features) {
+    if (selected.includes(feature.value) && feature.availabilityNote) {
+      notes.set(feature.availabilityNote, feature.sourceUrl);
+    }
+  }
   const summary = selected.length === 0 ? "Features" : `Features (${selected.length})`;
 
   return (
@@ -65,18 +81,51 @@ export function FeaturesPicker({ groups, features, selected, onChange }: Props) 
                 aria-label={`Remove requirement ${fullName(value)}`}
                 onClick={() => toggle(value)}
               >
-                {fullName(value)} <span aria-hidden="true">×</span>
+                {fullName(value)}
+                {unlisted.includes(value) && (
+                  <span className="features-chip-status">
+                    {withdrawnFeatures.some((feature) => feature.id === value)
+                      ? "no longer tracked"
+                      : "not in catalog"}
+                  </span>
+                )}
+                <span aria-hidden="true">×</span>
               </button>
             </span>
           ))}
         </div>
       )}
 
+      {unlisted.length > 0 && (
+        <div className="features-warning" role="alert">
+          <strong>Some required Features are not in the current catalog.</strong>
+          <p>
+            These requirements have not been removed or replaced. No matching regions can be
+            recommended until you explicitly remove them or choose current replacements.
+          </p>
+          <ul>
+            {unlisted.map((value) => (
+              <li key={value}>
+                <strong>{fullName(value)}:</strong>{" "}
+                {withdrawnFeatures.find((f) => f.id === value)?.reason ??
+                  "This Feature is not in the current catalog."}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {[...notes].map(([note, sourceUrl]) => (
+        <p className="features-note" key={note}>
+          {note}{" "}
+          <a href={sourceUrl} target="_blank" rel="noreferrer">
+            Regional availability source
+          </a>
+        </p>
+      ))}
+
       {open && (
-        <div
-          className="features-panel"
-          id={panelId}
-        >
+        <div className="features-panel" id={panelId}>
           {groups.map((group) => (
             <fieldset key={group.id} className="features-group">
               <legend className="features-group-legend">

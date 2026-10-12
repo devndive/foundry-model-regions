@@ -1,6 +1,11 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { buildFeaturesArtifact, FEATURES, featureMetadata } from "./feature-metadata.js";
+import {
+  buildFeaturesArtifact,
+  FEATURES,
+  featureMetadata,
+  WITHDRAWN_FEATURES,
+} from "./feature-metadata.js";
 import { REGIONS } from "./region-metadata.js";
 
 test("featureMetadata returns null for an unknown feature", () => {
@@ -95,15 +100,10 @@ test("FEATURES is seeded from the source articles (Foundry Agents and Content Sa
     "agents-responses-api",
     "ai-red-teaming-agent",
     "batch-evaluations",
-    "content-safety-custom-categories-rapid",
-    "content-safety-custom-categories-standard",
+    "content-safety-content-harms",
     "content-safety-groundedness-detection",
-    "content-safety-image",
-    "content-safety-multimodal",
     "content-safety-prompt-shields",
-    "content-safety-protected-material-code",
-    "content-safety-protected-material-text",
-    "content-safety-text",
+    "content-safety-protected-material",
     "evaluations-ai-red-teaming",
     "evaluators-groundedness-pro",
     "evaluators-protected-material",
@@ -390,68 +390,96 @@ test("tool columns that vary within the table carry their own narrower region se
   assert.equal(featureMetadata("agent-tool-computer-use")?.regions.length, 8);
 });
 
-test("Content Safety models every region-availability column as a first-class Feature", () => {
-  // Per-column region counts read straight from the region-availability table
-  // (FairFax / USGov rows excluded).
-  const expectedCounts: Record<string, number> = {
-    "content-safety-custom-categories-standard": 3,
-    "content-safety-groundedness-detection": 6,
-    "content-safety-image": 20,
-    "content-safety-multimodal": 2,
-    "content-safety-custom-categories-rapid": 20,
-    "content-safety-prompt-shields": 22,
-    "content-safety-protected-material-text": 22,
-    "content-safety-protected-material-code": 19,
-    "content-safety-text": 22,
-  };
-
-  for (const [id, count] of Object.entries(expectedCounts)) {
-    const feature = featureMetadata(id);
+test("Content Safety curates four standalone guardrail rows with explicit availability scope", () => {
+  const features = FEATURES.filter((feature) => feature.group === "content-safety");
+  assert.deepEqual(
+    features.map((feature) => feature.id),
+    [
+      "content-safety-content-harms",
+      "content-safety-groundedness-detection",
+      "content-safety-prompt-shields",
+      "content-safety-protected-material",
+    ],
+  );
+  for (const feature of features) {
     assert.equal(
-      feature?.sourceUrl,
-      "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/overview",
+      feature.sourceUrl,
+      "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/region-availability",
     );
-    assert.equal(feature?.sectionAnchor, "region-availability");
-    assert.equal(feature?.regions.length, count, `${id} region count`);
+    assert.equal(feature.sectionAnchor, "guardrails-in-azure-ai-content-safety");
+    assert.match(feature.availabilityNote ?? "", /not independent API-variant region lists/);
+    assert.match(feature.availabilityNote ?? "", /not in-region processing or data residency/);
   }
-
-  // Multimodal is the narrowest column and a subset of the all-regions columns.
-  const multimodal = new Set(featureMetadata("content-safety-multimodal")?.regions ?? []);
-  const text = new Set(featureMetadata("content-safety-text")?.regions ?? []);
-  assert.ok([...multimodal].every((r) => text.has(r)));
 });
 
-test("Content Safety columns stay anchored to the all-regions baseline (drift guard)", () => {
-  // Double-entry check against the `without(...)` args in the source table: it
-  // catches source/test divergence in the hand-curated exclusions, not article
-  // correctness (that is `check-source-drift`'s job, ADR-0002). The all-regions
-  // columns must equal the baseline; the narrower columns must be the baseline
-  // minus exactly their listed exclusions, with no stray regions.
-  const baseline = featureMetadata("content-safety-text")?.regions ?? [];
-  const baselineSet = new Set(baseline);
-
-  for (const id of ["content-safety-prompt-shields", "content-safety-protected-material-text"]) {
-    assert.deepEqual(
-      [...(featureMetadata(id)?.regions ?? [])].sort(),
-      [...baseline].sort(),
-      `${id} equals baseline`,
-    );
+test("Content harms, Prompt Shields and Protected material each cover exactly 27 Tracked Regions", () => {
+  const expected = [
+    "australiaeast",
+    "brazilsouth",
+    "canadacentral",
+    "canadaeast",
+    "centralus",
+    "eastus",
+    "eastus2",
+    "francecentral",
+    "germanywestcentral",
+    "italynorth",
+    "japaneast",
+    "koreacentral",
+    "northcentralus",
+    "polandcentral",
+    "southafricanorth",
+    "southcentralus",
+    "southeastasia",
+    "southindia",
+    "spaincentral",
+    "swedencentral",
+    "switzerlandnorth",
+    "uaenorth",
+    "uksouth",
+    "westeurope",
+    "westus",
+    "westus2",
+    "westus3",
+  ];
+  assert.equal(expected.length, 27);
+  for (const id of [
+    "content-safety-content-harms",
+    "content-safety-prompt-shields",
+    "content-safety-protected-material",
+  ]) {
+    assert.deepEqual(featureMetadata(id)?.regions, expected, id);
   }
+});
 
-  const exclusions: Record<string, string[]> = {
-    "content-safety-image": ["germanywestcentral", "italynorth"],
-    "content-safety-custom-categories-rapid": ["koreacentral", "polandcentral"],
-    "content-safety-protected-material-code": ["germanywestcentral", "italynorth", "koreacentral"],
-  };
+test("Groundedness uses Canada East instead of France Central and keeps the other five regions", () => {
+  assert.deepEqual(featureMetadata("content-safety-groundedness-detection")?.regions, [
+    "canadaeast",
+    "eastus",
+    "eastus2",
+    "swedencentral",
+    "uksouth",
+    "westus",
+  ]);
+});
 
-  for (const [id, dropped] of Object.entries(exclusions)) {
-    const regions = featureMetadata(id)?.regions ?? [];
-    const missing = baseline.filter((r) => !regions.includes(r)).sort();
-    assert.deepEqual(missing, [...dropped].sort(), `${id} excludes exactly its documented regions`);
-    assert.ok(
-      [...regions].every((r) => baselineSet.has(r)),
-      `${id} stays within the baseline`,
-    );
+test("withdrawn Content Safety IDs retain historical labels and reasons but emit no facts", () => {
+  assert.deepEqual(WITHDRAWN_FEATURES.map((feature) => feature.id).sort(), [
+    "content-safety-custom-categories-rapid",
+    "content-safety-custom-categories-standard",
+    "content-safety-image",
+    "content-safety-multimodal",
+    "content-safety-protected-material-code",
+    "content-safety-protected-material-text",
+    "content-safety-text",
+  ]);
+  const artifact = buildFeaturesArtifact();
+  assert.deepEqual(artifact.withdrawnFeatures, WITHDRAWN_FEATURES);
+  for (const feature of WITHDRAWN_FEATURES) {
+    assert.equal(featureMetadata(feature.id), null);
+    assert.ok(feature.displayName.startsWith("Content Safety"));
+    assert.ok(feature.reason.length > 0);
+    assert.ok(artifact.availability.every((fact) => fact.featureId !== feature.id));
   }
 });
 
@@ -576,7 +604,7 @@ test("every Feature is filed in a Feature Group, and every declared Group has me
     "foundry-agents": 5,
     "agent-tools": 15,
     "hosted-agents": 2,
-    "content-safety": 9,
+    "content-safety": 4,
     evaluation: 7,
     networking: 1,
   };

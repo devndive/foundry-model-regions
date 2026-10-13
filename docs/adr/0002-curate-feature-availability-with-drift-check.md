@@ -44,8 +44,11 @@ accepted
   their models).
 - When an article delegates availability to another Watched Source, that source's
   `triageNote` names the dependent Feature for manual reconciliation without changing its
-  primary provenance. The Agents Private VNet table therefore also prompts reconciliation
-  of Managed Virtual Network, even when the managed-network article's reference is unchanged.
+  primary provenance. The Agents Supported regions table therefore also prompts reconciliation
+  of Class A IP ranges via its Agents column and Managed Virtual Network via its Private VNet
+  column, even when their primary networking articles' references are unchanged. Class A
+  provenance lives in the private-networking guide's `limitations` section, which explicitly
+  supports private Class A address space in every Agent Service region.
 - Snapshots committed under the old per-Feature filenames stay readable: a section falls
   back to any of its Features' legacy `<featureId>.txt` files, so the first deduped run is
   a real comparison rather than a false "new baseline" for every section.

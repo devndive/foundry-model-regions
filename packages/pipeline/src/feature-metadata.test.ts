@@ -146,15 +146,15 @@ test("FEATURES is seeded from the source articles (Foundry Agents and Content Sa
   ]);
 });
 
-test("private Class A IP range support is independently modelled and currently matches Agent Service", () => {
+test("private Class A IP range support follows the networking guide's explicit Agent Service coverage", () => {
   const classA = featureMetadata("agents-private-class-a-ip-ranges");
 
   assert.equal(classA?.displayName, "Foundry Agents — Private Class A IP Ranges");
   assert.equal(
     classA?.sourceUrl,
-    "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/limits-quotas-regions",
+    "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/virtual-networks",
   );
-  assert.equal(classA?.sectionAnchor, "supported-regions");
+  assert.equal(classA?.sectionAnchor, "limitations");
   assert.deepEqual(classA?.regions, [
     "australiaeast",
     "brazilsouth",

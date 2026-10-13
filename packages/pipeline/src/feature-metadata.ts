@@ -272,14 +272,14 @@ export const FEATURES: readonly Feature[] = [
     regions: PRIVATE_VNET_REGIONS,
   },
   {
-    // The "Class A*" column of the same table: support for private Class A IP
-    // address ranges (10.x.x.x). It currently matches the Agents column, but
-    // remains first-class because Microsoft documents it independently.
+    // Networking limitations explicitly support private Class A address space
+    // (10.0.0.0/8) for delegated subnets in every Agent Service region and link
+    // to the Supported regions table for that region list.
     id: "agents-private-class-a-ip-ranges",
     displayName: "Foundry Agents — Private Class A IP Ranges",
     group: "foundry-agents",
-    sourceUrl: AGENTS_ARTICLE_URL,
-    sectionAnchor: "supported-regions",
+    sourceUrl: "https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/virtual-networks",
+    sectionAnchor: "limitations",
     regions: FOUNDRY_AGENTS_REGIONS,
   },
   {

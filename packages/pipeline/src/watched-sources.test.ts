@@ -89,6 +89,26 @@ test("Watched Source keys distinguish the same anchor on different articles", ()
   );
 });
 
+test("Agent Service region drift also requests Class A reconciliation without changing its networking provenance", () => {
+  const sources = groupIntoWatchedSources(FEATURES);
+  const agents = sources.find(
+    (source) =>
+      source.key === "azure-foundry-agents-concepts-limits-quotas-regions--supported-regions",
+  );
+  const classA = sources.find(
+    (source) => source.key === "azure-foundry-agents-how-to-virtual-networks--limitations",
+  );
+
+  assert.ok(agents && classA);
+  assert.deepEqual(
+    classA.features.map((feature) => feature.id),
+    ["agents-private-class-a-ip-ranges"],
+  );
+  assert.ok(!agents.features.some((feature) => feature.id === "agents-private-class-a-ip-ranges"));
+  assert.match(agents.triageNote ?? "", /also reconcile `agents-private-class-a-ip-ranges`/i);
+  assert.match(agents.triageNote ?? "", /Agents column/);
+});
+
 test("the regions-list Watched Source carries zero Features", () => {
   assert.deepEqual(REGIONS_LIST_SOURCE.features, []);
 });
@@ -131,6 +151,22 @@ test("the reconciled Content Safety baseline includes all geography tables and t
     assert.ok(snapshot.includes(text), `The baseline must include ${text}`);
   }
   assert.ok(!snapshot.includes("Guardrails in Foundry"));
+});
+
+test("the Class A networking baseline retains explicit all-region support and its regional-list reference", async () => {
+  const cache = resolve(dirname(fileURLToPath(import.meta.url)), "..", "cache", "sources");
+  const snapshot = await readLatestWatchedSourceSnapshot(
+    cache,
+    "azure-foundry-agents-how-to-virtual-networks--limitations",
+  );
+
+  assert.ok(snapshot, "An explicit Class A baseline must exist under the new Watched Source key");
+  assert.match(
+    snapshot,
+    /Every region where Agent Service is available supports private Class A address space/,
+  );
+  assert.match(snapshot, /10\.0\.0\.0\/8/);
+  assert.match(snapshot, /For the current list, see Supported regions/);
 });
 
 // Guards the shortcut of "just add the regions list as a Feature": that would

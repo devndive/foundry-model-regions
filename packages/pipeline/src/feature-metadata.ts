@@ -261,6 +261,17 @@ export const FEATURES: readonly Feature[] = [
     regions: FOUNDRY_AGENTS_REGIONS,
   },
   {
+    id: "agents-voice-based",
+    displayName: "Foundry Agents — Voice-based agents (preview)",
+    group: "foundry-agents",
+    sourceUrl: AGENTS_ARTICLE_URL,
+    sectionAnchor: "supported-regions",
+    regions: without(FOUNDRY_AGENTS_REGIONS, "polandcentral", "spaincentral"),
+    availabilityNote:
+      "Regional eligibility only: the selected model and channel must also support the required " +
+      "Voice Live capabilities for voice-based agents (preview).",
+  },
+  {
     // The "Private VNet" column covers network-secured/BYO virtual networks, not
     // the Microsoft-managed network represented by `managed-virtual-network`.
     // It currently matches the Agents column but can diverge independently.

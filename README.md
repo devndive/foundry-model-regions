@@ -27,6 +27,11 @@ Every week the websites get queried and checked if they changed.
 
 If so, an issue will be created that has to be reviewed manually.
 
+**Voice-based agents (preview)** represents regional eligibility in 27 Tracked
+Regions, excluding Poland Central and Spain Central from the base Foundry Agents
+region set. The selected model and channel must also have the required Voice Live
+capabilities; a regional match is not a guarantee that every combination works.
+
 General **Managed Virtual Network** availability follows the Foundry Agents **Private
 VNet** region set. The managed-network article separately documents a narrower region
 list for the new Agent service, Responses API, and new Foundry portal; the Feature's

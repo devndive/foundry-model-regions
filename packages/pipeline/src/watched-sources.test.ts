@@ -89,6 +89,25 @@ test("Watched Source keys distinguish the same anchor on different articles", ()
   );
 });
 
+test("voice-based agents shares the existing Supported regions Watched Source", () => {
+  const sources = groupIntoWatchedSources(FEATURES).filter(
+    (source) =>
+      source.sourceUrl ===
+        "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/limits-quotas-regions" &&
+      source.sectionAnchor === "supported-regions",
+  );
+
+  assert.equal(sources.length, 1);
+  assert.equal(
+    sources[0]?.key,
+    "azure-foundry-agents-concepts-limits-quotas-regions--supported-regions",
+  );
+  assert.deepEqual(
+    sources[0]?.features.map((feature) => feature.id),
+    ["foundry-agents", "agents-responses-api", "agents-voice-based", "agents-private-vnet"],
+  );
+});
+
 test("Agent Service region drift also requests Class A reconciliation without changing its networking provenance", () => {
   const sources = groupIntoWatchedSources(FEATURES);
   const agents = sources.find(

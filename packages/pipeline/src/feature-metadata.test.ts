@@ -98,6 +98,7 @@ test("FEATURES is seeded from the source articles (Foundry Agents and Content Sa
     "agents-private-class-a-ip-ranges",
     "agents-private-vnet",
     "agents-responses-api",
+    "agents-voice-based",
     "ai-red-teaming-agent",
     "batch-evaluations",
     "content-safety-content-harms",
@@ -203,6 +204,52 @@ test("the Responses API column is its own Feature even while it matches base Age
   );
   assert.equal(responses?.sectionAnchor, "supported-regions");
   assert.deepEqual(responses?.regions, featureMetadata("foundry-agents")?.regions);
+});
+
+test("voice-based agents (preview) has exactly 27 eligible Tracked Regions with a Voice Live qualification", () => {
+  const voice = featureMetadata("agents-voice-based");
+
+  assert.ok(voice);
+  assert.equal(voice.displayName, "Foundry Agents — Voice-based agents (preview)");
+  assert.equal(voice.group, "foundry-agents");
+  assert.equal(
+    voice.sourceUrl,
+    "https://learn.microsoft.com/en-us/azure/foundry/agents/concepts/limits-quotas-regions",
+  );
+  assert.equal(voice.sectionAnchor, "supported-regions");
+  assert.deepEqual(voice.regions, [
+    "australiaeast",
+    "brazilsouth",
+    "canadacentral",
+    "canadaeast",
+    "centralus",
+    "eastus",
+    "eastus2",
+    "francecentral",
+    "germanywestcentral",
+    "italynorth",
+    "japaneast",
+    "japanwest",
+    "koreacentral",
+    "northcentralus",
+    "norwayeast",
+    "southafricanorth",
+    "southcentralus",
+    "southeastasia",
+    "southindia",
+    "swedencentral",
+    "switzerlandnorth",
+    "uaenorth",
+    "uksouth",
+    "westcentralus",
+    "westeurope",
+    "westus",
+    "westus3",
+  ]);
+  assert.equal(voice.regions.length, 27);
+  assert.match(voice.availabilityNote ?? "", /regional eligibility/i);
+  assert.match(voice.availabilityNote ?? "", /required Voice Live capabilities/);
+  assert.match(voice.availabilityNote ?? "", /selected model and channel/);
 });
 
 test("Private VNet and Managed Virtual Network retain independent identities and provenance", () => {
@@ -628,7 +675,7 @@ test("every Feature is filed in a Feature Group, and every declared Group has me
   // a Group left declared after its last Feature moves out, so the guard is stated
   // as an exact membership count rather than a subset check (ADR-0007).
   const expected: Record<string, number> = {
-    "foundry-agents": 5,
+    "foundry-agents": 6,
     "agent-tools": 15,
     "hosted-agents": 2,
     "content-safety": 4,
@@ -680,4 +727,37 @@ test("buildFeaturesArtifact emits feature metadata plus flat (featureId, region)
     parentRegions,
     "artifact emits WebSocket availability for every Hosted Agents region",
   );
+});
+
+test("the artifact publishes 27 voice-agent facts without narrowing the existing supported-region Features", () => {
+  const artifact = buildFeaturesArtifact();
+  const voice = artifact.features.find((feature) => feature.id === "agents-voice-based");
+  const voiceRegions = artifact.availability
+    .filter((fact) => fact.featureId === "agents-voice-based")
+    .map((fact) => fact.region);
+
+  assert.ok(voice);
+  assert.equal(artifact.features.length, 35);
+  assert.equal(artifact.availability.length, 828);
+  assert.equal(voiceRegions.length, 27);
+  assert.deepEqual(voiceRegions, voice.regions);
+  assert.match(voice.availabilityNote ?? "", /required Voice Live capabilities/);
+  assert.match(voice.availabilityNote ?? "", /selected model and channel/);
+
+  for (const id of [
+    "foundry-agents",
+    "agents-responses-api",
+    "agents-private-vnet",
+    "agents-private-class-a-ip-ranges",
+  ]) {
+    const regions = artifact.availability
+      .filter((fact) => fact.featureId === id)
+      .map((fact) => fact.region);
+    assert.equal(regions.length, 29, id);
+    assert.deepEqual(
+      regions.filter((region) => !voiceRegions.includes(region)),
+      ["polandcentral", "spaincentral"],
+      `${id} retains the regions that exclude voice-based agents`,
+    );
+  }
 });

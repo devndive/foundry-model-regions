@@ -1,0 +1,39 @@
+Guardrails in Azure AI Content Safety
+When you use Azure AI Content Safety directly, create the resource in the region where you want data processed. Features that support regional processing remain within that region. Some features require global or data zone routing. Although you can enable them in any supported Azure AI Content Safety region, customer data might be routed to and processed outside the resource’s region.
+Availability for guardrails in Azure AI Content Safety
+Americas
+Europe
+Asia Pacific
+Middle East & Africa
+Guardrail brazilsouth canadacentral canadaeast centralus eastus eastus2 northcentralus southcentralus westus westus2 westus3
+Content harms text - - ✅ ✅ ✅ ✅ ✅ ✅ - ✅ ✅
+Content harms image - - ✅ ✅ ✅ ✅ ✅ ✅ - ✅ ✅
+Prompt shields - - ✅ ✅ ✅ ✅ ✅ ✅ - ✅ ✅
+Protected material - - ✅ ✅ ✅ ✅ ✅ ✅ - ✅ ✅
+Groundedness - - - - ✅ ✅ - - ✅ - -
+Task Adherence - - - ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅
+Content provenance detection ✅ ✅ ✅ ✅ ✅ ✅ ✅ ✅ - ✅ ✅
+Guardrail francecentral germanywestcentral italynorth norwayeast polandcentral spaincentral swedencentral switzerlandnorth switzerlandwest uksouth westeurope
+Content harms text ✅ - - - ✅ - - ✅ - - -
+Content harms image ✅ - - - ✅ - - ✅ - - -
+Prompt shields ✅ - - - ✅ - - ✅ - - ✅
+Protected material ✅ - - - ✅ - - ✅ - - -
+Groundedness ✅ - - - - - ✅ - - ✅ -
+Task Adherence - - - ✅ - - - - - - -
+Content provenance detection ✅ ✅ - - ✅ ✅ - ✅ ✅ - -
+Guardrail australiaeast japaneast koreacentral southeastasia southindia
+Content harms text ✅ ✅ ✅ ✅ ✅
+Content harms image ✅ ✅ ✅ ✅ ✅
+Prompt shields ✅ ✅ ✅ ✅ ✅
+Protected material ✅ ✅ ✅ ✅ ✅
+Groundedness - - - - -
+Task Adherence - - - - -
+Content provenance detection ✅ ✅ ✅ ✅ ✅
+Guardrail southafricanorth uaenorth
+Content harms text - -
+Content harms image - -
+Prompt shields - -
+Protected material - -
+Groundedness - -
+Task Adherence - -
+Content provenance detection ✅ ✅

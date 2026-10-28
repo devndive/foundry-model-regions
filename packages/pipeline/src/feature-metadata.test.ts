@@ -463,27 +463,19 @@ test("Content Safety curates four standalone guardrail rows with explicit availa
   }
 });
 
-test("Content harms, Prompt Shields and Protected material each cover exactly 27 Tracked Regions", () => {
+test("Content harms, Prompt Shields and Protected material each cover exactly 19 Tracked Regions", () => {
   const expected = [
     "australiaeast",
-    "brazilsouth",
-    "canadacentral",
     "canadaeast",
     "centralus",
     "eastus",
     "eastus2",
     "francecentral",
-    "germanywestcentral",
-    "italynorth",
     "japaneast",
-    "koreacentral",
     "northcentralus",
     "polandcentral",
-    "southafricanorth",
     "southcentralus",
-    "southeastasia",
     "southindia",
-    "spaincentral",
     "swedencentral",
     "switzerlandnorth",
     "uaenorth",
@@ -493,7 +485,7 @@ test("Content harms, Prompt Shields and Protected material each cover exactly 27
     "westus2",
     "westus3",
   ];
-  assert.equal(expected.length, 27);
+  assert.equal(expected.length, 19);
   for (const id of [
     "content-safety-content-harms",
     "content-safety-prompt-shields",
@@ -503,15 +495,17 @@ test("Content harms, Prompt Shields and Protected material each cover exactly 27
   }
 });
 
-test("Groundedness uses Canada East instead of France Central and keeps the other five regions", () => {
-  assert.deepEqual(featureMetadata("content-safety-groundedness-detection")?.regions, [
-    "canadaeast",
+test("Groundedness Detection covers exactly the six documented Tracked Regions", () => {
+  const regions = featureMetadata("content-safety-groundedness-detection")?.regions;
+  assert.deepEqual(regions, [
     "eastus",
     "eastus2",
+    "francecentral",
     "swedencentral",
     "uksouth",
     "westus",
   ]);
+  assert.equal(regions?.length, 6);
 });
 
 test("withdrawn Content Safety IDs retain historical labels and reasons but emit no facts", () => {
@@ -738,7 +732,7 @@ test("the artifact publishes 27 voice-agent facts without narrowing the existing
 
   assert.ok(voice);
   assert.equal(artifact.features.length, 35);
-  assert.equal(artifact.availability.length, 828);
+  assert.equal(artifact.availability.length, 804);
   assert.equal(voiceRegions.length, 27);
   assert.deepEqual(voiceRegions, voice.regions);
   assert.match(voice.availabilityNote ?? "", /required Voice Live capabilities/);

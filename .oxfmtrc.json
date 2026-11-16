@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
   "ignorePatterns": [
+    "cache/**",
     "packages/pipeline/cache/**",
     "**/dist/**",
     "apps/web/public/data/**",

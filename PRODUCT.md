@@ -7,8 +7,8 @@ product
 ## Users
 
 Anyone trying to find the region they need to deploy their models with the needed features.
-People use the tool to answer the question: *"Given the models
-and Foundry features this app needs, which region(s) deliver all of them?"*. This can be during a meeting or to prepare a meeting.
+People use the tool to answer the question: _"Given the models
+and Foundry features this app needs, which region(s) deliver all of them?"_. This can be during a meeting or to prepare a meeting.
 They are technically fluent, time-pressured, and need an answer they can defend, not a pitch. Output can be shared as a filtered URL.
 
 ## Product Purpose

@@ -2,7 +2,7 @@
 
 A **Feature Availability Fact** is a plain `(feature, region)` pair — no model dimension —
 and is **closed-world**: a tracked region the article doesn't list is treated as
-*unavailable*, not *unknown*. Features are emitted as a separate `dist/features.json`
+_unavailable_, not _unknown_. Features are emitted as a separate `dist/features.json`
 artifact (kept apart from the API-derived `models.json`) but surfaced in **one** matrix
 view: selecting Features filters Region columns by AND (every Feature is required) while
 selected Models act as an OR menu (a Region needs at least one), so a developer can find a

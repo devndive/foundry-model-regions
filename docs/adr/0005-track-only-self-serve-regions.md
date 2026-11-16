@@ -3,7 +3,7 @@
 A **Tracked Region** is one any customer can deploy into without requesting special access.
 That single criterion decides `REGIONS`, so Switzerland West — access-by-request — is a
 deliberate, indefinite exclusion rather than a gap to be filled, even though several curated
-Foundry Feature articles list it. Because `REGIONS` is the *input* to the model fetch rather
+Foundry Feature articles list it. Because `REGIONS` is the _input_ to the model fetch rather
 than a filter over what the Azure API returns, nothing in the pipeline can ever observe an
 untracked region; a **Watched Source** on the Microsoft regions list supplies that missing
 signal.
@@ -17,7 +17,7 @@ accepted
 - **Track Switzerland West anyway** — rejected: the matrix would show a region most readers
   cannot actually deploy into, and the model cache would carry entries nobody can use.
 - **Leave the exclusion to a code comment, re-checked by hand** — rejected: the only thing
-  that ever surfaced Switzerland West was a *feature article* drift issue, which is evidence
+  that ever surfaced Switzerland West was a _feature article_ drift issue, which is evidence
   about a feature, not about region access. Every future article listing it would re-open a
   settled question.
 - **Probe candidate regions through the ARM API** — rejected: attractive because it is
@@ -36,7 +36,7 @@ accepted
   and recording the reason inline — not by adding the region.
 - The exclusion stays invisible in the web app. A disabled or annotated column would need a
   fourth cell state and would contradict the closed-world reading where absent means
-  *unavailable*; the app states its scope in copy instead.
+  _unavailable_; the app states its scope in copy instead.
 - The regions-list Watched Source will open `needs-triage` issues for region changes
   unrelated to Switzerland West. That is the intended cost: today nothing at all tells us
   when Azure adds a region.

@@ -1,0 +1,31 @@
+Protocols: Responses, Invocations, and Invocations (WebSocket)
+Hosted agent containers can expose Responses, Invocations, Invocations (WebSocket), or native Activity. Each protocol is provided by a lightweight library that handles the HTTP or WebSocket server, health checks, and OpenTelemetry integration. The Responses, Invocations, and Invocations (WebSocket) protocols are available in all regions that support Hosted agents .
+Which protocol should I use?
+Scenario Protocol Why
+Conversational chatbot or assistant Responses The platform manages conversation history, streaming events, and session lifecycle—use any OpenAI-compatible SDK as the client.
+Multi-turn Q&A with RAG or tools Responses Built-in conversation ID threading and tool result handling.
+Background / async processing Responses background: true with platform-managed polling and cancellation. Opt in separately when the handler must recover after a process interruption.
+Responses-based agent published to Teams or Microsoft 365 Responses with an Activity channel endpoint The platform translates channel activities to Responses requests and converts the output for channel delivery.
+Native channel message, event, or card-action handlers Activity Your container hosts Microsoft 365 Agents SDK handlers directly. See Native Activity protocol for supported interaction patterns and setup considerations.
+Webhook receiver (GitHub, Stripe, Jira, etc.) Invocations The external system sends its own payload format—you can't change it to match /responses.
+Non-conversational processing (classification, extraction, batch) Invocations The input is structured data, not a chat message. Arbitrary JSON in, arbitrary JSON out.
+Custom streaming protocol (AG-UI, etc.) Invocations AG-UI and other agent-UI protocols aren't OpenAI-compatible—you need raw SSE control.
+Protocol bridge (GitHub Copilot, proprietary systems) Invocations The caller has its own protocol that doesn't map to /responses.
+Real-time voice agent (microphone in, speech out) Invocations (WebSocket) Bidirectional streaming over a single persistent connection. Pair with Pipecat, LiveKit, or Voice Live in your container. See Build a voice agent .
+Tip
+Not sure? Start with Responses . You can always add an Invocations endpoint later—a Hosted agent can support both protocols simultaneously.
+The protocol you choose determines the payload your container receives, and how much of the session, streaming, and background lifecycle the platform manages for you. A single agent can support more than one protocol, so this choice isn't permanent. Use the following decision tree to pick a starting point.
+Diagram that shows Activity for channel events, Invocations WebSocket for real-time voice, Responses for chat, and Invocations for other workloads.
+Protocol comparison
+Aspect Responses Invocations Activity
+Best for Most agents—the platform manages conversation history, streaming lifecycle, and background execution Agents that need full HTTP control, custom payloads, or long-running async workflows Native channel messages, events, and invoke handlers
+Payload OpenAI-compatible /responses contract Arbitrary JSON via /invocations—you define the schema Activity Protocol activities via /activity/messages
+Client SDK Any OpenAI-compatible SDK (Python, JS, C#) works out of the box Custom client—you define the contract Microsoft 365 Agents SDK and an Activity-compatible channel or test client
+Session history Platform-managed via conversation ID You manage sessions (in-memory, Cosmos DB, etc.) Application-managed model history; turn-state defaults differ by SDK language
+Streaming Platform-managed ResponseEventStream with lifecycle events Raw SSE—you format and write events directly Channel-specific reply mechanism; support depends on the channel and publishing experience
+Background / long-running Built-in background mode and polling; optional resilient recovery for stored background responses Resilient tasks in the AgentServer SDK; you define polling or streaming endpoints Your application implements recovery for interrupted work
+Background mode and resilient execution solve different problems. Background mode lets work continue after the initiating request returns. Resilient execution preserves work after the hosting process stops. For the recovery model and application responsibilities, see Resilience for long-running hosted agents .
+Additional protocols
+Hosted agents support two Activity integration paths. A Responses-based container uses the platform's channel translation. A native Activity container uses the Activity adapter and Microsoft 365 Agents SDK handlers directly. Enabling a public Activity endpoint alone doesn't select the native implementation. See Native Activity protocol .
+The A2A protocol supports agent-to-agent delegation. Supported protocols can be combined in a single agent.
+For hosted agents, the A2A endpoint supports only A2A v1.0. A request that doesn't specify a version gets v0.3, so set the A2A-Version: 1.0 header or the a2a-version=1.0 query string on each request. Send each request as a single-turn SendMessage call: don't set contextId or taskId on the message, and don't set configuration.returnImmediately to true . GetTask isn't supported. Requests that use another version, set those fields, or call GetTask return an error with reason HOSTED_AGENT_NOT_SUPPORTED .
